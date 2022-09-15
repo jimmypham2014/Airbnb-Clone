@@ -33,7 +33,20 @@ router.post(
     validateSignup,
     async (req, res) => {
       const { firstName, lastName, email, password, username } = req.body;
+      //this doesnt work to move this somewhere
+      if(username){
+          res.status(403)
+        res.json({
+          message: "User already exists",
+          statusCode: 403,
+          errors: {
+            username: "User with that username already exists"
+          }
+        })
+      }
+
       const user = await User.signup({ firstName,lastName, email, username, password });
+
   
       await setTokenCookie(res, user);
   
@@ -43,6 +56,13 @@ router.post(
     }
   );
 
-  
+
+
+  router.post('/:id/spots', requireAuth, async(req,res,next) =>{
+    const userId = req.user.userId
+    console.log(userId)
+})
+
+
 
 module.exports = router;

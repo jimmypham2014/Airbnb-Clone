@@ -1,8 +1,8 @@
 // backend/routes/api/session.js
 const express = require('express');
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { setTokenCookie, restoreUser,requireAuth } = require('../../utils/auth');
+const { User,Spot } = require('../../db/models');
 
 const router = express.Router();
 
@@ -13,10 +13,10 @@ const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage("Email or username is required"),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
 // Log in
@@ -29,11 +29,10 @@ router.post(
       const user = await User.login({ credential, password });
   
       if (!user) {
-        const err = new Error('Login failed');
-        err.status = 401;
-        err.title = 'Login failed';
-        err.errors = ['The provided credentials were invalid.'];
-        return next(err);
+        res.json({
+          message: "Invalid credentials",
+          statusCode: 401
+        })
       }
   
       await setTokenCookie(res, user);
@@ -69,7 +68,42 @@ router.get(
   
   // ...
 
+  //create a spot
+  
+router.post('/:id/spots',requireAuth, async (req,res,next)=>{
+  const ownerId = req.user.id
 
+
+  const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
+
+    const existingSpot = await Spot.findAll({
+      where:{
+        address,city,state,country,
+      }})
+      if(existingSpot){
+        res.status(403)
+        res.json({
+          message:'You have listed this spot, please add a new spot',
+          statusCode: 403
+        })
+      
+        
+
+      }
+  const newSpot = await Spot.create({
+    ownerId,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    pricePerNight})
+
+  res.json(newSpot)
+})
 
 
   module.exports = router;
