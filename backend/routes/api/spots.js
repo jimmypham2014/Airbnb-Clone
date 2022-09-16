@@ -22,15 +22,23 @@ router.post('/',requireAuth,
   validateSpot,
 async (req,res,next)=>{
     const ownerId = req.user.id
-    let param
-    let message
     const errors = validationResult(req)
     if(!errors.isEmpty()){
-        errors.array().map((e) => `${e.msg}`)
+        let errorObject = {}
+        let errorArray = errors.errors.map(e=> {
+            let key = e.param
+            let value = e.msg
+            return {
+                [key] : value
+            }
+        })
+        errorArray.forEach(error =>{
+            errorObject = {...errorObject,...error} 
+        })
         return res.status(400).json({
             message: "Validation Error",
             statusCode: 400,
-            
+            errors:errorObject
         })
         next();
     }
