@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Image.belongsTo(models.Spot, {foreignKey:'spotImageId'})
+      Image.belongsTo(models.Review,{foreignKey:'reviewImageId'})
     }
   }
   Image.init({
@@ -20,9 +21,15 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
     },
-    url: DataTypes.BLOB,
-    reviewImageId: DataTypes.INTEGER,
-    spotImageId: DataTypes.INTEGER,
+    url: {
+      type: DataTypes.STRING,
+    },
+    reviewImageId:{
+      type:DataTypes.INTEGER,
+    },
+    spotImageId:{
+      type:DataTypes.INTEGER,
+    },
     preview: DataTypes.BOOLEAN
   }, {
     sequelize,

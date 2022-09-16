@@ -33,8 +33,16 @@ const handleValidationErrors = (req, _res, next) => {
     body('pricePerNight').notEmpty().isDecimal().withMessage('Price per day is required')
 
   ]
+
+  const validateReview =[
+    body('review').notEmpty().withMessage('Review text is required'),
+    body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5')
+  ]
   
+  const validateReviewImage =[
+    body
+  ]
 
   module.exports = {
-    handleValidationErrors,validateSpot
+    handleValidationErrors,validateSpot,validateReview
   };
