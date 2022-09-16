@@ -24,6 +24,7 @@ async (req,res,next)=>{
     const ownerId = req.user.id
     const errors = validationResult(req)
     if(!errors.isEmpty()){
+        //putting objects together
         let errorObject = {}
         let errorArray = errors.errors.map(e=> {
             let key = e.param
@@ -35,12 +36,12 @@ async (req,res,next)=>{
         errorArray.forEach(error =>{
             errorObject = {...errorObject,...error} 
         })
+        
         return res.status(400).json({
             message: "Validation Error",
             statusCode: 400,
             errors:errorObject
         })
-        next();
     }
   
     const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
@@ -105,24 +106,44 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
 // edit a spot
 
 router.put('/:id',requireAuth,
-  body('address').exists().withMessage('Street address is required')
+validateSpot
 ,
 async (req,res,next)=>{
     const spotId = req.params.id
     const spot = await Spot.findOne({where:{id:spotId}})
     const {address,city, state,country,lat,lng,name,description,pricePerNight} = req.body
         
-    const errors =validationResult(req)
+    if(!spot)[
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    ]
+
+    
+    const errors = validationResult(req)
     if(!errors.isEmpty()){
+        let errorObject = {}
+        let errorArray = errors.errors.map(e=> {
+            let key = e.param
+            let value = e.msg
+            return {
+                [key] : value
+            }
+        })
+        errorArray.forEach(error =>{
+            errorObject = {...errorObject,...error} 
+        })
         return res.status(400).json({
-            errors: errors.array()
+            message: "Validation Error",
+            statusCode: 400,
+            errors:errorObject
         })
     }
-
-    // spot.update(
-    //     {address,city, state,country,lat,lng,name,description,pricePerNight},
+    spot.update(
+        {address,city, state,country,lat,lng,name,description,pricePerNight},
         
-    // )
+    )
     res.json(spot)
 })
 
@@ -131,10 +152,17 @@ async (req,res,next)=>{
 router.delete('/:id', requireAuth,async (req,res)=>{
     const spotId = req.params.id
     const spot = await Spot.findOne({where:{id:spotId}})
-    await Spot.destroy(
-        { where: 
-            { id: { [Op.lte]: spotId } }  // specific records to delete
-        }
-    );
+    if(!spot){
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    } else{
+    await spot.destroy();
+    return res.json({
+        message: "Successfully deleted",
+      statusCode: 200
+    })
+    }
 })
 module.exports = router;

@@ -24,7 +24,7 @@ const handleValidationErrors = (req, _res, next) => {
   const validateSpot=[
     body('address').notEmpty().withMessage('Street address is required'),
     body('city').notEmpty().withMessage('City is required'),
-    body('state').notEmpty().isAlpha().withMessage('State is required'),
+    body('state').notEmpty().withMessage('State is required'),
     body('country').notEmpty().withMessage('Country is required'),
     body('lat').isDecimal().withMessage('Latitude is not valid'),
     body('lng').isDecimal().withMessage('Longitude is not valid'),
