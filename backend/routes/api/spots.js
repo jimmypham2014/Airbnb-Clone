@@ -107,7 +107,10 @@ router.get('/:id',requireAuth,async(req,res)=>{
          
         },{
             model: User,
-        }],
+        },{
+            model: Review,
+        }
+        ],
         where:{id:spotId}})
 
     if(!spot){
@@ -257,5 +260,21 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
 }
 
 
+})
+
+
+//get reviews by spot Id
+
+router.get('/:id/reviews',requireAuth, async(req,res)=>{
+    const spotId = req.params.id
+    const spot = await Spot.findOne({where:{id:spotId}})
+    if(!spot){
+        res.status(404).json({
+            message:"Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+    const allReviews = await Review.findAll()
+    res.json(allReviews)
 })
 module.exports = router;
