@@ -36,7 +36,7 @@ async (req,res,next)=>{
         errorArray.forEach(error =>{
             errorObject = {...errorObject,...error} 
         })
-        
+
         return res.status(400).json({
             message: "Validation Error",
             statusCode: 400,
@@ -66,7 +66,7 @@ const{url,preview} = req.body
             id:spotId
         }})
     if(!spot){
-        res.json({
+        res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
         })
@@ -99,6 +99,27 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
         res.json({allSpots})
     }
  
+})
+
+//Get details of spot from an id
+
+router.get('/:id',requireAuth,async(req,res)=>{
+    const spotId = req.params.id
+    const spot = await Spot.findOne({
+        include:{
+            model:'Images'
+        },
+        where:{id:spotId}})
+
+    if(!spot){
+        res.status(404).json({
+            message: "Spot couldn't be found",
+            statusCode: 404
+        })
+    } else{
+       return res.json(spot)
+    }
+    
 })
 
 
