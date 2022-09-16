@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Image.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     url: DataTypes.BLOB,
     reviewImageId: DataTypes.INTEGER,
     spotImageId: DataTypes.INTEGER,

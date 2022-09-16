@@ -16,6 +16,7 @@ module.exports = {
       },
       spotImageId: {
         type: Sequelize.INTEGER,
+        allowNull:false,
         references:{model:'Spots'}
       },
       preview: {

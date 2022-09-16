@@ -71,31 +71,10 @@ router.get(
 
   //create a spot
   
-router.post('/:id/spots',requireAuth, async (req,res,next)=>{
+router.post('/',requireAuth, async (req,res,next)=>{
   const ownerId = req.user.id
 
-
   const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
-
-    // const existingSpot = await Spot.findAll({
-    //   where:{
-    //     address,city,state,country,
-    //   }})
-    //   if(existingSpot){
-    //     res.status(403)
-    //     res.json({
-    //       message:'You have listed this spot, please add a new spot',
-    //       statusCode: 403
-    //     })
-    
-    //   }
-    for(const property in req.body){
-      if(!property){
-        const err = new Error('Validation Error')
-        err.status= 400
-        next(err)
-      }
-  }
 
   const newSpot = await Spot.create({
     ownerId,
@@ -111,6 +90,8 @@ router.post('/:id/spots',requireAuth, async (req,res,next)=>{
 
   res.json(newSpot)
 })
+
+
 
 
   module.exports = router;

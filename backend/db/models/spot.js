@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         {foreignKey: 'ownerId'}
       )
+      Spot.hasMany(
+        models.Image,{
+          foreignKey:'spotImageId'
+        }
+      )
     }
   }
   Spot.init({
@@ -46,7 +51,6 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       validate:{
-        isAlpha:true,
         notEmpty: true
       }
     },
