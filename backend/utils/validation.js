@@ -20,6 +20,16 @@ const handleValidationErrors = (req, _res, next) => {
     next();
   };
 
+  const validateSignUp = [
+    body('firstName').notEmpty().withMessage('First Name is required'),
+    body('lastName').notEmpty().withMessage('Last Name is required'),
+    body('email').notEmpty().isEmail().withMessage('Invalid Email'),
+    body('email').exists().withMessage('User with that email already exists'),
+    body('username').notEmpty().withMessage('Username is required'),
+    body('username').exists({checkFalsy:true}).withMessage('User with that username already exists'),
+    body('password').isLength({min:8}).notEmpty().withMessage('Password length must be at least 8'),
+
+  ]
 
   const validateSpot=[
     body('address').notEmpty().withMessage('Street address is required'),
@@ -39,10 +49,21 @@ const handleValidationErrors = (req, _res, next) => {
     body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5')
   ]
   
-  const validateReviewImage =[
-    body
+
+  const validateBooking =[
+    body('endDate').custom((value, { req }) => {
+      if(new Date(value) < new Date(req.body.startDate)) {
+          throw new Error ('endDate cannot be before startDate');
+      }
+      return true;
+  }),
+
+  body('endDate').notEmpty().withMessage('End Date cannot be empty'),
+  body('startDate').notEmpty().withMessage('Start Date cannot be empty'),
+  
+
   ]
 
   module.exports = {
-    handleValidationErrors,validateSpot,validateReview
+    handleValidationErrors,validateSpot,validateReview,validateBooking, validateSignUp
   };

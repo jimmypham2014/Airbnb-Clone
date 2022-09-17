@@ -42,6 +42,11 @@ router.get('/current',requireAuth, async (req,res) =>{
         }
     })
     res.json(allReviews)
+ } else{
+    return res.status(404).json({
+        message: " You're not the current user, please log in",
+        statusCode: 404
+    })
  }
 })
 
@@ -90,14 +95,14 @@ router.put('/:id',requireAuth,validateReview,async(req,res)=>{
 //delete a review
 router.delete('/:id', requireAuth,async (req,res)=>{
     const reviewId = req.params.id
-    const review = await Review.findOne({where:{id:reviewId}})
-    if(!review){
-        res.status(404).json({
+    const existingReview = await Review.findOne({where:{id:reviewId}})
+    if(!existingReview ){
+        return res.status(404).json({
             message: "Review is already deleted or couldn't be found",
             statusCode: 404
         })
     } else{
-    await review.destroy();
+    await existingReview.destroy();
     return res.json({
         message: "Successfully deleted",
       statusCode: 200
