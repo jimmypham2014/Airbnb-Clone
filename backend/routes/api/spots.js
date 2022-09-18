@@ -86,14 +86,8 @@ res.json(addImage)
 //get all spots of current user
 router.get('/current',restoreUser, requireAuth,async (req,res)=>{
     const { user } = req;
-    if(user){
-        const allSpots = await Spot.findAll({
-            where:{
-                ownerId: user.id
-            }
-        })
-        res.json({allSpots})
-    }
+    const allSpots = await Spot.findAll({where:{ownerId:user.id}})
+    
  
 })
 
@@ -101,6 +95,7 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
 
 router.get('/:id',requireAuth,async(req,res)=>{
     const spotId = req.params.id
+
 
     // const reviews = await Review.findOne({
     //     attributes:[sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews'],
@@ -110,17 +105,14 @@ router.get('/:id',requireAuth,async(req,res)=>{
     //     attributes:[sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'],
     //     raw:true
     // })
-
-    const spot = await Spot.findOne({
+    const findNumOfReviewsAndAverageRating = await Spot.findOne({
         where:{
             id:spotId,
-   
         },
         attributes:{
             include:[
                 [
                     sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
-                    
                 ],
                 [
                     sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
@@ -131,17 +123,27 @@ router.get('/:id',requireAuth,async(req,res)=>{
         include:{
             model:Review,
             attributes:[]
+            
         }
     })
+    const existingSpot = await Spot.findByPk(spotId,{
+        include:[{
+            model:Image
+        },{
+            model:User,
+            attributes:['id','firstName','lastName']
+        }],
+    })
+existingSpot.numReviews = findNumOfReviewsAndAverageRating.numReviews
+existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
 
-
-    if(!spot){
+    if(!existingSpot){
         res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
         })
     } else{
-       return res.json(spot)
+       return res.json(existingSpot)
     }
     
 })
@@ -309,14 +311,14 @@ router.get('/:id/reviews',requireAuth, async(req,res)=>{
     const spotId = req.params.id
     const userId = req.user.id
     const spot = await Spot.findOne({where:{id:spotId}})
+    const existingReviews = await Review.findAll({where:{spotId:spot.id}})
     if(!spot){
         res.status(404).json({
             message:"Spot couldn't be found",
             statusCode: 404
         })
     }
-    const allReviews = await Review.findAll()
-    res.json(allReviews)
+    res.json(existingReviews)
 })
 
 

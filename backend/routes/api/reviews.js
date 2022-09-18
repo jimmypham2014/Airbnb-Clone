@@ -8,6 +8,15 @@ const { validationResult } = require('express-validator');
 router.post('/:id/images', async (req,res)=>{
     const reviewId = req.params.id
     const {url} = req.body
+
+    const allImages = await Image.findAll({where:{reviewImageId:reviewId}})
+
+    if(allImages.length >= 10){
+        return res.status(403).json({
+            message: "Maximum number of images for this resource was reached",
+            statusCode: 403
+        })
+    }
     const review = await Review.findOne({
         include:{
             model: Image
