@@ -101,13 +101,13 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull:false
     },
-    avgRating:{
-      type:DataTypes.INTEGER,
+    numReviews:{
+      type: DataTypes.INTEGER,
       allowNull:true
     },
-    previewImage: {
-      type:DataTypes.BLOB,
-      allowNull:true
+    avgRating:{
+      type:DataTypes.INTEGER,
+      allowNull:true,
     }
   }, {
     sequelize,

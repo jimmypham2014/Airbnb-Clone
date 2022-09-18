@@ -3,7 +3,7 @@ const router = express.Router();
 const {restoreUser,requireAuth} = require('../../utils/auth')
 const {validateSpot, validateReview, validateBooking} = require('../../utils/validation')
 const {Op} = require('sequelize')
-const {User,Spot,Image,Review,Booking} =require('../../db/models');
+const {User,Spot,Image,Review,Booking, sequelize} =require('../../db/models');
 const { body,validationResult } = require('express-validator');
 router.get(
     '/',
@@ -101,17 +101,39 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
 
 router.get('/:id',requireAuth,async(req,res)=>{
     const spotId = req.params.id
+
+    // const reviews = await Review.findOne({
+    //     attributes:[sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews'],
+    //     raw:true
+    // })
+    // const avgRate = await Review.findOne({
+    //     attributes:[sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'],
+    //     raw:true
+    // })
+
     const spot = await Spot.findOne({
-        include:[{
-            model: Image,
-         
-        },{
-            model: User,
-        },{
-            model: Review,
+        where:{
+            id:spotId,
+   
+        },
+        attributes:{
+            include:[
+                [
+                    sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
+                    
+                ],
+                [
+                    sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
+                ],
+               
+            ]
+        },
+        include:{
+            model:Review,
+            attributes:[]
         }
-        ],
-        where:{id:spotId}})
+    })
+
 
     if(!spot){
         res.status(404).json({
@@ -123,6 +145,25 @@ router.get('/:id',requireAuth,async(req,res)=>{
     }
     
 })
+
+
+// find a spot with their associated reviews
+// router.get('/:id/reviews',requireAuth,async (req,res) =>{
+//     const spotReviewAggData = await Spot.findByPk(req.params.id,{
+//         include:{
+//             model:Review,
+//             attributes: []
+//         },
+//         attributes: [
+//             sequelize.fn("COUNT",sequelize.col('id')),
+//             'numReviews',
+
+//             sequelize.fn("AVG",sequelize.col('stars')),
+//             'avgRating',
+//         ],
+//         raw:true
+//     })
+// })
 
 
 
@@ -369,6 +410,10 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         res.json({Bookings})
     })
 
+
+    // AVERAGE number of review
+
+    
 
 
 module.exports = router;

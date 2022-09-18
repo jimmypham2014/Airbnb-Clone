@@ -49,12 +49,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull:false
       },
-      avgRating: {
+      numReviews:{
         type: Sequelize.INTEGER,
         allowNull:true
       },
-      previewImage: {
-        type: Sequelize.BLOB,
+      avgRating: {
+        type: Sequelize.INTEGER,
         allowNull:true
       },
       createdAt: {
