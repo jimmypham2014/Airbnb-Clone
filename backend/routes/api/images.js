@@ -9,12 +9,18 @@ const { validationResult } = require('express-validator');
 router.delete('/:id', requireAuth,async (req,res)=>{
     const reviewImageId = req.params.id
     const existingImage = await Image.findOne({where:{id:reviewImageId}})
-    if(!existingImage){
+    
+    if(!existingImage || !reviewImageId){
         return res.status(404).json({
-            message: "Spot couldn't be found",
+            message: "Review Image couldn't be found",
             statusCode: 404
         })
-    } else{
+    } else if(!reviewImageId){
+        return res.status(404).json({
+            message: ''
+        })
+    }
+        else{
     await existingImage.destroy();
     return res.json({
         message: "Successfully deleted",

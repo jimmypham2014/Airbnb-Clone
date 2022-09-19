@@ -46,6 +46,17 @@ router.get('/current',requireAuth, async (req,res) =>{
 
  if(user){
     const allReviews = await Review.findAll({
+        include:[{
+            model:User,
+            attributes:['id','firstName','lastName']
+        },{
+            model:Spot,
+            attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage']
+        },{
+            model:Image,
+            attributes:['id','url']
+        }
+    ],
         where:{
             userId: user.id
         }
