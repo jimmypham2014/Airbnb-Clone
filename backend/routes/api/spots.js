@@ -12,19 +12,19 @@ router.get(
         include:{
             model:Image
         },
-        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','createdAt','updatedAt']
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','previewImage','createdAt','updatedAt']
     })
 
 
-    /*  addd preview Image */
+   
     let spotList = []
     allSpots.forEach(spot=>{
         spotList.push(spot.toJSON())
     })
 
-        console.log(spotList)
+    /// ADDD PREVIEW IMAGE
      let newArr= []
-        spotList.forEach((spot,i)=>{
+        spotList.forEach( async (spot,i)=>{
         spot.Images.forEach(image=>{
             if(image.preview === true){
                 spot.previewImage = image.url
@@ -32,9 +32,7 @@ router.get(
                 spot.previewImage = 'There is no preview image right now'
             }
         })
-
-    })
-      spotList.forEach( async (spot,i) =>{
+        delete spot.Images
         const AvgRatingAndnumReviews = await Spot.findOne({
             where:{
                 id:spot.id,   
@@ -55,13 +53,14 @@ router.get(
         spot.avgRating = AvgRatingAndnumReviews.avgRating
         spot.numReviews = AvgRatingAndnumReviews.numReviews
 
-        delete spot.Images
-        newArr.push(spot)
-       console.log(spot)
-        // console.log(newArr)
+       
+            newArr.push(spot)
+            console.log(spot)
+
         // this condition makes sure that the function reaches the last index before res.json because of async function
-        if(i===spotList.length -1) res.json(newArr) 
+         if(i === spotList.length -1) res.json(newArr)
     })
+    // res.json(spotList)
   
 })
 
