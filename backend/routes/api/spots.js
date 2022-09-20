@@ -191,31 +191,31 @@ router.get('/:id',requireAuth,async(req,res)=>{
         })
     } 
 
-//     const findNumOfReviewsAndAverageRating = await Spot.findOne({
-//         where:{
-//             id:spotId,
-//         },
-//         attributes:{
-//             include:[
-//                 [
-//                     sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
-//                 ],
-//                 [
-//                     sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
-//                 ],
+    const findNumOfReviewsAndAverageRating = await Spot.findOne({
+        where:{
+            id:spotId,
+        },
+        attributes:{
+            include:[
+                [
+                    sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
+                ],
+                [
+                    sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
+                ],
                
-//             ]
-//         },
-//         include:{
-//             model:Review,
-//             attributes:[]
+            ]
+        },
+        include:{
+            model:Review,
+            attributes:[]
             
-//         }
-//     })
+        }
+    })
 
 
-// existingSpot.numReviews = findNumOfReviewsAndAverageRating.numReviews
-// existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
+existingSpot.numReviews = findNumOfReviewsAndAverageRating.numReviews
+existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
 
 
 /* Adding preview image in the details of spot*/
