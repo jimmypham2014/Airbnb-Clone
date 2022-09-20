@@ -102,8 +102,6 @@ const{url,preview} = req.body
         })
     
 
-
-
 res.json(addImage)
 
 })
@@ -183,11 +181,12 @@ router.get('/:id',requireAuth,async(req,res)=>{
                
             ]
         },
-        include:{
+        include:[{
             model:Review,
             attributes:[]
             
-        }
+        }],
+        group:['Spot.id']
     })
 
 console.log(findNumOfReviewsAndAverageRating)
