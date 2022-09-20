@@ -112,65 +112,41 @@ res.json(addImage)
 router.get('/current',restoreUser, requireAuth,async (req,res)=>{
     const { user } = req;
 
-     
     const allSpots = await Spot.findAll({
         include:[{
             model:Image,
 
         }],
         where:{ownerId:user.id},
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt']
     
     })
-
 
     let spotList = []
 
 allSpots.forEach(spot=>{
+    if(spot.previewImage === null){
+        spot.previewImage = 'There is no preview image right now'
+    }
     spotList.push(spot.toJSON())
 })
+//avgRating
 
 
  //add preview image
- let newArr =[]
-    spotList.forEach( async (spot,i)=>{
+    spotList.forEach((spot)=>{
                 //addding preview image
         spot.Images.forEach(image =>{
+
             if(image.preview === true){
                 spot.previewImage = image.url
-            } else if(!spot.previewImage){
-                spot.previewImage = 'There is no preview image right now'
             }
         })
-
-        const AvgRatingAndnumReviews = await Spot.findOne({
-            where:{
-                id:spot.id,   
-            },
-            attributes:{
-                include:[
-                    [
-                        sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
-                    ],
-                    [
-                        sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
-                    ],
-                ]
-            },
-            include:{ model:Review,attributes:[] }
-        })
-
-        spot.avgRating = AvgRatingAndnumReviews.avgRating
-        spot.numReviews = AvgRatingAndnumReviews.numReviews
-
         delete spot.Images
 
-        newArr.push(spot)
-        // this condition makes sure that the function reaches the last index before res.json because of async function
-        if(i === spotList.length -1) res.json({Spots:newArr}) 
-
     })
+    res.json(spotList)
    
-    
 })
 
 //Get details of spot from an id
@@ -192,7 +168,10 @@ router.get('/:id',requireAuth,async(req,res)=>{
         })
     } 
 
-    const findNumOfReviewsAndAverageRating = await Spot.findAll({
+    const findNumOfReviewsAndAverageRating = await Spot.findOne({
+        where:{
+            id:spotId
+        },
         attributes:{
             include:[
                 [
@@ -211,7 +190,7 @@ router.get('/:id',requireAuth,async(req,res)=>{
         }
     })
 
-
+console.log(findNumOfReviewsAndAverageRating)
 existingSpot.numReviews = findNumOfReviewsAndAverageRating.numReviews
 existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
 
@@ -231,28 +210,7 @@ if(!existingSpot.avgRating){
  }
        return res.json({Spot:existingSpot})
  
-})
-
-
-// find a spot with their associated reviews
-// router.get('/:id/reviews',requireAuth,async (req,res) =>{
-//     const spotReviewAggData = await Spot.findByPk(req.params.id,{
-//         include:{
-//             model:Review,
-//             attributes: []
-//         },
-//         attributes: [
-//             sequelize.fn("COUNT",sequelize.col('id')),
-//             'numReviews',
-
-//             sequelize.fn("AVG",sequelize.col('stars')),
-//             'avgRating',
-//         ],
-//         raw:true
-//     })
-// })
-
-
+});
 
 // edit a spot
 
@@ -435,12 +393,16 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
             endDate,
         }
     })
-    
+        if(spot.ownerId === userId){
+            return res.status(401).json({message:"You're not authorized to book your own spot",statuCode:401})
+        }
+
     if(!spot){
         res.status(404).json({
             message:"Spot couldn't be found",
             statusCode: 404
         })
+
     }   else if(booking){
         const err = new Error("Sorry, this spot is already booked for the specified dates")
         err.status = 403
