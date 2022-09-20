@@ -29,7 +29,8 @@ spotList.forEach(spot=>{
         spot.Images.forEach(image=>{
             if(image.preview === true){
                 spot.previewImage = image.url
-            } else if(!spot.previewImage){
+            }
+            if(!spot.previewImage){
                 spot.previewImage = 'There is no preview image right now'
                 }
             })
@@ -191,10 +192,7 @@ router.get('/:id',requireAuth,async(req,res)=>{
         })
     } 
 
-    const findNumOfReviewsAndAverageRating = await Spot.findOne({
-        where:{
-            id:spotId,
-        },
+    const findNumOfReviewsAndAverageRating = await Spot.findAll({
         attributes:{
             include:[
                 [
@@ -231,20 +229,8 @@ if(!existingSpot.previewImage){
 if(!existingSpot.avgRating){
     existingSpot.avgRating = " There is no review currently"
  }
-// let newExistingSpot = {}
-// for (let key in existingSpot) {
-//     if (key === "Images") {
-//         newExistingSpot["SpotImages"] = existingSpot[key]
-//     } else if (key === "User") {
-//         newExistingSpot["Owner"] = existingSpot[key]
-//     } else {
-//         newExistingSpot[key] = existingSpot[key]
-//     }
-// }
-//     console.log(newExistingSpot)
        return res.json({Spot:existingSpot})
-    
-    
+ 
 })
 
 
