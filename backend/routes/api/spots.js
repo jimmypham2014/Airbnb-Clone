@@ -287,17 +287,15 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     const spotId = req.params.id
     const userId = req.user.id
 
-    const existingReview = await Review.findOne({
-        where:{
-            spotId
-        }})
+    const existingReview = await Review.findByPk(spotId)
 
     const spot = await Spot.findOne({
         include:{
             model: Review
         },
         
-        where:{id:spotId}})
+        where:{id:spotId}
+    })
 
     if(existingReview){
         const err = new Error('User already has a review for this spot')
