@@ -10,68 +10,34 @@ router.get(
     async (req,res)=>{
         let page = parseInt(req.query.page, 10)
         let size = parseInt(req.query.size,25)
-    
-        if(Number.isNaN(page)){
-            page = 1
-        }
-        if(Number.isNaN(size)){
-            size = 3
-        }
-
     const allSpots = await Spot.findAll({
         include:{
-            model:Image
+            model:Image,
         },
-        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','previewImage','createdAt','updatedAt'],
-        limit: size,
-        offset: size *(page-1)
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
+
     });
 
-    let spotList = []
-    allSpots.forEach(spot=>{
-        spotList.push(spot.toJSON())
-    })
+    
+    
+let spotList = []
+allSpots.forEach(spot=>{
+    spotList.push(spot.toJSON())
+})
 
-    /// ADDD PREVIEW IMAGE
-     let newArr= []
-        spotList.forEach( async (spot,i)=>{
+spotList.forEach(spot=>{
         spot.Images.forEach(image=>{
             if(image.preview === true){
                 spot.previewImage = image.url
             } else if(!spot.previewImage){
                 spot.previewImage = 'There is no preview image right now'
-            }
-        })
-        delete spot.Images
-        const AvgRatingAndnumReviews = await Spot.findOne({
-            where:{
-                id:spot.id,   
-            },
-            attributes:{
-                include:[
-                    [
-                        sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
-                    ],
-                    [
-                        sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
-                    ],
-                ]
-            },
-            include:{ model:Review,attributes:[] }
+                }
+            })
+                 delete spot.Images
         })
 
-        spot.avgRating = AvgRatingAndnumReviews.avgRating
-        spot.numReviews = AvgRatingAndnumReviews.numReviews
 
-       
-            newArr.push(spot)
-            console.log(spot)
-
-        // this condition makes sure that the function reaches the last index before res.json because of async function
-         if(i === spotList.length -1) res.json(newArr)
-    })
-    // res.json(spotList)
-  
+  res.json(spotList)
 })
 
 
@@ -558,6 +524,6 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
     // AVERAGE number of review
 
     
-    
+
 
 module.exports = router;
