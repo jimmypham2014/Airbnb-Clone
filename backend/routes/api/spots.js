@@ -12,25 +12,8 @@ router.get(
         include:{
             model:Image
         },
-        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','avgRating','createdAt','updatedAt']
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','createdAt','updatedAt']
     })
-
-    const avgStars = await Review.findAll({
-        attributes: {
-            include: [ 
-                [
-                  sequelize.fn("AVG", sequelize.col("stars")), 
-                  "averageRate"
-                ] 
-            ],
-            raw:true
-        }
-    })
-         let avgList=[]
-        let avgRating
-        avgStars.forEach(avg=>avgList.push(avg.toJSON()))
-
-        avgList.forEach(a=>avgRating= a.averageRate)
 
 
     /*  addd preview Image */
@@ -39,12 +22,9 @@ router.get(
         spotList.push(spot.toJSON())
     })
 
-    spotList.forEach(spot=>{
-        spot.avgRating = avgRating
-        })
- 
-
-    spotList.forEach(spot=>{
+        console.log(spotList)
+     let newArr= []
+        spotList.forEach((spot,i)=>{
         spot.Images.forEach(image=>{
             if(image.preview === true){
                 spot.previewImage = image.url
@@ -52,18 +32,37 @@ router.get(
                 spot.previewImage = 'There is no preview image right now'
             }
         })
-    })
-    let newSpotArr= []
-    let newSpotObj = {}
-/* Deleting Images tables from output*/
-    spotList.forEach(spot =>{
-        for(let key in spot){
-            if(key !== "Images") newSpotObj[key] =spot[key]
-        }
-        newSpotArr.push(newSpotObj)
-    })
 
-    return res.json({Spots:newSpotArr})
+    })
+      spotList.forEach( async (spot,i) =>{
+        const AvgRatingAndnumReviews = await Spot.findOne({
+            where:{
+                id:spot.id,   
+            },
+            attributes:{
+                include:[
+                    [
+                        sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
+                    ],
+                    [
+                        sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
+                    ],
+                ]
+            },
+            include:{ model:Review,attributes:[] }
+        })
+
+        spot.avgRating = AvgRatingAndnumReviews.avgRating
+        spot.numReviews = AvgRatingAndnumReviews.numReviews
+
+        delete spot.Images
+        newArr.push(spot)
+       console.log(spot)
+        // console.log(newArr)
+        // this condition makes sure that the function reaches the last index before res.json because of async function
+        if(i===spotList.length -1) res.json(newArr) 
+    })
+  
 })
 
 
@@ -147,52 +146,16 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
     
     })
 
-    //find spot id first
 
-
-    //number of review
-    const numReviews = await Review.count()
     let spotList = []
-
-    //avgRating-----------------------------------------------------------
-
-    // allSpots.forEach( async (spot) =>{
-
-    //     const findAverageRating = await Spot.findOne({
-    //         where:{
-    //             id:spot.id,
-    //         },
-    //         attributes:{
-    //             include:[
-    //                 [
-    //                     sequelize.fn("COUNT",sequelize.col('Reviews.id')),'numReviews',
-    //                 ],
-    //                 [
-    //                     sequelize.fn("AVG",sequelize.col('Reviews.stars')),'avgRating'
-    //                 ],
-                   
-    //             ]
-    //         },
-    //         include:{ model:Review,attributes:[] }
-          
-    //     })
-    //     spot.avgRating =findAverageRating.avgRating
-    //     spot.numReviews = findAverageRating.numReviews
-       
-    // })
 
 allSpots.forEach(spot=>{
     spotList.push(spot.toJSON())
 })
- //-------------------------------------------------------------------------
-
-    // console.log(spotList)
-    //add numreviews and avgRating
 
 
  //add preview image
  let newArr =[]
- let newObj ={}
     spotList.forEach( async (spot,i)=>{
                 //addding preview image
         spot.Images.forEach(image =>{
@@ -203,7 +166,7 @@ allSpots.forEach(spot=>{
             }
         })
 
-        const findAverageRating = await Spot.findOne({
+        const AvgRatingAndnumReviews = await Spot.findOne({
             where:{
                 id:spot.id,   
             },
@@ -220,8 +183,8 @@ allSpots.forEach(spot=>{
             include:{ model:Review,attributes:[] }
         })
 
-        spot.avgRating = findAverageRating.avgRating
-        spot.numReviews = findAverageRating.numReviews
+        spot.avgRating = AvgRatingAndnumReviews.avgRating
+        spot.numReviews = AvgRatingAndnumReviews.numReviews
 
         delete spot.Images
 
