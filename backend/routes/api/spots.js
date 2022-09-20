@@ -8,15 +8,25 @@ const { body,validationResult } = require('express-validator');
 router.get(
     '/',
     async (req,res)=>{
+        let page = parseInt(req.query.page, 10)
+        let size = parseInt(req.query.size,25)
+    
+        if(Number.isNaN(page)){
+            page = 1
+        }
+        if(Number.isNaN(size)){
+            size = 3
+        }
+
     const allSpots = await Spot.findAll({
         include:{
             model:Image
         },
-        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','previewImage','createdAt','updatedAt']
-    })
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','previewImage','createdAt','updatedAt'],
+        limit: size,
+        offset: size *(page-1)
+    });
 
-
-   
     let spotList = []
     allSpots.forEach(spot=>{
         spotList.push(spot.toJSON())
@@ -548,6 +558,6 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
     // AVERAGE number of review
 
     
-
+    
 
 module.exports = router;
