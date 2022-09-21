@@ -12,14 +12,15 @@ module.exports = {
         type: Sequelize.STRING,
       },
       reviewImageId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{model:'Reviews'}
       },
       spotImageId: {
         type: Sequelize.INTEGER,
         references:{model:'Spots'}
       },
-      preview: {
-        type: Sequelize.BOOLEAN
+      previewImage: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,

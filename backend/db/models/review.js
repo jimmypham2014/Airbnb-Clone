@@ -44,7 +44,11 @@ module.exports = (sequelize, DataTypes) => {
         min:1,
         max:5
       }
-    }
+    },
+    previewImage:{
+      type:DataTypes.STRING,
+      allowNull:true
+    },
   }, {
     sequelize,
     modelName: 'Review',

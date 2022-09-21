@@ -5,6 +5,7 @@ const {validateSpot, validateReview, validateBooking} = require('../../utils/val
 const {Op} = require('sequelize')
 const {User,Spot,Image,Review,Booking, sequelize} =require('../../db/models');
 const { body,validationResult } = require('express-validator');
+const user = require('../../db/models/user');
 router.get(
     '/',
     async (req,res)=>{
@@ -196,7 +197,7 @@ existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
 
 /* Adding preview image in the details of spot*/
 existingSpot.Images.forEach(image =>{
-     if( image.preview === true){
+     if( image.previewImage === true){
         existingSpot.previewImage = image.url
      } 
 })
@@ -285,36 +286,33 @@ router.delete('/:id', requireAuth,async (req,res)=>{
 //Create a review for a spot based on the spot's id
 router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     const spotId = req.params.id
-    const userId = req.user.id
+    const {user} = req
 
-    const existingReview = await Review.findByPk(spotId)
+    const existingReview = await Review.findAll({where:{spotId:spotId}})
 
-    const spot = await Spot.findOne({
-        include:{
-            model: Review
-        },
-        
+    existingReview.forEach(review=>{
+        if(review.userId === user.id){
+            res.status(403).json({
+                message: 'User already has a review for this spot',
+                statusCode:403
+            })
+        }
+    })
+
+    const spot = await Spot.findOne({ 
         where:{id:spotId}
     })
 
-    if(existingReview){
-        const err = new Error('User already has a review for this spot')
-        err.status = 403
-        res.json({
-            message: err.message,
-            statusCode: err.status
-        })
-        next(err)
-    }else if(!spot){
+    if(!spot){
         const err = new Error("Spot couldn't be found")
         err.status = 404
         res.json({
             message: err.message,
             statusCode: err.status
         })
-        next(err)
 
-    }else{
+    }
+
 
     const errors = validationResult(req)
     if(!errors.isEmpty()){
@@ -338,7 +336,7 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     }
     const {review,stars} = req.body
     const addReview = await spot.createReview({
-        userId,
+        userId:user.id,
         spotId,
         review,
         stars
@@ -346,8 +344,6 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     })
 
         res.json(addReview)
-}
-
 
 })
 

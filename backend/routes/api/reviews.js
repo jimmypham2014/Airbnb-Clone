@@ -4,12 +4,17 @@ const {restoreUser,requireAuth} = require('../../utils/auth')
 const {User,Spot,Image,Review} =require('../../db/models');
 const { validateReview } = require('../../utils/validation');
 const { validationResult } = require('express-validator');
+const user = require('../../db/models/user');
 
 router.post('/:id/images', async (req,res)=>{
     const reviewId = req.params.id
-    const {url} = req.body
-
-    const allImages = await Image.findAll({where:{reviewImageId:reviewId}})
+    const {url,previewImage} = req.body
+    const userId = req.user.id
+    const allImages = await Image.findAll({
+        where:{
+            reviewImageId:reviewId
+        },
+    })
 
     if(allImages.length >= 10){
         return res.status(403).json({
@@ -17,23 +22,28 @@ router.post('/:id/images', async (req,res)=>{
             statusCode: 403
         })
     }
-    const review = await Review.findOne({
+
+
+    const existingReview = await Review.findOne({
         include:{
-            model: Image
+            model:Image
         },
         where:{
             id:reviewId
-        }})
+        }
+    })
 
-        if(!review){
+        if(!existingReview){
             res.status(404).json({
                 message: "Review couldn't be found",
                 statusCode: 404
             })
         }
 
-        const addReview = await review.createImage({
-            url
+        const addReview = await existingReview.createImage({
+            userId,
+            url,
+            previewImage
         })
         res.json(addReview)
 })
@@ -61,7 +71,23 @@ router.get('/current',requireAuth, async (req,res) =>{
             userId: user.id
         }
     })
-    res.json(allReviews)
+    const reviewList = []
+
+    allReviews.forEach(review=>{
+        if(!review.previewImage) review.previewImage = 'No Preview Image'
+        reviewList.push(review.toJSON())
+    })
+
+    reviewList.forEach(review=>{
+        review.Images.forEach(image=>{
+            if(image.previewImage === true){
+                review.previewImage = image.url
+            }
+        })
+    })
+
+
+    res.json({Reviews:allReviews})
  } else{
     return res.status(404).json({
         message: " You're not the current user, please log in",
@@ -128,8 +154,7 @@ router.delete('/:id', requireAuth,async (req,res)=>{
       statusCode: 200
     })
     }
-})
-
+});
 
 
 module.exports = router;

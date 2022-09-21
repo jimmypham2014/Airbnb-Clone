@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     spotImageId:{
       type:DataTypes.INTEGER,
     },
-    preview: DataTypes.BOOLEAN
+    previewImage: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Image',
