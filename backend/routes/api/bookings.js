@@ -35,8 +35,6 @@ router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
         }
 
    
-
-
     const spotId = existingBook.spotId
     const existingBookingSpot = await Booking.findAll({
         where:{
