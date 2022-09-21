@@ -21,38 +21,7 @@ module.exports = {
       spotId: 1,
       review: "LAMEEEE spot",
       stars: 3,
-     },{
-      id: 4,
-      userId: 1,
-      spotId: 2,
-      review: "LAMEEEE spot",
-      stars: 3,
-     },{
-      id: 5,
-      userId: 1,
-      spotId: 2,
-      review: "LAMEEEE spot",
-      stars: 2,
      },
-     {
-      id: 6,
-      userId: 1,
-      spotId: 3,
-      review: "LAMEEEE spot",
-      stars: 3,
-     },{
-      id: 7,
-      userId: 1,
-      spotId: 3,
-      review: "LAMEEEE spot",
-      stars: 3,
-     },{
-      id: 8,
-      userId: 1,
-      spotId: 3,
-      review: "LAMEEEE spot",
-      stars: 5,
-     }
     ], {});
   },
 
