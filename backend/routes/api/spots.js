@@ -20,6 +20,7 @@ router.get(
             model:Image,
         },
         attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
+        ORDER:['id','DESC'],
         limit: size,
         offset: size * (page - 1),
     });
