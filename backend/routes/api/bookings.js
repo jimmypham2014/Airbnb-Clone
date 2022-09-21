@@ -34,11 +34,19 @@ router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
             })
         }
 
+   
+
+
     const spotId = existingBook.spotId
     const existingBookingSpot = await Booking.findAll({
         where:{
             spotId
         }})
+
+        const getAllBookingDates =((start,end)=>{
+
+        })
+    
             /* this spot is already booked for the specified dates*/
             existingBookingSpot.map(eachSpot =>{
                 if(startDate === eachSpot.startDate && endDate === eachSpot.endDate){

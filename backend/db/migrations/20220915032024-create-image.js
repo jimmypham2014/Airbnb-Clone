@@ -13,7 +13,6 @@ module.exports = {
       },
       reviewImageId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
         references:{
                   model:'Reviews',
                   key: 'id'
@@ -21,7 +20,6 @@ module.exports = {
       },
       spotImageId: {
         type: Sequelize.INTEGER,
-        allowNull:false,
         references:{
                   model:'Spots',
                   key: 'id'
