@@ -9,8 +9,6 @@ const user = require('../../db/models/user');
 router.get(
     '/',
     async (req,res)=>{
-        let page = parseInt(req.query.page, 10)
-        let size = parseInt(req.query.size,25)
     const allSpots = await Spot.findAll({
         include:{
             model:Image,
@@ -82,7 +80,7 @@ async (req,res,next)=>{
 //add an image to a spot based on the spot'id ----------------------------------------------------
 router.post('/:id/images',restoreUser,requireAuth,async (req,res)=>{
 const spotId = req.params.id
-const{url,preview} = req.body
+const{url,previewImage} = req.body
 //find owerID in the spot
     const spot = await Spot.findOne({
         include:{
@@ -99,7 +97,7 @@ const{url,preview} = req.body
     } 
         const addImage = await spot.createImage({
             url,
-            preview
+            previewImage
         })
     
 
@@ -124,7 +122,7 @@ router.get('/current',restoreUser, requireAuth,async (req,res)=>{
     let spotList = []
 
 allSpots.forEach(spot=>{
-    if(spot.previewImage === null){
+    if(!spot.previewImage){
         spot.previewImage = 'There is no preview image right now'
     }
     spotList.push(spot.toJSON())
@@ -137,7 +135,7 @@ allSpots.forEach(spot=>{
                 //addding preview image
         spot.Images.forEach(image =>{
 
-            if(image.preview === true){
+            if(image.previewImage === true){
                 spot.previewImage = image.url
             }
         })
