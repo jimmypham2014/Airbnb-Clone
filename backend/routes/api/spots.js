@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {restoreUser,requireAuth} = require('../../utils/auth')
 const {validateSpot, validateReview, validateBooking} = require('../../utils/validation')
-const {Op} = require('sequelize')
 const {User,Spot,Image,Review,Booking, sequelize} =require('../../db/models');
-const { body,validationResult } = require('express-validator');
-const user = require('../../db/models/user');
+const {validationResult } = require('express-validator');
 router.get(
     '/',
     async (req,res)=>{
@@ -26,7 +24,7 @@ allSpots.forEach(spot=>{
 
 spotList.forEach(spot=>{
         spot.Images.forEach(image=>{
-            if(image.preview === true){
+            if(image.previewImage === true){
                 spot.previewImage = image.url
             }
             if(!spot.previewImage){
