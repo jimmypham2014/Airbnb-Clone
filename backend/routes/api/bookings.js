@@ -4,24 +4,30 @@ const {restoreUser,requireAuth} = require('../../utils/auth')
 const {User,Spot,Image,Review,Booking} =require('../../db/models');
 const { validateReview, validateBooking } = require('../../utils/validation');
 const { validationResult } = require('express-validator');
+const database = require('../../config/database');
 
 
 router.get('/current', requireAuth, async (req,res)=>{
-    const bookings = await Booking.findAll()
+    const bookings = await Booking.findAll({
+        include:{
+            model:Spot,
+            attributes:['id','address','city','state','country','lat','lng','name','description', 'previewImage','createdAt', 'updatedAt']
+        }
+    })
     if(!bookings){
         res.status(404).json({
             message: "You don't have any bookings",
             statusCode: 404
         })
     }
-    res.json(bookings)
+    res.json({currentUser:bookings})
 })
 
 router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
     const bookingId = req.params.id
     const{startDate,endDate} = req.body
     let todayDate = new Date();
-    // let todayDate = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+    
 
     const existingBook = await Booking.findOne({
         where:{
@@ -34,17 +40,41 @@ router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
             })
         }
 
-   
     const spotId = existingBook.spotId
     const existingBookingSpot = await Booking.findAll({
         where:{
             spotId
         }})
+ /* --------------------------------------------- */
+ let dates = []
+ const getDatesBetweenDates = (startDate, endDate) => {
 
-        const getAllBookingDates =((start,end)=>{
+    //to avoid modifying the original date
+    const theDate = new Date(startDate)
+    while (theDate <= endDate) {
+      dates = [...dates, new Date(theDate)]
+      theDate.setDate(theDate.getDate() + 1)
+    }
+    dates = [...dates, endDate]
+    console.log(dates)
+  }
 
-        })
-    
+const d1 = new Date(existingBook.startDate)
+const d2 = new Date(existingBook.endDate)
+
+getDatesBetweenDates(d1, d2)
+
+dates.forEach(date=>{
+    console.log(new Date(startDate),date)
+    if(new Date(startDate) === date){
+        res.json({message:'thers a conflict'})
+    }
+})
+      
+        
+
+/* --------------------------------------------- */
+
             /* this spot is already booked for the specified dates*/
             existingBookingSpot.map(eachSpot =>{
                 if(startDate === eachSpot.startDate && endDate === eachSpot.endDate){
@@ -70,7 +100,6 @@ router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
             })
         }
 
-  
         const errors = validationResult(req)
          if(!errors.isEmpty()){
         let errorObject = {}

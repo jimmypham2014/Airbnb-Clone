@@ -391,7 +391,6 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
             message:"Spot couldn't be found",
             statusCode: 404
         })
-
     }   else if(booking){
         const err = new Error("Sorry, this spot is already booked for the specified dates")
         err.status = 403
