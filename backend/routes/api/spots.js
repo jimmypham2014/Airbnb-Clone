@@ -12,8 +12,8 @@ router.get(
          page = parseInt(page);
          size = parseInt(size);
 
-        if (Number.isNaN(page)) page = 0;
-        if (Number.isNaN(size)) size = 3;
+        if (Number.isNaN(page)) page = 1;
+        if (Number.isNaN(size)) size = 20;
 
     const allSpots = await Spot.findAll({
         include:{
