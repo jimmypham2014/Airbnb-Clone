@@ -7,12 +7,21 @@ const {validationResult } = require('express-validator');
 router.get(
     '/',
     async (req,res)=>{
+        let { page, size } = req.query;
+
+         page = parseInt(page);
+         size = parseInt(size);
+
+        if (Number.isNaN(page)) page = 0;
+        if (Number.isNaN(size)) size = 3;
+
     const allSpots = await Spot.findAll({
         include:{
             model:Image,
         },
         attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
-
+        limit: size,
+        offset: size * (page - 1),
     });
 
     
@@ -33,9 +42,9 @@ spotList.forEach(spot=>{
             })
                  delete spot.Images
         })
-
-
-  res.json(spotList)
+  res.json({spotList,
+    page,
+    size})
 })
 
 
