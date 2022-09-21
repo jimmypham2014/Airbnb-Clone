@@ -383,6 +383,12 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         },
         where:{id:spotId}
     })
+    if(!spot){
+        res.status(404).json({
+            message:"Spot couldn't be found",
+            statusCode: 404
+        })
+    }
     const {startDate,endDate} =req.body
 
     const booking = await Booking.findOne({
@@ -395,12 +401,7 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
             return res.status(401).json({message:"You're not authorized to book your own spot",statuCode:401})
         }
 
-    if(!spot){
-        res.status(404).json({
-            message:"Spot couldn't be found",
-            statusCode: 404
-        })
-    }   else if(booking){
+       else if(booking){
         const err = new Error("Sorry, this spot is already booked for the specified dates")
         err.status = 403
         res.json({
