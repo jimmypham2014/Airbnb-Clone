@@ -13,14 +13,16 @@ module.exports = {
       },
       reviewImageId: {
         type: Sequelize.INTEGER,
-        references:{model:'Reviews',
-                    key: 'id'
+        references:{
+                  model:'Reviews',
+                  key: 'id'
                   }
       },
       spotImageId: {
         type: Sequelize.INTEGER,
-        references:{model:'Spots',
-                    key: 'id'
+        references:{
+                  model:'Spots',
+                  key: 'id'
                   }
       },
       previewImage: {
