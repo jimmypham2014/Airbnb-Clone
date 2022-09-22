@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
           models.Review,{foreignKey:'userId'}
         )
       User.hasMany(
-        models.Spot,{foreignKey: 'ownerId'}
+        models.Spot,{foreignKey: 'ownerId',onDelete:'cascade'}
         )
       User.hasMany(
         models.Booking,{foreignKey:'userId'}
@@ -103,7 +103,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         currentUser: {
-          attributes: { exclude: ["hashedPassword"] }
+          attributes: { exclude: ["hashedPassword",'username'] }
         },
         loginUser: {
           attributes: {}

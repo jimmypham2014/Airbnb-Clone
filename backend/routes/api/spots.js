@@ -271,16 +271,21 @@ async (req,res,next)=>{
 
 //delete a spot
 router.delete('/:id', requireAuth,async (req,res)=>{
-    const spotId = req.params.id
-    const spot = await Spot.findOne({where:{id:spotId}})
+    const {user} = req
+    const spot = await Spot.findOne({
+        where:{
+            id:req.params.id,
+            ownerId:user.id
+        }})
+ 
     if(!spot){
-        res.status(404).json({
+      return  res.status(404).json({
             message: "Spot couldn't be found",
             statusCode: 404
         })
     } else{
     await spot.destroy();
-    return res.json({
+    return res.status(200).json({
         message: "Successfully deleted",
       statusCode: 200
     })
@@ -361,7 +366,18 @@ router.get('/:id/reviews',requireAuth, async(req,res)=>{
     const spot = await Spot.findByPk(req.params.id)
 
     if(spot){
-        const existingReviews = await Review.findAll({where:{spotId:spot.id}})
+        const existingReviews = await Review.findAll({
+            include:[{
+                model:User,
+                attributes:['id','firstName','lastName']
+            },{
+                model:Image,
+                attributes:{exclude:['spotImageId']}
+            }
+        ],
+            where:{spotId:spot.id},
+            attributes:{exclude:['previewImage']}
+        })
         res.json(existingReviews)
     }else {
         res.status(404).json({

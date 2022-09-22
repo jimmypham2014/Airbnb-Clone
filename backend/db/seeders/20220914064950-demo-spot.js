@@ -25,7 +25,7 @@ module.exports = {
       pricePerNight: 123
      },{
       id: 2,
-      ownerId: 1,
+      ownerId: 2,
       address: "123 Disney Lane",
       city: "San Francisco",
       state: "California",
@@ -37,7 +37,7 @@ module.exports = {
       pricePerNight: 123
      },{
       id: 3,
-      ownerId: 1,
+      ownerId: 3,
       address: "123 Disney Lane",
       city: "San Francisco",
       state: "California",

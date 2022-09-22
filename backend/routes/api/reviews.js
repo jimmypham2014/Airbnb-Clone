@@ -99,7 +99,10 @@ router.get('/current',requireAuth, async (req,res) =>{
 //edit reviews
 router.put('/:id',requireAuth,validateReview,async(req,res)=>{
     const reviewId = req.params.id
-    const existingReview = await Review.findOne({where:{id:reviewId}})
+    const existingReview = await Review.findOne({
+        where:{id:reviewId},
+        attributes:{exclude:['previewImage']}
+    })
 
     if(!existingReview){
         const err = new Error("Review couldn't be found")

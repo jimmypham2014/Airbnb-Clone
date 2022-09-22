@@ -38,6 +38,14 @@ router.post(
       const existingEmail = await User.findOne({where:{email}})
 
 
+      if(existingEmail){
+        return res.status(403).json({     
+            message: "Validation error",
+            statusCode: 403,
+             errors: {
+              email: "User with that email already exists"
+        }})
+      }
       if(existingUsername){
         return res.status(403).json({   
            message: "User already exists",
@@ -45,14 +53,7 @@ router.post(
             errors: {
             username: "User with that username already exists"
         }})
-      } else if(existingEmail){
-        return res.status(400).json({     
-            message: "Validation error",
-            statusCode: 400,
-             errors: {
-              email: "User with that email already exists"
-        }})
-      }
+      } 
 
         const errors = validationResult(req)
         if(!errors.isEmpty()){

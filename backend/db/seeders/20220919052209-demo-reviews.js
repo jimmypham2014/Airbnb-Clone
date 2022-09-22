@@ -11,14 +11,14 @@ module.exports = {
       stars: 5,
      },{
       id: 2,
-      userId: 1,
-      spotId: 1,
+      userId: 2,
+      spotId: 2,
       review: "This place is so goooodd",
       stars: 4,
      },{
       id: 3,
-      userId: 1,
-      spotId: 1,
+      userId: 3,
+      spotId: 3,
       review: "LAMEEEE spot",
       stars: 3,
      },
