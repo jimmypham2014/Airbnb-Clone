@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
           models.Review,{foreignKey:'userId'}
         )
       User.hasMany(
-        models.Spot,{foreignKey: 'ownerId',onDelete:'cascade'}
+        models.Spot,{foreignKey: 'ownerId'}
         )
       User.hasMany(
         models.Booking,{foreignKey:'userId'}
