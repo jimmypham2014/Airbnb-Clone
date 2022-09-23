@@ -12,7 +12,6 @@ module.exports = {
      * }], {});
     */
      await queryInterface.bulkInsert('Spots', [{
-      id: 1,
       ownerId: 1,
       address: "123 Disney Lane",
       city: "San Francisco",
@@ -24,7 +23,6 @@ module.exports = {
       description: "Place where web developers are created",
       pricePerNight: 123
      },{
-      id: 2,
       ownerId: 2,
       address: "123 Disney Lane",
       city: "San Francisco",
@@ -36,7 +34,6 @@ module.exports = {
       description: "Place where web developers are created",
       pricePerNight: 123
      },{
-      id: 3,
       ownerId: 3,
       address: "123 Disney Lane",
       city: "San Francisco",

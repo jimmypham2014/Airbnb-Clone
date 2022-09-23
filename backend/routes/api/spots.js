@@ -7,13 +7,22 @@ const {validationResult } = require('express-validator');
 router.get(
     '/',
     async (req,res)=>{
-        let { page, size } = req.query;
+        let query = {
+            where: {},
+            include: []
+        };
+    
 
-         page = parseInt(page);
-         size = parseInt(size);
+    let { maxLat,minLat,minLng,maxLng,minPrice,maxPrice} = req.query;
 
-        if (Number.isNaN(page)) page = 1;
-        if (Number.isNaN(size)) size = 20;
+   const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+    const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+
+
+    if (page >= 1 && size >= 1) {
+        query.limit = size;
+        query.offset = size * (page - 1);
+    }
 
     const allSpots = await Spot.findAll({
         include:{
@@ -21,8 +30,6 @@ router.get(
         },
         attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
         ORDER:['id','DESC'],
-        limit: size,
-        offset: size * (page - 1),
     });
 
     
@@ -54,7 +61,9 @@ router.post('/',requireAuth,
   validateSpot,
 async (req,res,next)=>{
     const ownerId = req.user.id
+    
     const errors = validationResult(req)
+
     if(!errors.isEmpty()){
         //putting objects together
         let errorObject = {}
