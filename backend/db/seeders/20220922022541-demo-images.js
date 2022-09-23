@@ -3,17 +3,14 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Images', [{
-      id: 1,
       reviewImageId: 1,
       spotImageId: 1,
       url: "image url",
      },{
-      id: 2,
       reviewImageId: 2,
       spotImageId: 2,
       url: "image url",
      },{
-      id: 3,
       reviewImageId: 3,
       spotImageId: 3,
       url: "image url",

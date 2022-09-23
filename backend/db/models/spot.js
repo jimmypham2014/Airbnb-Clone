@@ -123,6 +123,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    defaultScope: {
+      attributes: {
+        exclude: ["numReviews", "avgRating", "previewImage"]
+      }
+    },
   });
   return Spot;
 };
