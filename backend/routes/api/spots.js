@@ -61,7 +61,7 @@ router.post('/',requireAuth,
   validateSpot,
 async (req,res,next)=>{
     const ownerId = req.user.id
-    
+
     const errors = validationResult(req)
 
     if(!errors.isEmpty()){
@@ -174,6 +174,7 @@ router.get('/:id',requireAuth,async(req,res)=>{
             model:User,
             attributes:['id','firstName','lastName']
         }],
+        attributes:['id','address','city','state','country','lat','lng','name','description','pricePerNight','numReviews','avgRating','previewImage','createdAt','updatedAt']
     })
     if(!existingSpot){
         res.status(404).json({
