@@ -7,22 +7,16 @@ const {validationResult } = require('express-validator');
 router.get(
     '/',
     async (req,res)=>{
-        let query = {
-            where: {},
-            include: []
-        };
-    
+        let { page, size } = req.query;
+
+        page = parseInt(page);
+        size = parseInt(size);
+      
+        if (Number.isNaN(page)) page = 1;
+        if (Number.isNaN(size)) size = 20;
 
     let { maxLat,minLat,minLng,maxLng,minPrice,maxPrice} = req.query;
 
-   const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
-    const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
-
-
-    if (page >= 1 && size >= 1) {
-        query.limit = size;
-        query.offset = size * (page - 1);
-    }
 
     const allSpots = await Spot.findAll({
         include:{
@@ -30,6 +24,8 @@ router.get(
         },
         attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
         ORDER:['id','DESC'],
+        limit: size,
+        offset: size * (page - 1),
     });
 
     
@@ -388,7 +384,7 @@ router.get('/:id/reviews',requireAuth, async(req,res)=>{
             where:{spotId:spot.id},
             attributes:{exclude:['previewImage']}
         })
-        res.json(existingReviews)
+        res.json({Review:existingReviews})
     }else {
         res.status(404).json({
             message:"Spot couldn't be found",
