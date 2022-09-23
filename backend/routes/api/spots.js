@@ -426,10 +426,9 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
 
        else if(booking){
         const err = new Error("Sorry, this spot is already booked for the specified dates")
-        err.status = 403
-        res.json({
+        res.status(403).json({
             message: err.message,
-            statusCode: err.status,
+            statusCode:403,
             errors:{
                 startDate: "Start date conflicts with an existing booking",
                 endDate: "End date conflicts with an existing booking"

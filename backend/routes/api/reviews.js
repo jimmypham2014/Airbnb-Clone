@@ -126,7 +126,7 @@ router.put('/:id',requireAuth,validateReview,async(req,res)=>{
             errorArray.forEach(error =>{
                 errorObject = {...errorObject,...error}
             })
-            return res.json({
+            return res.status(400).json({
                 message:"Validation error",
                 statusCode: 400,
                 errors: errorObject
