@@ -305,16 +305,15 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     const spotId = req.params.id
     const {user} = req
 
-    const existingReview = await Review.findAll({where:{spotId:spotId}})
+    const existingReview = await Review.findOne({where:{spotId,userId:user.id}})
 
-    existingReview.forEach(review=>{
-        if(review.userId === user.id){
-            res.status(403).json({
+        if(existingReview){
+           return res.status(403).json({
                 message: 'User already has a review for this spot',
                 statusCode:403
             })
         }
-    })
+ 
 
     const spot = await Spot.findOne({ 
         where:{id:spotId}
@@ -322,10 +321,9 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
 
     if(!spot){
         const err = new Error("Spot couldn't be found")
-        err.status = 404
-        res.json({
+        return res.status(400).json({
             message: err.message,
-            statusCode: err.status
+            statusCode: 400
         })
 
     }
@@ -382,7 +380,8 @@ router.get('/:id/reviews',requireAuth, async(req,res)=>{
             }
         ],
             where:{spotId:spot.id},
-            attributes:{exclude:['previewImage']}
+            attributes:{exclude:['previewImage']},
+            ORDER:['id','DESC']
         })
         res.json({Review:existingReviews})
     }else {
