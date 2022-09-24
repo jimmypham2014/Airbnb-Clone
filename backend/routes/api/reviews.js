@@ -106,10 +106,9 @@ router.put('/:id',requireAuth,validateReview,async(req,res)=>{
 
     if(!existingReview){
         const err = new Error("Review couldn't be found")
-        err.status = 404
-        res.json({
+        return res.status(404).json({
             message: err.message,
-            statusCode: err.status
+            statusCode: 404
         })
     } else{
 

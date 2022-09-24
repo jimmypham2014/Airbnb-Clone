@@ -321,9 +321,9 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
 
     if(!spot){
         const err = new Error("Spot couldn't be found")
-        return res.status(400).json({
+        return res.status(404).json({
             message: err.message,
-            statusCode: 400
+            statusCode: 404
         })
 
     }
