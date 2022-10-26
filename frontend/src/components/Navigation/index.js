@@ -1,19 +1,34 @@
 // frontend/src/components/Navigation/index.js
-import React from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import LanguageIcon from '@mui/icons-material/Language';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import SignupFormModal from '../SignupFormModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
+import * as sessionActions from '../../store/session';
+
 
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  const [open, setOpen] = useState(false);
+  let menuRef = useRef()
+useEffect(()=>{
+
+
+  let handleSubmit = (e)=>{
+    if(menuRef.current.contains(e.target)){
+    setOpen(false)
+    }
+  }
+  document.addEventListener('mousedown',handleSubmit)
+
+},[])
+
+
 
   let sessionLinks;
   if (sessionUser) {
@@ -23,17 +38,13 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <div>
-             <LoginFormModal />
+             <LoginFormModal/>
              <SignupFormModal/>
-
-        <div className='header__right'>
-        <MenuSharpIcon/>
-        <AccountCircleSharpIcon fontSize='large' color='gray'/>
-        </div>
-
        </div>
     );
   }
+
+
 
   return (
     <div className='header'>
@@ -45,24 +56,47 @@ function Navigation({ isLoaded }){
         </div>
 
         <div className='header__center'>
-            <input type='text' placeholder='Start your search'/>
-            <SearchIcon/>
+            <button>Anywhere</button>
+            <span></span>
+            <button>Any week</button>
+            <span></span>
+            <button>Add Guests 
+            
+            <div className='search__icon'>
+              <FontAwesomeIcon icon={faSearch} className='icon'/>
+            </div>
+            </button> 
         </div>
         
 
         <div className='header__right'>
-        <div className='become_a_host'>
-        <p>Become a host</p>
-        </div>
-        <div> 
-        <LanguageIcon/> 
-        </div>
-      
-        <di>
-        {isLoaded}
-        {sessionLinks}
-        </di>
-      
+           <a href='' className='header__right_btn grey-hover'>Become a host
+           </a>
+            <button className='header__right_btn grey-hover' >
+            <FontAwesomeIcon icon={faGlobe} className='globe'/>
+            </button>
+
+         
+          <button className='' onClick={()=>{setOpen(!open)}} >
+          <div className='header__menu'>
+          <FontAwesomeIcon icon={faBars} className='menu__bar'/>
+          <FontAwesomeIcon icon={faUser} className='user'/>
+          </div>
+          </button>
+          <div className={`dropdown-menu ${open ? 'active' :'inactive'} `} ref={menuRef} >
+           
+            {isLoaded}
+            {sessionLinks}
+            <span></span>
+            <div>
+              <button>Host your home</button>
+              <button>Host an experience</button>
+              <button>Help</button>
+
+            </div>
+          
+          </div>
+
         </div>
          
     </div>

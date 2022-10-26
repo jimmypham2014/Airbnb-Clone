@@ -1,9 +1,10 @@
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link, Route } from "react-router-dom";
 import testImage from '../../images/testing.jpg'
 import { getAllSpots } from "../../store/spot";
 import './SpotBrowser.css'
+import SpotDetails from "./SpotDetails";
 
 const SpotBrowser = ()=>{
   const dispatch = useDispatch()
@@ -18,14 +19,13 @@ const spot = useSelector(state =>{
 })
 
 const allSpots = Object.values(spot)
-console.log(allSpots, 'sdfdsfds')
 
 return(
  <main className="spot__display">
  {allSpots.map((spot)=>{
   return (
    <div >
-    <NavLink key={spot.id} to={`/`}>
+    <Link key={spot.id} to={`/spots/${spot.id}`}>
     <div className="=nav-spot-image"
       style={{backgroundImage: `url('${testImage})`}}
     >
@@ -34,10 +34,13 @@ return(
     <div className="rating">{spot.pricePerNight}</div>
     
     
-    </NavLink>
+    </Link>
     </div>
   )
  })}
+ <Route path='/spots/:spotId'>
+ <SpotDetails/>
+ </Route>
  
  </main>
 
