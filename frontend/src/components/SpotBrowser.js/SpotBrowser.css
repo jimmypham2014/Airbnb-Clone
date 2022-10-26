@@ -1,0 +1,9 @@
+.spot__display{
+    display: flex;
+    justify-content: space-evenly;
+    align-content: space-between;
+}
+
+.primary-text{
+    display: flex;
+}

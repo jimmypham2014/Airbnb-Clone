@@ -1,0 +1,53 @@
+.header{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        z-index:100;
+        width: 100%;
+}
+
+.header >svg{
+    object-fit: contain;
+    width: 5%;
+}
+
+.header__center{
+    display: flex;
+    margin-right: 10%;
+    justify-content: center;
+    justify-items: center;
+    margin-left: 15%;
+    max-width: fit-content;
+    padding: 10px;
+    height: 30px;
+    border: 1px solid lightgray;
+    border-radius: 999px;
+}
+
+.header__center > input{
+    display: flex;
+    justify-content: center;
+    border: none;
+    width: 250px;
+    padding: 10px;
+    outline-width: 0;
+}
+
+.become_a_host{
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-evenly
+}
+.header__right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+

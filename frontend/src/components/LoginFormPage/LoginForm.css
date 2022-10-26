@@ -1,0 +1,32 @@
+.login__form{
+  position: absolute;
+  width: 100%;
+  padding: 1.25rem;
+}
+
+.login__form input {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+    padding: 0.875rem 1rem;
+    width: 100%;
+  }
+
+  .login__btn {
+    background-color: #ff385c;
+    border: 0;
+    color: #fff;
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.25rem auto;
+    outline: none;
+    padding: 0.875rem 1rem;
+  }
+
+  .login__btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
