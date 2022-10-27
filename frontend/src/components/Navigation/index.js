@@ -1,6 +1,6 @@
 // frontend/src/components/Navigation/index.js
 import React, {useState, useEffect,useRef} from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
@@ -9,24 +9,32 @@ import SignupFormModal from '../SignupFormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
 import * as sessionActions from '../../store/session';
+import CreateSpotForm from '../SpotBrowser/CreateSpotForm';
+import {Route} from 'react-router-dom'
 
 
 
 function Navigation({ isLoaded }){
+  const history = useHistory()
   const sessionUser = useSelector(state => state.session.user);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
+  const [showForm,setShowForm]=useState(false)
   let menuRef = useRef()
-useEffect(()=>{
 
 
+  useEffect(()=>{
   let handleSubmit = (e)=>{
-    if(menuRef.current.contains(e.target)){
+    if(!menuRef.current.contains(e.target)){
     setOpen(false)
     }
   }
   document.addEventListener('mousedown',handleSubmit)
 
 },[])
+
+function form(){
+  history.push('/spots/form')
+}
 
 
 
@@ -70,8 +78,8 @@ useEffect(()=>{
         
 
         <div className='header__right'>
-           <a href='' className='header__right_btn grey-hover'>Become a host
-           </a>
+           <NavLink className='header__right_btn grey-hover' to='/spots/form'>Become a host
+           </NavLink>
             <button className='header__right_btn grey-hover' >
             <FontAwesomeIcon icon={faGlobe} className='globe'/>
             </button>
@@ -88,8 +96,7 @@ useEffect(()=>{
             {isLoaded}
             {sessionLinks}
             <span></span>
-            <div>
-              <button>Host your home</button>
+            <div className='host_your_home'>
               <button>Host an experience</button>
               <button>Help</button>
 

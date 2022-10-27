@@ -38,6 +38,9 @@ body{
     padding: 10px;
     outline-width: 0;
 }
+.header__center:hover{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
 
 .header__right{
     display: flex;
@@ -147,4 +150,13 @@ body{
     width: 24px;
     height: 1px;
     background: gray;
+  }
+  .host_your_home{
+    padding: 10px 0;
+    border-top: 1px solid rgba(0,0,0.05);
+  }
+  .host_your_home button:hover{
+    color: rgb(212, 33, 9);
+    opacity: 1;
+    cursor: pointer;
   }

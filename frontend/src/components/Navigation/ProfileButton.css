@@ -1,0 +1,9 @@
+.profile-dropdown {
+    list-style: none;
+}
+
+.profile-dropdown button:hover{
+    color: rgb(212, 33, 9);
+    opacity: 1;
+    cursor: pointer;
+}
