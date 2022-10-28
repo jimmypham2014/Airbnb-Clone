@@ -27,7 +27,7 @@ return(
    <div >
     <Link key={spot.id} to={`/spots/${spot.id}`}>
     <div className="=nav-spot-image"
-      style={{backgroundImage: `url('${testImage})`}}
+      style={{backgroundImage: `url('${spot.previewImage})`}}
     >
     </div>
     <div className="primary-text">{spot.name}</div>
@@ -38,9 +38,7 @@ return(
     </div>
   )
  })}
- <Route path='/spots/:spotId'>
- <SpotDetails/>
- </Route>
+
  
  </main>
 

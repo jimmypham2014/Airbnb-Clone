@@ -12,7 +12,6 @@ const spot = useSelector(state =>{
     return state.spots[spotId]
   })
   
-  console.log(spot)
 
 
 useEffect(()=>{
@@ -25,16 +24,16 @@ return(
    <div className='spot-detail-lists'>
     
    <div>
-    <h1>{spot.name}</h1>
+    <h1>{spot?.name}</h1>
    
-    <p>{spot.name} hosted by owner's name</p>
+    <p>{spot?.name} hosted by owner's name</p>
    </div>
 
-   <div>{spot.address}</div>
+   <div>{spot?.address}</div>
 
-   <div>{spot.pricePerNight}</div>
+   <div>{spot?.pricePerNight}</div>
 
-   <div>{spot.avgRating}</div>
+   <div>{spot?.avgRating}</div>
    
    
    </div>

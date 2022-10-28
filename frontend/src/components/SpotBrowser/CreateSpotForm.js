@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { createASpot } from "../../store/spot"
 import { ValidationError } from "../../utils/validationError"
 import ErrorMessage from "./ErrorMessage"
+import './CreateSpotForm.css'
 
 const CreateSpotForm =()=>{
 const history = useHistory();
@@ -18,6 +19,7 @@ const [name,setName] = useState('')
 const [description,setDescription] = useState('')
 const [pricePerNight, setPricePerNight] =useState(0)
 const [imageUrl, setImageUrl] = useState('');
+const [country, setCountry] = useState('')
 const [errorMessages, setErrorMessages] = useState({});
 const [errors, setErrors] = useState([]);
 
@@ -32,6 +34,8 @@ const payload ={
         address,
         city,
         state,
+        country,
+        imageUrl,
         lat,
         lng,
         name,
@@ -51,15 +55,15 @@ const payload ={
 
 const handleCancelClick=(e)=>{
     e.preventDefault()
-    setErrorMessages({})
 }
+
 
     return(
         
         <section className='new-form'>
             <h1> Enter Your Information Below</h1>
-            <ErrorMessage message={errorMessages.overall} />
-            <form className='create-spot-form' onClick={handleSubmit}>
+            <div className="hello">
+            <form className='create-spot-form' onSubmit={handleSubmit}>
    
             <input
             type='text'
@@ -68,7 +72,7 @@ const handleCancelClick=(e)=>{
             value={address}
             onChange={(e) =>setAddress(e.target.value)}
             />
-            <ErrorMessage label={"Address"} message={errorMessages.address} />
+            
 
             <input
             type='text'
@@ -77,8 +81,7 @@ const handleCancelClick=(e)=>{
             value={city}
             onChange={(e) =>setCity(e.target.value)}
             />
-            <ErrorMessage label={"City"} message={errorMessages.city} />
-
+            
             <input
             type='text'
             placeholder="State"
@@ -86,7 +89,14 @@ const handleCancelClick=(e)=>{
             value={state}
             onChange={(e) =>setState(e.target.value)}
             />
-            <ErrorMessage label={"State"} message={errorMessages.state} />
+            <input
+            type='text'
+            placeholder="Country"
+            required
+            value={country}
+            onChange={(e) =>setCountry(e.target.value)}
+            />
+      
 
             <input
             type='number'
@@ -95,7 +105,7 @@ const handleCancelClick=(e)=>{
             value={lat}
             onChange={(e) =>setLat(e.target.value)}
             />
-            <ErrorMessage label={"Lat"} message={errorMessages.lat} />
+        
 
             <input
             type='number'
@@ -104,7 +114,7 @@ const handleCancelClick=(e)=>{
             value={lng}
             onChange={(e) =>setLng(e.target.value)}
             />
-            <ErrorMessage label={"Lng"} message={errorMessages.lng} />
+           
 
             <input
             type='text'
@@ -113,7 +123,7 @@ const handleCancelClick=(e)=>{
             value={name}
             onChange={(e) =>setName(e.target.value)}
             />
-            <ErrorMessage label={"Name"} message={errorMessages.name} />
+         
 
             <textarea
             placeholder="Description"
@@ -121,15 +131,15 @@ const handleCancelClick=(e)=>{
             value={description}
             onChange={(e) =>setDescription(e.target.value)}
             />
-            <ErrorMessage label={"Description"} message={errorMessages.description} />
+        
 
             <input
-          type="text"
+          type="file"
           placeholder="Image URL"
           value={imageUrl}
           onChange={(e)=>setImageUrl(e.target.value)} 
           />
-          <ErrorMessage label={"Imageg Url"} message={errorMessages.imageUrl} />
+         
 
           <input
             type='number'
@@ -138,11 +148,11 @@ const handleCancelClick=(e)=>{
             value={pricePerNight}
             onChange={(e) =>setPricePerNight(e.target.value)}
             />
-            <ErrorMessage label={"Price Per Night"} message={errorMessages.pricePerNight} />
+    
             <button type="submit" >Create new Spot</button>
             <button type="button" onClick={handleCancelClick}>Cancel</button>
         </form>
-        
+        </div>
         </section>
     )
 

@@ -1,0 +1,31 @@
+.new-form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.new-form{
+    background: url('../../images/testing.jpg') no-repeat center center;
+    background-position: fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+    height: 100vh; 
+    background-attachment: fixed;
+    opacity: 0.75;
+
+}
+
+.create-spot-form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.create-spot-form input {
+    padding:10px;
+    border-radius:10px;
+    margin:10px 0;
+  }
