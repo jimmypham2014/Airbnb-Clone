@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import SpotBrowser from "./components/SpotBrowser/index.js";
 import SpotDetails from "./components/SpotBrowser/SpotDetails";
 import CreateSpotForm from "./components/SpotBrowser/CreateSpotForm";
+import GetSpotsOfCurrentUser from "./components/SpotBrowser/GetSpotsOfCurrentUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +39,10 @@ function App() {
             <SpotDetails/>
           </Route>
 
-       
+          <Route path ='/myspots'>
+          <GetSpotsOfCurrentUser/>
+        </Route>
+
 
         </Switch>
       )}

@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getSingleSpotDetail} from '../../store/spot'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare,faHeart } from '@fortawesome/free-solid-svg-icons';
+import './SpotBrowser.css'
 
 
 const SpotDetails =()=>{
+
 const dispatch = useDispatch()
 const {spotId} = useParams()
 
 const spot = useSelector(state =>{
     return state.spots[spotId]
   })
-  
 
 
 useEffect(()=>{
@@ -25,9 +28,20 @@ return(
     
    <div>
     <h1>{spot?.name}</h1>
-   
-    <p>{spot?.name} hosted by owner's name</p>
+    </div>
+   <div className='details'>
+   {spot.avgRating} {spot.city}, {spot.state}
+   <FontAwesomeIcon icon={faArrowUpRightFromSquare} />Share
+   <FontAwesomeIcon icon={faHeart}/>Save
+ 
    </div>
+
+   <div>
+   <img src={spot.previewImage} alt=''/>
+   </div>
+
+
+
 
    <div>{spot?.address}</div>
 

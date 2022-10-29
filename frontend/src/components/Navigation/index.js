@@ -32,11 +32,6 @@ function Navigation({ isLoaded }){
 
 },[])
 
-function form(){
-  history.push('/spots/form')
-}
-
-
 
   let sessionLinks;
   if (sessionUser) {

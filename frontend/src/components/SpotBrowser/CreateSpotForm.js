@@ -18,7 +18,7 @@ const [lng,setLng] = useState(0)
 const [name,setName] = useState('')
 const [description,setDescription] = useState('')
 const [pricePerNight, setPricePerNight] =useState(0)
-const [imageUrl, setImageUrl] = useState('');
+const [previewImage, setPreviewImage] = useState(null);
 const [country, setCountry] = useState('')
 const [errorMessages, setErrorMessages] = useState({});
 const [errors, setErrors] = useState([]);
@@ -29,13 +29,12 @@ const handleSubmit= async (e)=>{
 
 e.preventDefault();
 
-   
 const payload ={
         address,
         city,
         state,
         country,
-        imageUrl,
+        previewImage,
         lat,
         lng,
         name,
@@ -51,7 +50,10 @@ const payload ={
     );
 }
 
-
+const updateFile = (e) => {
+  const file = e.target.files[0];
+  if (file) setPreviewImage(file);
+};
 
 const handleCancelClick=(e)=>{
     e.preventDefault()
@@ -61,10 +63,10 @@ const handleCancelClick=(e)=>{
     return(
         
         <section className='new-form'>
-            <h1> Enter Your Information Below</h1>
+        
             <div className="hello">
             <form className='create-spot-form' onSubmit={handleSubmit}>
-   
+          
             <input
             type='text'
             placeholder="Address"
@@ -135,9 +137,9 @@ const handleCancelClick=(e)=>{
 
             <input
           type="file"
+          name="previewImage"
           placeholder="Image URL"
-          value={imageUrl}
-          onChange={(e)=>setImageUrl(e.target.value)} 
+          onChange={updateFile} 
           />
          
 

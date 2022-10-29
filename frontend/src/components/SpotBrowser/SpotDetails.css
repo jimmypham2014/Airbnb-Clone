@@ -1,0 +1,9 @@
+.details {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.spot-detail-lists img {
+  width: 50%;
+  height: 50%;
+}

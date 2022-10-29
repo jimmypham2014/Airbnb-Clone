@@ -20,12 +20,44 @@
 
 .create-spot-form{
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 
 
 .create-spot-form input {
+    margin:10px 0;
+    padding:10px;
+    border-radius:10px;
+    
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    width: 10%;
+    outline: none;
+  }
+  .create-spot-form input:hover{
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .create-spot-form textarea{
     padding:10px;
     border-radius:10px;
     margin:10px 0;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    width: 20%;
+    height: 50%;
+    outline: none;
+  }
+  .create-spot-form textarea:hover{
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+  }
+  input, textarea {
+    font-family:inherit;
+    font-size: inherit;
+  }
+  button{
+    appearance:none;
+    -webkit-appearance:none;
+    margin: 10px 0;
   }

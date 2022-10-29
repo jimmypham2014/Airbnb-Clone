@@ -49,7 +49,12 @@ function ProfileButton({ user }) {
           <NavLink to='/spots/form'>
           Create A Spot
           </NavLink>
-         
+          </li>
+          <li>
+           <NavLink to ='/spots/myspots'>
+           All My Spots
+           
+           </NavLink>
           
           </li>
           <li>

@@ -15,12 +15,33 @@ export const addOneSpot = spot =>({
 })
 
 export const createASpot =(data) => async (dispatch) =>{
+    const{ address,city,state,country,previewImage,lat,lng,name, description, pricePerNight} = data
+    console.log(data)
+
+    const formData = new FormData()
+    formData.append("address",address)
+    formData.append("city",city)
+    formData.append("state",state)
+    formData.append("name",name)
+    formData.append("country",country)
+    formData.append("lat",lat)
+    formData.append("lng",lng)
+    formData.append("description",description)
+    formData.append("pricePerNight",pricePerNight)
+
+
+    if (previewImage) formData.append("previewImage", previewImage);
+    for(const dataFiles of formData.entries()){
+        console.log(dataFiles)
+      }
+    
+
   const response = await csrfFetch(`/api/spots`,{
     method:"POST",
     headers:{
-        "Content-Type":"application/json"
+        "Content-Type": "multipart/form-data",
     },
-    body:JSON.stringify(data)
+       body: formData
   })
   if(response.ok){
     const spot = await response.json()

@@ -9,9 +9,21 @@
 }
 .spot__display{
     display: grid;
-    grid-template-columns: auto auto auto ;
+    grid-template-columns: auto auto auto;
     background-color: white;
     padding: 10px;
-    column-gap: 50px;
+    column-gap: 9px;
     row-gap: 50px;
+}
+
+.spot-image img{
+    height: 275px;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 12px;
+
+}
+.spot-image img:hover{
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
