@@ -1,4 +1,6 @@
 // backend/routes/api/users.js
+const {singlePublicFileUpload} = require('../../awsS3')
+const {singleMulterUpload }=require('../../awsS3')
 const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
@@ -90,5 +92,8 @@ router.post(
        const allUsers = await User.findAll()
        res.json(allUsers)
     })
+
+
+
 
 module.exports = router;

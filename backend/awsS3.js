@@ -1,19 +1,35 @@
+const dotenv = require('dotenv')
+
 const AWS = require("aws-sdk");
 // name of your bucket here
 const NAME_OF_BUCKET = "firstprojectclone";
 
 const multer = require("multer");
 
+require("dotenv").config();
+
 //  make sure to set environment variables in production for:
-//  AWS_ACCESS_KEY_ID
-//  AWS_SECRET_ACCESS_KEY
+const bucketRegion = 'us-west-1'
+const accessKeyId= process.env.AWS_ACCESS_KEY_ID
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
 //  and aws will automatically use those environment variables
 
-const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+const s3 = new AWS.S3({ 
+
+    credentials:{
+        accessKeyId,
+       secretAccessKey,
+    },
+   
+    apiVersion: "2006-03-01" 
+
+});
 
 // --------------------------- Public UPLOAD ------------------------
 
 const singlePublicFileUpload = async (file) => {
+    console.log(file.buffer)
+
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
   // name of the file in your S3 bucket will be the date in ms plus the extension name
@@ -22,7 +38,6 @@ const singlePublicFileUpload = async (file) => {
     Bucket: NAME_OF_BUCKET,
     Key,
     Body: buffer,
-    ACL: "public-read",
   };
   const result = await s3.upload(uploadParams).promise();
 
@@ -49,6 +64,7 @@ const singlePrivateFileUpload = async (file) => {
     Bucket: NAME_OF_BUCKET,
     Key,
     Body: buffer,
+    ACL:'public-read',
   };
   const result = await s3.upload(uploadParams).promise();
 

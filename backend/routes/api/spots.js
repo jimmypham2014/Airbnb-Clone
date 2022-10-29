@@ -1,4 +1,5 @@
-import { singlePublicFileUpload, singleMulterUpload } from '../../awsS3';
+const {singlePublicFileUpload} = require('../../awsS3')
+const {singleMulterUpload }=require('../../awsS3')
 
 
 const express = require('express');
@@ -57,40 +58,44 @@ spotList.forEach(spot=>{
 
 //CREATE A SPOT --------------------------------------------------
 router.post('/',requireAuth, 
-  validateSpot,
+  validateSpot,singleMulterUpload('previewImage'),
 async (req,res,next)=>{
+    const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
     const ownerId = req.user.id
 
-    const errors = validationResult(req)
+    // const errors = validationResult(req)
 
-    if(!errors.isEmpty()){
-        //putting objects together
-        let errorObject = {}
-        let errorArray = errors.errors.map(e=> {
-            let key = e.param
-            let value = e.msg
-            return {
-                [key] : value
-            }
-        })
-        errorArray.forEach(error =>{
-            errorObject = {...errorObject,...error} 
-        })
+    // if(!errors.isEmpty()){
+    //     //putting objects together
+    //     let errorObject = {}
+    //     let errorArray = errors.errors.map(e=> {
+    //         let key = e.param
+    //         let value = e.msg
+    //         return {
+    //             [key] : value
+    //         }
+    //     })
+    //     errorArray.forEach(error =>{
+    //         errorObject = {...errorObject,...error} 
+    //     })
 
-        return res.status(400).json({
-            message: "Validation Error",
-            statusCode: 400,
-            errors:errorObject
-        })
-    }
+    //     return res.status(400).json({
+    //         message: "Validation Error",
+    //         statusCode: 400,
+    //         errors:errorObject
+    //     })
+    // }
+console.log(req.file)
+console.log(req.body)
+req.file.buffer
+
+    const previewImage = await singlePublicFileUpload(req.file)
   
-    const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
+    const newSpot = await Spot.create({ownerId, address,city,state,country,lat,lng,name,description,pricePerNight,previewImage})
   
-    const newSpot = await Spot.create({ownerId, address,city,state,country,lat,lng,name,description,pricePerNight})
-  
-    res.json(newSpot)
+   return  res.json(newSpot)
   })
-  
+
 // ...
 
 //add an image to a spot based on the spot'id ----------------------------------------------------
@@ -492,29 +497,6 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
 
 
     // AVERAGE number of review
-
-
-    router.post(
-        "/",
-        singleMulterUpload("image"),
-        validateSignup,
-        asyncHandler(async (req, res) => {
-          const { email, password, username } = req.body;
-          const profileImageUrl = await singlePublicFileUpload(req.file);
-          const user = await User.signup({
-            username,
-            email,
-            password,
-            profileImageUrl,
-          });
-      
-          setTokenCookie(res, user);
-      
-          return res.json({
-            user,
-          });
-        })
-      );
 
 
 
