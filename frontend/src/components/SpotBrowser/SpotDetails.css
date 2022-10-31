@@ -1,9 +1,37 @@
+.spot-detail-lists{
+  position: relative;
+}
+
 .details {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .spot-detail-lists img {
   width: 50%;
   height: 50%;
+}
+
+.details_right {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.details_right span {
+  margin: 10px;
+  color: #222222;
+}
+
+.details_right #share:hover {
+  background-color: #f7f7f7;
+  padding: 5px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  cursor: pointer;
+}
+.details_right #save:hover{
+  background-color: #f7f7f7;
+  padding: 5px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  cursor: pointer;
 }

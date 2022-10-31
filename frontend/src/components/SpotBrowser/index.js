@@ -1,16 +1,15 @@
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink,Link, Route } from "react-router-dom";
-import testImage from '../../images/testing.jpg'
 import { getAllSpots } from "../../store/spot";
+import LoginFormModal from "../LoginFormModal";
 import GetSpotsOfCurrentUser from "./GetSpotsOfCurrentUser";
 import './SpotBrowser.css'
-import SpotDetails from "./SpotDetails";
 
 const SpotBrowser = ()=>{
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user);
-  console.log(sessionUser)
+
 
 
 useEffect(()=>{
@@ -23,15 +22,12 @@ const spot = useSelector(state =>{
 })
 
 const allSpots = Object.values(spot)
+console.log(allSpots)
 
-console.log(sessionUser.id)
-
-const currentSpots = allSpots.find(spot => spot.owerId == sessionUser.id)
-
-console.log(currentSpots)
 
 return(
  <main className="spot__display">
+
  {allSpots.map((spot)=>{
   return (
    <div >

@@ -1,25 +1,28 @@
 import { useState,useEffect} from "react"
-import { addOneSpot } from "../../store/spot"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from 'react-router-dom';
-import { createASpot } from "../../store/spot"
+import { updateSpot} from "../../store/spot"
 import { ValidationError } from "../../utils/validationError"
 import ErrorMessage from "./ErrorMessage"
 import './CreateSpotForm.css'
+import { useHistory, useParams } from "react-router-dom"
 
-const CreateSpotForm =()=>{
-const history = useHistory();
+const EditSpotForm =()=>{
+ const {spotId} =useParams()
 const dispatch = useDispatch()
-const [address, setAddress] = useState('')
-const [city, setCity] = useState('')
-const [state,setState] = useState('')
-const [lat, setLat] = useState(0)
-const [lng,setLng] = useState(0)
-const [name,setName] = useState('')
-const [description,setDescription] = useState('')
-const [pricePerNight, setPricePerNight] =useState(0)
-const [previewImage, setPreviewImage] = useState(null);
-const [country, setCountry] = useState('')
+const history =useHistory()
+const spot = useSelector(state => state.spots[spotId])
+
+const [id, setId] = useState(spot.id) 
+const [address, setAddress] = useState(spot.address)
+const [city, setCity] = useState(spot.city)
+const [state,setState] = useState(spot.state)
+const [lat, setLat] = useState(spot.lat)
+const [lng,setLng] = useState(spot.lng)
+const [name,setName] = useState(spot.name)
+const [description,setDescription] = useState(spot.description)
+const [pricePerNight, setPricePerNight] =useState(spot.pricePerNight)
+const [previewImage, setPreviewImage] = useState(spot.previewImage);
+const [country, setCountry] = useState(spot.country)
 const [errorMessages, setErrorMessages] = useState({});
 const [errors, setErrors] = useState([]);
 
@@ -30,6 +33,8 @@ const handleSubmit= async (e)=>{
 e.preventDefault();
 
 const payload ={
+        ...spot,
+        id,
         address,
         city,
         state,
@@ -41,11 +46,11 @@ const payload ={
         description,
         pricePerNight
     }
-   
-    let createdSpot;
+    
+  
     //!!START SILENT
     try {
-      createdSpot = await dispatch(createASpot(payload));
+     await dispatch(updateSpot(spotId,payload));
     } catch (error) {
       if (error instanceof ValidationError) setErrorMessages(error.errors);
       // If error is not a ValidationError, add slice at the end to remove extra
@@ -53,22 +58,12 @@ const payload ={
       else setErrorMessages({ overall: error.toString().slice(7) })
     }
     //!!END
-    if (createdSpot) {
-  
-      history.push(`/spots/${createdSpot.id}`);
+   
+    history.push(`/spots/${spotId}`);
 
-    }
-  };
-    
-
-
-const updateFile = (e) => {
-  const file = e.target.files[0];
-  if (file) setPreviewImage(file);
-};
-
-const handleCancelClick=(e)=>{
-    e.preventDefault()
+}
+const handleCancel = ()=>{
+    history.push(`/spots/myspots`);
 }
 
 
@@ -145,15 +140,6 @@ const handleCancelClick=(e)=>{
             value={description}
             onChange={(e) =>setDescription(e.target.value)}
             />
-        
-
-            <input
-          type="file"
-          name="previewImage"
-          placeholder="Image URL"
-          onChange={updateFile} 
-          />
-         
 
           <input
             type='number'
@@ -163,8 +149,8 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setPricePerNight(e.target.value)}
             />
     
-            <button type="submit" >Create new Spot</button>
-            <button type="button" onClick={handleCancelClick}>Cancel</button>
+            <button type="submit" >Update Your Spot</button>
+            <button onClick={handleCancel}>Cancel</button>
         </form>
         </div>
         </section>
@@ -172,4 +158,4 @@ const handleCancelClick=(e)=>{
 
 }
 
-export default CreateSpotForm
+export default EditSpotForm

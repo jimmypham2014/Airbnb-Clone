@@ -73,8 +73,10 @@ function Navigation({ isLoaded }){
         
 
         <div className='header__right'>
+        {sessionUser &&
            <NavLink className='header__right_btn grey-hover' to='/spots/form'>Become a host
            </NavLink>
+        }
             <button className='header__right_btn grey-hover' >
             <FontAwesomeIcon icon={faGlobe} className='globe'/>
             </button>

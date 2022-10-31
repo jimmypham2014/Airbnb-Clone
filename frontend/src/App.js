@@ -9,12 +9,15 @@ import SpotBrowser from "./components/SpotBrowser/index.js";
 import SpotDetails from "./components/SpotBrowser/SpotDetails";
 import CreateSpotForm from "./components/SpotBrowser/CreateSpotForm";
 import GetSpotsOfCurrentUser from "./components/SpotBrowser/GetSpotsOfCurrentUser";
+import EditSpotForm from "./components/SpotBrowser/EditSpotForm";
+import { getAllSpots } from "../src/store/spot";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getAllSpots())
   }, [dispatch]);
 
   return (
@@ -22,14 +25,23 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+
         <Route path='/' exact>
         <SpotBrowser/>
         </Route>
+
           <Route path="/signup">
             <SignupFormPage />
           </Route>
 
-      
+          <Route path ='/spots/:spotId/editspot' exact>
+          <EditSpotForm/>
+         </Route>
+
+          <Route path ='/spots/myspots' exact>
+          <GetSpotsOfCurrentUser/>
+         </Route>
+       
 
           <Route path ='/spots/form' exact>
           <CreateSpotForm/>
@@ -38,10 +50,6 @@ function App() {
           <Route path ='/spots/:spotId'>
             <SpotDetails/>
           </Route>
-
-          <Route path ='/myspots'>
-          <GetSpotsOfCurrentUser/>
-        </Route>
 
 
         </Switch>

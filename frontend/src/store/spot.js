@@ -1,6 +1,8 @@
 import { csrfFetch } from "./csrf"
+import { LOAD_REVIEWS, ADD_REVIEWS } from "./reviews"
 const ADD_SPOT = 'spots/addSpots'
 const LOAD = 'spots/LOAD'
+const REMOVE_SPOT = 'spots/REMOVE'
 
 
 const load = list =>({
@@ -14,9 +16,13 @@ export const addOneSpot = spot =>({
     spot
 })
 
+const remove = (spotId) =>({
+    type: REMOVE_SPOT,
+    spotId
+})
+
 export const createASpot =(data) => async (dispatch) =>{
     const{ address,city,state,country,previewImage,lat,lng,name, description, pricePerNight} = data
-    console.log(data)
 
     const formData = new FormData()
     formData.append("address",address)
@@ -50,6 +56,26 @@ export const createASpot =(data) => async (dispatch) =>{
   }
 }
 
+export const updateSpot = (id,data) => async (dispatch)=>{
+ 
+      
+  const response = await csrfFetch(`/api/spots/${id}`,{
+    method:"PUT",
+    headers:{
+        "Content-Type": "application/json",
+    },
+       body: JSON.stringify(data)
+  })
+  
+  console.log(response, 'hello 3')
+  if(response.ok){
+    const spot = await response.json()
+    dispatch(addOneSpot(spot))
+    console.log(spot, 'hello 2')
+    return spot
+  }
+}
+
 
 const initialState = {};
 
@@ -57,6 +83,7 @@ export const getAllSpots  = () => async dispatch =>{
     const response = await fetch(`/api/spots`)
     if(response.ok){
         const list = await response.json()
+        console.log(list,'hehehe')
         dispatch(load(list))
     }
 }
@@ -71,22 +98,52 @@ export const getSingleSpotDetail = (id) => async dispatch =>{
     }
 }
 
+export const deleteSpot = (spotId) =>async dispatch =>{
+    console.log(spotId)
+    const response = await csrfFetch(`/api/spots/${spotId}`,{
+        method:"DELETE",
+        headers:{
+            "Content-Type": "application/json",
+        }
+    })
+    if(response.ok){
+        const {id} = await response.json()
+        dispatch(remove(id))
+        return id
+    }
+}
 
 
 export const spotReducer =(state = initialState, action)=>{
+    let newState;
     switch(action.type){
         case LOAD:
+             newState ={...state}
         action.list.spotList.forEach(spot =>{
-            initialState[spot.id] = spot
+            newState[spot.id] = spot
         });
-        return{
-            ...initialState,
-            
-        };
+        return newState
+        
         case ADD_SPOT:
-            const newState = {...state}
+             newState = {...state}
             newState[action.spot.id] = action.spot
              return newState
+
+        case REMOVE_SPOT:
+            newState ={...state}
+            console.log(action.spotId,'HELLO 1')
+            console.log(newState,'hello')
+            delete newState[action.spotId]
+            return newState
+
+            case LOAD_REVIEWS:
+                return {
+                    ...state,
+                    [action.spotId]: {
+                        ...state[action.spotId],
+                       reviews: action.reviews.Review.map((review) => review),
+                    },
+                };
 
 
         default:
