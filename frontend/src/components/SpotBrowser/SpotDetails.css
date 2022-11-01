@@ -1,5 +1,9 @@
 .spot-detail-lists{
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 .details {
@@ -34,4 +38,14 @@
   padding: 5px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   cursor: pointer;
+}
+
+.pot-detail-lists .price-box{
+  width: 36%;
+  height: 250px;
+  border: 1px solid rgb(221,221,211)
+}
+
+.spot_detail_img{
+  display: flex;
 }

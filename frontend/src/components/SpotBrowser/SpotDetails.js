@@ -10,6 +10,7 @@ import EditSpotForm from './EditSpotForm';
 import EditFormModal from './EditFormModal';
 import { deleteSpot } from '../../store/spot';
 import SpotReviews from '../SpotReviews/SpotReviews';
+import CreateAReview from '../SpotReviews/CreateAReview';
 
 
 const SpotDetails =()=>{
@@ -18,12 +19,14 @@ const SpotDetails =()=>{
   const history =useHistory()
   console.log(sessionUser)
 
+
 const dispatch = useDispatch()
 const {spotId} = useParams()
 
 const spots = useSelector(state =>{
     return state.spots
   })
+
   const spot = spots[spotId]
 
 useEffect(()=>{
@@ -44,13 +47,16 @@ return(
    <div className='spot-detail-lists'>
     
    <div className='spot_name'>
-    <h1>{spot.name}</h1>
-    </div>
+    <h1><b>{spot.name}</b></h1>
+    {spot.User &&(
+    <h2><b>This Amazing Home is hosted by {spot.User.firstName} </b></h2>
+    )}
+    </div> 
 
    <div className='details'>
 
     <div className='details_left'>
-      <h2> {spot.numReviews} {spot.avgRating} {spot.city}, {spot.state}</h2>
+      <h3> {spot.numReviews} {spot.avgRating} {spot.city}, {spot.state}</h3>
     </div>
     
     <div className='details_right'>
@@ -74,15 +80,20 @@ return(
 
    <div>{spot.address}</div>
 
-   <div>{spot.pricePerNight}</div>
+   <div className='price-box'>
+
+   <h2>${spot.pricePerNight}/Night</h2>
+   <h4>{spot.numReviews}</h4>
+
+   </div>
 
    <div>{spot.avgRating}</div>
    
-     <div>
+     <div className='spot_reivew_container'>
    <SpotReviews spot={spot}/>
     </div>
 
-  
+  <CreateAReview/>
    </div>
 
 

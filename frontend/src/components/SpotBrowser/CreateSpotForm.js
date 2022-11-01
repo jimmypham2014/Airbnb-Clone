@@ -41,23 +41,22 @@ const payload ={
         description,
         pricePerNight
     }
+    
    
     let createdSpot;
     //!!START SILENT
     try {
-      createdSpot = await dispatch(createASpot(payload));
+       createdSpot =await dispatch(createASpot(payload));
     } catch (error) {
-      if (error instanceof ValidationError) setErrorMessages(error.errors);
-      // If error is not a ValidationError, add slice at the end to remove extra
-      // "Error: "
-      else setErrorMessages({ overall: error.toString().slice(7) })
+      const data = await error.json()
+      setErrors([...Object.values(data.errors)])
     }
     //!!END
-    if (createdSpot) {
+    history.push(`/spots/${createdSpot.id}`);
   
-      history.push(`/spots/${createdSpot.id}`);
+     
 
-    }
+  
   };
     
 
@@ -146,13 +145,15 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setDescription(e.target.value)}
             />
         
-
+            <label htmlFor="files">Upload a picture of your place</label>
             <input
           type="file"
+          title ="Upload a picture of your place"
           name="previewImage"
           placeholder="Image URL"
           onChange={updateFile} 
           />
+
          
 
           <input

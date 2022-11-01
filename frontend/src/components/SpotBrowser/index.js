@@ -8,8 +8,6 @@ import './SpotBrowser.css'
 
 const SpotBrowser = ()=>{
   const dispatch = useDispatch()
-  const sessionUser = useSelector(state => state.session.user);
-
 
 
 useEffect(()=>{

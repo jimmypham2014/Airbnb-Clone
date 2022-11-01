@@ -83,18 +83,18 @@ export const getAllSpots  = () => async dispatch =>{
     const response = await fetch(`/api/spots`)
     if(response.ok){
         const list = await response.json()
-        console.log(list,'hehehe')
         dispatch(load(list))
     }
 }
 
-export const getSingleSpotDetail = (id) => async dispatch =>{
+export const getSingleSpotDetail = (id,data) => async dispatch =>{
     const response = await fetch(`/api/spots/${id}`)
 
     if(response.ok){
-        const detail = await response.json()
-        dispatch(addOneSpot(detail))
-        return detail
+        const {Spot}= await response.json()
+        console.log(Spot,'hello4')
+        dispatch(addOneSpot(Spot))
+        return Spot
     }
 }
 
@@ -107,9 +107,9 @@ export const deleteSpot = (spotId) =>async dispatch =>{
         }
     })
     if(response.ok){
-        const {id} = await response.json()
-        dispatch(remove(id))
-        return id
+ 
+        dispatch(remove(spotId))
+
     }
 }
 
@@ -126,13 +126,12 @@ export const spotReducer =(state = initialState, action)=>{
         
         case ADD_SPOT:
              newState = {...state}
+            
             newState[action.spot.id] = action.spot
              return newState
 
         case REMOVE_SPOT:
             newState ={...state}
-            console.log(action.spotId,'HELLO 1')
-            console.log(newState,'hello')
             delete newState[action.spotId]
             return newState
 
@@ -144,6 +143,16 @@ export const spotReducer =(state = initialState, action)=>{
                        reviews: action.reviews.Review.map((review) => review),
                     },
                 };
+                case ADD_REVIEWS:
+                    console.log(action.review.id,'comment')
+                    return {
+                      ...state,
+
+                      [action.review.spotId]: {
+                        ...state[action.review.spotId],
+                        items: [...state[action.review.spotId].review, action.review.id]
+                      }
+                    };
 
 
         default:
