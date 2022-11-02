@@ -1,0 +1,29 @@
+.review-box{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+
+}
+
+.review-box img{
+    width: 2%;
+    margin-right: 5px;
+}
+
+.comment-user{
+    display: flex;
+    align-items: center;
+   
+}
+.review-box h5{
+    margin-top: 0;
+    margin-left: 17%;
+    padding: 0;
+   
+}
+
+.review-box h4{
+    margin-left: 14%;
+}

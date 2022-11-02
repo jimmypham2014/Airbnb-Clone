@@ -100,12 +100,21 @@ body{
 }
 .header__menu{
     border: 1px solid #ddd;
-    height: 20px;
+    height: 35px;
+    width: 65px;
     border-radius: 30px;
     padding: 10px 5px 5px 12px;
     transition: box-shadow 0.2s ease;
+    margin-bottom: 10%;
+    
 
 }
+
+.header__menu .menu__bar{
+    margin-bottom: 4%;
+}
+
+
 .header__menu:hover{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }

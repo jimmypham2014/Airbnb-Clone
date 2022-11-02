@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getSingleSpotDetail} from '../../store/spot'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare,faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare,faHeart, faDoorOpen, faChevronRight, faBed, faWifi,faKitchenSet, faCar, faTv , faGamepad} from '@fortawesome/free-solid-svg-icons';
 import './SpotBrowser.css'
 import './SpotDetails.css'
 import EditSpotForm from './EditSpotForm';
@@ -11,6 +11,8 @@ import EditFormModal from './EditFormModal';
 import { deleteSpot } from '../../store/spot';
 import SpotReviews from '../SpotReviews/SpotReviews';
 import CreateAReview from '../SpotReviews/CreateAReview';
+import {faStar} from '@fortawesome/free-solid-svg-icons'
+import aircoverImg from '../../images/aircover.png'
 
 
 const SpotDetails =()=>{
@@ -48,15 +50,15 @@ return(
     
    <div className='spot_name'>
     <h1><b>{spot.name}</b></h1>
-    {spot.User &&(
-    <h2><b>This Amazing Home is hosted by {spot.User.firstName} </b></h2>
-    )}
+    
     </div> 
 
    <div className='details'>
 
     <div className='details_left'>
-      <h3> {spot.numReviews} {spot.avgRating} {spot.city}, {spot.state}</h3>
+      <h3> <FontAwesomeIcon icon={faStar}/>{spot.avgRating} 
+      · {spot.numReviews} Reviews 
+      · {spot.city}, {spot.state}, {spot.country}</h3>
     </div>
     
     <div className='details_right'>
@@ -73,27 +75,118 @@ return(
 
    <div className='spot_detail_img'>
    <img src={spot.previewImage} alt=''/>
-   </div>
 
-
-
-
-   <div>{spot.address}</div>
 
    <div className='price-box'>
 
+   <div className='price-box-content'>
    <h2>${spot.pricePerNight}/Night</h2>
-   <h4>{spot.numReviews}</h4>
+   <div>{spot.avgRating}</div>
+   </div>
+
+   <div><h4>{spot.numReviews}</h4></div>
+      <button className='reserve_btn'>Reserve</button>
+   </div>
+
 
    </div>
 
-   <div>{spot.avgRating}</div>
+    <div className='spot_detail-owner'>
+    {spot.User &&(
+      <h2><b>Entire Home is hosted by {spot.User.firstName} </b></h2>
+      )}
+    <p>6 guests · 3 bedrooms · 5 beds · 2 baths</p>
+    
+    </div>  
+
+    <div className='spot_detail-check-in'>
+    
+    <FontAwesomeIcon icon={faDoorOpen} />
+      <div className='spot_detail-check-in-detail'>
+      <p><b>Self check-in</b></p>
+      <h5>Check yourself in with the lockbox</h5>
+      </div>
+    </div>
+
+      <div className='spot-detail-check-in-air-cover'>
+      
+      <img src={aircoverImg} alt=''/>
+
+      <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
+      <a href=''>Learn more</a>
+      </div>
+
+
+
+    
+   <div className='spot_details_description'>
+   <p>Description:</p>
+   <p>{spot.description}</p>
+   </div>
+
+    <div className='spot-detail-bedrooms'>
+    <h2>Where you'll sleep</h2>
+        <div className='number_of_beds'>
+          <div id='bed'>
+          <FontAwesomeIcon icon={faBed} className='bed_icon'/>
+          <p>Bedroom 1</p>
+          <h5>1 king bed</h5>
+          </div>
+
+          <div id='bed'>
+          <FontAwesomeIcon icon={faBed} className='bed_icon'/>
+          <p>Bedroom 2</p>
+          <h5>2 queen bed</h5>
+         
+          </div>
+
+          <div id= 'bed'>
+          <FontAwesomeIcon icon={faBed} className='bed_icon'/>
+          <FontAwesomeIcon icon={faBed} className='bed_icon'/>
+          <FontAwesomeIcon icon={faBed} className='bed_icon'/>
+          <p>Bedroom 3</p>
+          <h5>3 double beds</h5>
+          </div>
+
+        </div>
+    </div>
+
+    <div className='amentities'>
+        <h2>What this place offers</h2>
+         <ul>
+         <li>
+          <FontAwesomeIcon icon={faWifi}/> Wifi
+         </li>
+         
+         <li>
+          <FontAwesomeIcon icon={faKitchenSet}/> Kitchen
+         </li>
+
+         <li>
+         <FontAwesomeIcon icon={faCar}/> Free parking on premises
+         </li>
+
+         <li>
+         <FontAwesomeIcon icon={faTv}/> Netflix and Chill
+         </li>
+         <li>
+         <FontAwesomeIcon icon={faGamepad}/> All video games
+         </li>
+         </ul>
+        
+      </div>
+
+
+
+
+
+   
    
      <div className='spot_reivew_container'>
    <SpotReviews spot={spot}/>
     </div>
 
-  <CreateAReview/>
+  <CreateAReview spot={spot}/>
    </div>
 
 

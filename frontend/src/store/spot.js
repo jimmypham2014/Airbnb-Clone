@@ -143,16 +143,7 @@ export const spotReducer =(state = initialState, action)=>{
                        reviews: action.reviews.Review.map((review) => review),
                     },
                 };
-                case ADD_REVIEWS:
-                    console.log(action.review.id,'comment')
-                    return {
-                      ...state,
-
-                      [action.review.spotId]: {
-                        ...state[action.review.spotId],
-                        items: [...state[action.review.spotId].review, action.review.id]
-                      }
-                    };
+            
 
 
         default:

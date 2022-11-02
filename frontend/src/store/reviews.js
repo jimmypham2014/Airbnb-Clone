@@ -10,11 +10,11 @@ const load = (reviews, spotId) => ({
     spotId
   });
 
-export const addOneReview = review =>({
+export const addOneReview = (review) =>({
     type: ADD_REVIEWS,
     review
-})
 
+})
 
 export const getReviews = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}/reviews`);
@@ -26,7 +26,7 @@ export const getReviews = (spotId) => async (dispatch) => {
   };
 
 
-export const addReiew = (spotId,review) => async(dispatch) =>{
+export const addReview = (spotId,review) => async(dispatch) =>{
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`,{
         method: "POST",
         headers:{
@@ -41,6 +41,7 @@ export const addReiew = (spotId,review) => async(dispatch) =>{
     }
 }
 const initialState ={}
+
 export const reviewReducer = (state = initialState, action)=>{
  switch(action.type){
     case LOAD_REVIEWS: 
