@@ -77,7 +77,8 @@ const handleCancelClick=(e)=>{
         
             <div className="hello">
             <form className='create-spot-form' onSubmit={handleSubmit}>
-          
+            
+            <label>Address</label>
             <input
             type='text'
             placeholder="Address"
@@ -86,7 +87,7 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setAddress(e.target.value)}
             />
             
-
+            <label>City</label>
             <input
             type='text'
             placeholder="City"
@@ -94,7 +95,7 @@ const handleCancelClick=(e)=>{
             value={city}
             onChange={(e) =>setCity(e.target.value)}
             />
-            
+            <label>State</label>
             <input
             type='text'
             placeholder="State"
@@ -102,6 +103,7 @@ const handleCancelClick=(e)=>{
             value={state}
             onChange={(e) =>setState(e.target.value)}
             />
+            <label>Country</label>
             <input
             type='text'
             placeholder="Country"
@@ -110,7 +112,7 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setCountry(e.target.value)}
             />
       
-
+            <label>Latitude</label>
             <input
             type='number'
             placeholder="Lat"
@@ -119,7 +121,7 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setLat(e.target.value)}
             />
         
-
+            <label>Longitude</label>
             <input
             type='number'
             placeholder="Lng"
@@ -128,7 +130,7 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setLng(e.target.value)}
             />
            
-
+            <label>Name of the place</label>
             <input
             type='text'
             placeholder="Name"
@@ -137,7 +139,7 @@ const handleCancelClick=(e)=>{
             onChange={(e) =>setName(e.target.value)}
             />
          
-
+          <label> What is place so special?</label>
             <textarea
             placeholder="Description"
             required
@@ -155,7 +157,7 @@ const handleCancelClick=(e)=>{
           />
 
          
-
+          <label>Price Per Night</label>
           <input
             type='number'
             placeholder="Price Per Night"

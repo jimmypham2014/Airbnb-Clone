@@ -38,8 +38,10 @@ export const addReview = (spotId,review) => async(dispatch) =>{
         },
         body: JSON.stringify(review)
     })
+
     if(response.ok){
         const data = await response.json()
+        console.log(data, 'reducer34534543535')
         dispatch(addOneReview(data))
         return data
     }
@@ -58,6 +60,26 @@ export const removeReview = (reviewId) => async (dispatch)=>{
     }
 }
 
+export const updateReview = (reviewId,data) => async (dispatch)=>{
+ 
+      
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
+      method:"PUT",
+      headers:{
+          "Content-Type": "application/json",
+      },
+         body: JSON.stringify(data)
+    })
+    
+    if(response.ok){
+      const review = await response.json()
+      console.log(review,'update reducer')
+      dispatch(addOneReview(review))
+
+      return review
+    }
+  }
+
 
 const initialState ={}
 
@@ -75,7 +97,9 @@ export const reviewReducer = (state = initialState, action)=>{
     }
     case ADD_REVIEWS:
         const newState = {...state}
-        newState[action.review.id]= action.review
+        action.review.forEach(review=>{
+            newState[review.id]= review
+        })
         return newState
 
     case REMOVE_REVIEW:

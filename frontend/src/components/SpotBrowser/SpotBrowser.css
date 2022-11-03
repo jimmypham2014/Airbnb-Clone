@@ -6,6 +6,12 @@
 
 .primary-text{
     display: flex;
+    color: black;
+    font-weight: 100;
+}
+.secondary-text{
+    color: black;
+    font-weight: bold;
 }
 .spot__display{
     margin-left: 15%;
@@ -28,4 +34,7 @@
 }
 .spot-image img:hover{
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+.price{
+    color: black;
 }

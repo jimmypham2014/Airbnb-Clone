@@ -17,6 +17,13 @@
     opacity: 0.75;
 
 }
+.hello{
+  background-color: white;
+  width: 50%;
+  height: 100%;
+  margin-left: 25%;
+  border-radius: 20px;
+}
 
 .create-spot-form{
     display: flex;
@@ -29,10 +36,9 @@
     margin:10px 0;
     padding:10px;
     border-radius:10px;
-    
+    width: 40%;
     border:0;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-    width: 10%;
     outline: none;
   }
   .create-spot-form input:hover{
@@ -56,8 +62,19 @@
     font-family:inherit;
     font-size: inherit;
   }
-  button{
-    appearance:none;
-    -webkit-appearance:none;
-    margin: 10px 0;
+  .hello button{
+    background-color: #ff385c;
+    border: 0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.5rem auto;
+    outline: none;
+    padding: 0.875rem 1rem;
+    border-radius: 50px;
+  }
+  .hello button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+   
   }

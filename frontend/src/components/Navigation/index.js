@@ -50,6 +50,7 @@ function Navigation({ isLoaded }){
 
 
   return (
+    <>
     <div className='header'>
     
         <div  className='header__left'> 
@@ -102,8 +103,15 @@ function Navigation({ isLoaded }){
           </div>
 
         </div>
+    
+    </div>
+
+    <div>
          
     </div>
+
+
+    </>
   );
 }
 

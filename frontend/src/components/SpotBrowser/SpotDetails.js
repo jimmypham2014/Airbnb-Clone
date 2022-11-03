@@ -14,9 +14,13 @@ import CreateAReview from '../SpotReviews/CreateAReview';
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import aircoverImg from '../../images/aircover.png'
 import { getReviews } from '../../store/reviews';
+import UpdateReview from '../SpotReviews/EditAReview';
 
 
 const SpotDetails =()=>{
+
+  const dispatch = useDispatch()
+
   const [showEditForm,setShowEditForm] = useState(false)
   const sessionUser = useSelector(state => state.session.user)
   const history =useHistory()
@@ -25,7 +29,7 @@ const SpotDetails =()=>{
     
     const allReviews = Object.values(reviews)
 
-const dispatch = useDispatch()
+
 const {spotId} = useParams()
 
 const spots = useSelector(state =>{
@@ -43,6 +47,7 @@ useEffect(()=>{
 
 
 const specificReview = allReviews.filter(review =>review.spotId === spot.id)
+
 let allStars =specificReview.map(review => review.stars)
 console.log(allStars,'stars')
 
@@ -204,6 +209,7 @@ return(
    
      <div className='spot_reivew_container'>
    <SpotReviews spot={spot}/>
+   
     </div>
 
   <CreateAReview spot={spot}/>

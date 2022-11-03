@@ -11,7 +11,8 @@ const CreateAReview = ({spot})=>{
     const dispatch = useDispatch()
     const [review, setReview] = useState('')
     const [stars, setStars] = useState(0)
-
+    const sessionUser = useSelector(state =>state.session.user)
+    console.log(sessionUser)
 
 const handleSubmit = (e)=>{
     e.preventDefault()
@@ -38,15 +39,17 @@ id="comment"
 type='text'
 placeholder="Your Comment Here"
 value={review}
+required
 onChange={(e) =>setReview(e.target.value)}
 />
-
+<label> Rate this place from 1-5</label>
 <input
 type='number'
 min={0}
 max={5}
 placeholder="Your Rating"
 value={stars}
+required
 onChange={(e) =>setStars(e.target.value)}
 />
 <button type='submit'>Submit</button>

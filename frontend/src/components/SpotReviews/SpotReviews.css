@@ -3,13 +3,21 @@
     flex-direction: column;
     padding: 0;
     margin: 0;
+    border-radius: 2px;
+}
 
-
+.review-box:hover{
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.2);
 }
 
 .review-box img{
     width: 2%;
     margin-right: 5px;
+
+}
+.prof-user-name{
+ display: flex;
+ align-items: center;
 }
 
 .comment-user{
@@ -25,7 +33,8 @@
 }
 
 .review-box h4{
-    margin-left: 14%;
+    margin-top: 0;
+    margin-left: 20%;
 }
 .comment-user button{
     background-color: transparent;

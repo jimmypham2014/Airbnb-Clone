@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink,Link, Route } from "react-router-dom";
@@ -12,7 +14,6 @@ const SpotBrowser = ()=>{
 
 useEffect(()=>{
 dispatch(getAllSpots())
-
 },[dispatch])
 
 const spot = useSelector(state =>{
@@ -20,7 +21,11 @@ const spot = useSelector(state =>{
 })
 
 const allSpots = Object.values(spot)
-console.log(allSpots)
+console.log(allSpots,'hello')
+
+
+
+
 
 
 return(
@@ -30,14 +35,19 @@ return(
   return (
    <div >
     <Link key={spot.id} to={`/spots/${spot.id}`}>
-    <div className="spot-image"
-     
-    >
+
+
+    <div className="spot-image">
    <img src={spot.previewImage} alt=''/>
     </div>
-    <h4>{spot.city},{spot.state}</h4>
+
+    <div className="secondary-text">
+    <h4>{spot.city}, {spot.state}</h4>
+    </div>
+
+
     <div className="primary-text">{spot.name}</div>
-    <div className="price">{spot.pricePerNight}</div>
+    <div className="price">${spot.pricePerNight} Night</div>
     
     
     </Link>
