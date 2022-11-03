@@ -112,31 +112,37 @@ router.put('/:id',requireAuth,validateReview,async(req,res)=>{
         })
     } else{
 
-        const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            let errorObject = {}
-            let errorArray = errors.errors.map(e=>{
-                let key = e.param
-                let value = e.msg
-                return{
-                    [key] :value
-                }
-            })
-            errorArray.forEach(error =>{
-                errorObject = {...errorObject,...error}
-            })
-            return res.status(400).json({
-                message:"Validation error",
-                statusCode: 400,
-                errors: errorObject
-            })
-        }
+        // const errors = validationResult(req)
+        // if(!errors.isEmpty()){
+        //     let errorObject = {}
+        //     let errorArray = errors.errors.map(e=>{
+        //         let key = e.param
+        //         let value = e.msg
+        //         return{
+        //             [key] :value
+        //         }
+        //     })
+        //     errorArray.forEach(error =>{
+        //         errorObject = {...errorObject,...error}
+        //     })
+        //     return res.status(400).json({
+        //         message:"Validation error",
+        //         statusCode: 400,
+        //         errors: errorObject
+        //     })
+        // }
 
         const{review,stars} = req.body
         existingReview.update({review,stars})
 
     }
-    res.json(existingReview)
+    const updatedReview = await Review.findAll({
+        include:{
+            model:User
+        }
+    })
+  
+    res.json(updatedReview)
 
 })
 

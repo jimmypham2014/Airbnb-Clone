@@ -88,9 +88,9 @@ router.post(
 
 
 
-    router.get('/',async (req,res)=>{
+    router.get('/users',async (req,res)=>{
        const allUsers = await User.findAll()
-       res.json(allUsers)
+      return res.json(allUsers)
     })
 
 

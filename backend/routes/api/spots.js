@@ -26,7 +26,7 @@ router.get(
         include:{
             model:Image,
         },
-        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','createdAt','updatedAt'],
+        attributes:['id','ownerId','address','city','state','country','lat','lng','name','description','pricePerNight','previewImage','avgRating','createdAt','updatedAt'],
         ORDER:['id','DESC'],
         limit: size,
         offset: size * (page - 1),
@@ -63,7 +63,7 @@ async (req,res,next)=>{
     const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
     const ownerId = req.user.id
 
-    // const errors = validationResult(req)
+    const errors = validationResult(req)
 
     // if(!errors.isEmpty()){
     //     //putting objects together
@@ -245,7 +245,7 @@ async (req,res,next)=>{
         },
         attributes:['id','address','city','state','country','lat','lng','name','description','pricePerNight','createdAt','updatedAt']
     })
-    const {address,city, state,country,lat,lng,name,description,pricePerNight} = req.body
+    const {address,city, state,country,lat,lng,name,description,pricePerNight,previewImage} = req.body
         
     if(!spot)[
         res.status(404).json({
@@ -255,27 +255,27 @@ async (req,res,next)=>{
     ]
 
     
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        let errorObject = {}
-        let errorArray = errors.errors.map(e=> {
-            let key = e.param
-            let value = e.msg
-            return {
-                [key] : value
-            }
-        })
-        errorArray.forEach(error =>{
-            errorObject = {...errorObject,...error} 
-        })
-        return res.status(400).json({
-            message: "Validation Error",
-            statusCode: 400,
-            errors:errorObject
-        })
-    }
+    // const errors = validationResult(req)
+    // if(!errors.isEmpty()){
+    //     let errorObject = {}
+    //     let errorArray = errors.errors.map(e=> {
+    //         let key = e.param
+    //         let value = e.msg
+    //         return {
+    //             [key] : value
+    //         }
+    //     })
+    //     errorArray.forEach(error =>{
+    //         errorObject = {...errorObject,...error} 
+    //     })
+    //     return res.status(400).json({
+    //         message: "Validation Error",
+    //         statusCode: 400,
+    //         errors:errorObject
+    //     })
+    // }
     spot.update(
-        {address,city, state,country,lat,lng,name,description,pricePerNight},
+        {address,city, state,country,lat,lng,name,description,pricePerNight,previewImage},
         
     )
 
@@ -300,10 +300,11 @@ router.delete('/:id', requireAuth,async (req,res)=>{
     } else{
     await spot.destroy();
     return res.status(200).json({
-        message: "Successfully deleted",
-      statusCode: 200
+          message: "Successfully deleted",
+         statusCode: 200
     })
     }
+
 })
 
 
@@ -312,9 +313,18 @@ router.delete('/:id', requireAuth,async (req,res)=>{
 router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     const spotId = req.params.id
     const {user} = req
+    console.log(user, 'back userr')
 
-    const existingReview = await Review.findOne({where:{spotId,userId:user.id}})
+    console.log(req.body,'review from back end')
 
+    const existingReview = await Review.findOne({
+        include:[{
+            model:User,
+            attributes:['id','firstName','lastName']
+        }],
+        where:{spotId,userId:user.id}
+    })
+        console.log(existingReview,'existingreivew')
         if(existingReview){
            return res.status(403).json({
                 message: 'User already has a review for this spot',
@@ -323,7 +333,11 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
         }
  
 
-    const spot = await Spot.findOne({ 
+    const spot = await Spot.findOne({
+        include:[{
+            model:User,
+            attributes:['id','firstName','lastName']
+        }], 
         where:{id:spotId}
     })
 
@@ -359,22 +373,29 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     }
     const {review,stars} = req.body
     const addReview = await spot.createReview({
+        user,
         userId:user.id,
         spotId,
         review,
         stars
 
     })
+    console.log(addReview,'review careated backend')
+    const newReview = await Review.findAll({
+        include:{
+            model:User
+        },
+        where:{spotId,userId:user.id}
+    })
 
-        res.json(addReview)
+        res.json(newReview)
 
 })
 
 //get reviews by spot Id
 
-router.get('/:id/reviews',requireAuth, async(req,res)=>{
+router.get('/:id/reviews', async(req,res)=>{
     const spotId = req.params.id
-    const userId = req.user.id
     const spot = await Spot.findByPk(req.params.id)
 
     if(spot){
