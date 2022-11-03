@@ -27,3 +27,12 @@
 .review-box h4{
     margin-left: 14%;
 }
+.comment-user button{
+    background-color: transparent;
+    width: 10%;
+}
+.comment-user img{
+    margin-top: 2%;
+    width: 5%;
+}
+

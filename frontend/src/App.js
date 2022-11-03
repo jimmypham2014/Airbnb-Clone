@@ -11,6 +11,7 @@ import CreateSpotForm from "./components/SpotBrowser/CreateSpotForm";
 import GetSpotsOfCurrentUser from "./components/SpotBrowser/GetSpotsOfCurrentUser";
 import EditSpotForm from "./components/SpotBrowser/EditSpotForm";
 import { getAllSpots } from "../src/store/spot";
+import { getReviews } from "./store/reviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     dispatch(getAllSpots())
+    dispatch(getReviews())
   }, [dispatch]);
 
   return (

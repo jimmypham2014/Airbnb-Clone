@@ -11,6 +11,7 @@ body{
         position: sticky;
         padding: 0 24px;
         top: 0;
+        background-color: white;
         z-index:  9001 ;
         width: 100%;
         box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;  

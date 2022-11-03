@@ -13,14 +13,17 @@ import SpotReviews from '../SpotReviews/SpotReviews';
 import CreateAReview from '../SpotReviews/CreateAReview';
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import aircoverImg from '../../images/aircover.png'
+import { getReviews } from '../../store/reviews';
 
 
 const SpotDetails =()=>{
   const [showEditForm,setShowEditForm] = useState(false)
   const sessionUser = useSelector(state => state.session.user)
   const history =useHistory()
-  console.log(sessionUser)
-
+  const reviews = useSelector(state =>state.reviews)
+    
+    
+    const allReviews = Object.values(reviews)
 
 const dispatch = useDispatch()
 const {spotId} = useParams()
@@ -33,8 +36,25 @@ const spots = useSelector(state =>{
 
 useEffect(()=>{
     dispatch(getSingleSpotDetail(spotId))
+    dispatch(getReviews(spotId))
     setShowEditForm(false)
 },[dispatch,spotId])
+
+
+
+const specificReview = allReviews.filter(review =>review.spotId === spot.id)
+let allStars =specificReview.map(review => review.stars)
+console.log(allStars,'stars')
+
+let rate = allStars.reduce(function(sum, star){
+    const avg = (sum+star)
+    return avg
+},0)
+
+let averageRating = Number(rate/specificReview.length).toFixed(2)
+console.log(rate,'rate')
+
+
 
 
 if(!spot) return null
@@ -56,8 +76,8 @@ return(
    <div className='details'>
 
     <div className='details_left'>
-      <h3> <FontAwesomeIcon icon={faStar}/>{spot.avgRating} 
-      · {spot.numReviews} Reviews 
+      <h3> <FontAwesomeIcon icon={faStar}/>{averageRating} 
+      · {specificReview.length} Reviews 
       · {spot.city}, {spot.state}, {spot.country}</h3>
     </div>
     
@@ -81,7 +101,7 @@ return(
 
    <div className='price-box-content'>
    <h2>${spot.pricePerNight}/Night</h2>
-   <div>{spot.avgRating}</div>
+   {}
    </div>
 
    <div><h4>{spot.numReviews}</h4></div>
