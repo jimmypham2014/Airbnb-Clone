@@ -68,12 +68,12 @@ const SpotReviews = ({ spot }) => {
             )}
              
              </div>
-       
-            {sessionUser.id === review.userId ?
+                
+            {sessionUser && sessionUser.id === review.userId ?
              <button onClick={deletedReview} ><img src={threeDot} alt=''/>Delete</button>: null
              }
 
-             {sessionUser.id === review.userId ?
+             {sessionUser &&sessionUser.id === review.userId ?
               <EditReviewModal review={review}/>: null
               }
               
