@@ -15,7 +15,7 @@
     font-weight: bold;
 }
 .spot__display{
-    margin-left: 15%;
+    margin-left: 6%;
     position: absolute;
     display: grid;
     grid-template-columns: auto auto auto;
@@ -30,7 +30,7 @@
     height: 275px;
     display: block;
     overflow: hidden;
-    width: 100%;
+    width: 90%;
     border-radius: 12px;
 }
 

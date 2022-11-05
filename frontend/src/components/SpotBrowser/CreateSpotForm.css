@@ -11,22 +11,24 @@
     background: url('../../images/testing.jpg') no-repeat center center;
     background-position: fixed;
     background-size: cover;
-    height: 50%;
     overflow: hidden;
-    height: 100vh; 
+    height: 1000px; 
     background-attachment: fixed;
     opacity: 0.75;
+    width: 1500px;
 
 }
 .hello{
+  margin-top: 10px;
   background-color: white;
-  width: 800px;
-  height: 800px;
+  width: 500px;
+  height: 850px;
   margin-left: 32%;
   border-radius: 20px;
 }
 
 .create-spot-form{
+
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -37,7 +39,7 @@
     margin:10px 0;
     padding:10px;
     border-radius:10px;
-    width: 80%;
+    width: 70%;
     border:0;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
     outline: none;
@@ -52,8 +54,8 @@
     margin:10px 0;
     border:0;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-    width: 500px;
-    height: 200px;
+    width: 400px;
+    height: 100px;
     outline: none;
   }
   .create-spot-form textarea:hover{

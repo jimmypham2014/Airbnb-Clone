@@ -3,6 +3,7 @@
     top: 50%;
     right: 20px;
     font-size: 2rem;
+    border-radius: 2px;
     cursor: pointer;
   }
   .rightArrow:hover{
@@ -16,6 +17,7 @@
 
 
   .slide-container-content{
+    font-size: small;
     color: lightgray;
     display: flex;
     flex-direction: column;
@@ -28,3 +30,55 @@
     cursor: pointer;
     color: black;
   }
+  .right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px
+  }
+
+  .right:hover{
+    box-shadow:0 0 5px rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+
+  .left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px
+  }
+  .left:hover{
+    box-shadow:0 0 5px rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+img{
+    width: 15px;
+  }
+
+
+.filter_btn{
+    margin-left: 2%;
+    min-width: 90px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 12px;
+    height: 48px;
+    padding: 7px 0;
+}
+
+.filter-content{
+    display: flex;
+    justify-content: center;
+}
+
+.filter_btn:hover{
+    cursor: pointer;
+    box-shadow:0 0 5px rgba(86, 85, 85, 0.5);
+}

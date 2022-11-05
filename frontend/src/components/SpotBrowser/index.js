@@ -7,6 +7,7 @@ import { getAllSpots } from "../../store/spot";
 import LoginFormModal from "../LoginFormModal";
 import GetSpotsOfCurrentUser from "./GetSpotsOfCurrentUser";
 import './SpotBrowser.css'
+import Footer from "../Footer/Footer";
 
 const SpotBrowser = ()=>{
   const dispatch = useDispatch()
@@ -56,8 +57,6 @@ return(
     </div>
   )
  })}
-
-
  </main>
 
 )

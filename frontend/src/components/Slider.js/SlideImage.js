@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const SlideImage = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   object-fit: cover;
   opacity: 0.5;
 

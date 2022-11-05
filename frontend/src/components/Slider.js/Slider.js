@@ -3,6 +3,8 @@ import { SlideImage, StyledSlider } from "./SlideImage";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Slider.css'
+import filterIcon from '../../icons/filter.png'
+
 const Slider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
@@ -17,11 +19,13 @@ const Slider = ({ slides }) => {
 
   return (
     <StyledSlider>
+    <div className="left">
       <FontAwesomeIcon
       icon={faChevronLeft}
         className="left-arrow"
         onClick={prevSlide}
       />
+      </div>
       {slides.map((slide, index) => {
         return (
           <div key={index} className='slide-container-content'>
@@ -34,11 +38,21 @@ const Slider = ({ slides }) => {
           </div>
         );
       })}
+      <div className="right">
       <FontAwesomeIcon
       icon={faChevronRight}
         className="right-arrow"
         onClick={nextSlide}
       />
+      </div>
+      <button className="filter_btn"> 
+      <div className="filter-content">
+      <img className="filter-icon" src={filterIcon} alt='filter'/>
+      <span>Filter</span>
+      </div>
+      
+      
+      </button>
       
     </StyledSlider>
   );

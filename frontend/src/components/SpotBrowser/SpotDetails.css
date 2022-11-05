@@ -281,8 +281,9 @@
 
 .total-price-per-night{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 480px;
+  text-decoration: underline;
 }
 
 
@@ -290,22 +291,25 @@
 .clearning-fee{
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 480px;
+  text-decoration: underline;
 }
 .service-fee{
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 480px;
+  text-decoration: underline;
 }
 
 .total-before-tax{
   font-weight: bold;
-  border-top: 1px solid black;
+  border-top: 1px solid lightgrey;
   margin-top: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 480px;
+  justify-content: space-evenly;
+  width: 380px;
+  margin-left: 10%;
 }

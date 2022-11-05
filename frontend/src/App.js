@@ -12,6 +12,7 @@ import GetSpotsOfCurrentUser from "./components/SpotBrowser/GetSpotsOfCurrentUse
 import EditSpotForm from "./components/SpotBrowser/EditSpotForm";
 import { getAllSpots } from "../src/store/spot";
 import { getReviews } from "./store/reviews";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
 
         <Route path='/' exact>
         <SpotBrowser/>
+        <Footer/>
         </Route>
 
           <Route path="/signup">
