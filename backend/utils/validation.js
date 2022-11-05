@@ -7,15 +7,16 @@ const handleValidationErrors = (req, _res, next) => {
     const validationErrors = validationResult(req);
   
     if (!validationErrors.isEmpty()) {
-      const errors = validationErrors
+      console.log(validationErrors,'hello');
+      let errObj = {};
+      validationErrors
         .array()
-        .map((error) => `${error.msg}`);
-  
-      const err = Error('Bad request.');
-      err.errors = errors;
-      err.status = 400;
-      err.title = 'Bad request.';
-      next(err);
+        .forEach((error) => (errObj[error.param] = error.msg));
+      return _res.status(400).json({
+        message: "Validation Error",
+        statusCode: 400,
+        errors: errObj,
+      });
     }
     next();
   };
@@ -28,7 +29,7 @@ const handleValidationErrors = (req, _res, next) => {
     body('username').notEmpty().withMessage('Username is required'),
     body('username').exists({checkFalsy:true}).withMessage('User with that username already exists'),
     body('password').isLength({min:8}).notEmpty().withMessage('Password length must be at least 8'),
-
+    handleValidationErrors 
   ]
 
   const validateSpot=[
@@ -40,13 +41,14 @@ const handleValidationErrors = (req, _res, next) => {
     body('lng').isDecimal().withMessage('Longitude is not valid'),
     body('name').isLength({max:50}).withMessage('Name must be less than 50 characters'),
     body('description').notEmpty().withMessage('Name must be less than 50 characters'),
-    body('pricePerNight').notEmpty().isDecimal().withMessage('Price per day is required')
-
+    body('pricePerNight').notEmpty().isDecimal().withMessage('Price per day is required'),
+    handleValidationErrors 
   ]
 
   const validateReview =[
     body('review').notEmpty().withMessage('Review text is required'),
-    body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5')
+    body('stars').isFloat({min:1,max:5}).withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors 
   ]
   
 

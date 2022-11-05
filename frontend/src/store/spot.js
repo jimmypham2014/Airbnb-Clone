@@ -22,6 +22,7 @@ const remove = (spotId) =>({
 })
 
 export const createASpot =(data) => async (dispatch) =>{
+    
     const{ address,city,state,country,previewImage,lat,lng,name, description, pricePerNight} = data
 
     const formData = new FormData()
@@ -40,14 +41,14 @@ export const createASpot =(data) => async (dispatch) =>{
     for(const dataFiles of formData.entries()){
         console.log(dataFiles)
       }
-    
+ 
 
   const response = await csrfFetch(`/api/spots`,{
     method:"POST",
     headers:{
         "Content-Type": "multipart/form-data",
     },
-       body: formData
+       body: formData,
   })
   if(response.ok){
     const spot = await response.json()

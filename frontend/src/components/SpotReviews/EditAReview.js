@@ -10,25 +10,42 @@ const EditAReview = ({reviews})=>{
 const dispatch = useDispatch()
 const [review, setReview] = useState(reviews.review)
 const [stars, setStars] = useState(reviews.stars)
+const [errors, setErrors] =useState([])
 const sessionUser = useSelector(state =>state.session.user)
 console.log(sessionUser)
 
 
-const handleSubmit =(e)=>{
+const handleSubmit = async(e)=>{
 e.preventDefault()
 
 const payload ={
     review,
     stars
 
+
 }
-dispatch(updateReview(reviews.id,payload))
+try{
+    await dispatch(updateReview(reviews.id,payload))
+}catch(error){
+    const data = await error.json()
+    setErrors([...Object.values(data.errors)])
+}
+console.log(errors, 'errors')
 
 }
  
     return (
 
         <>
+        {errors.map((error)=>{
+            return(
+                <ul>
+                <li>
+                {error}
+                </li>
+                </ul>
+            )
+        })}
         <form onSubmit={handleSubmit} className='review-form'>
           
         <input

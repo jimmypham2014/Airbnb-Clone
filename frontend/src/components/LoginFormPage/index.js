@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import './LoginForm.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -21,6 +23,16 @@ function LoginForm() {
   };
 
   return (
+    <>
+      <div className="login-header">
+      <span>Log in or sign up</span>
+      </div>
+
+      <div className="welcome-airbnb">
+      <h2> Welcome to Airbnb</h2>
+      </div>
+
+      <div className="login-form-container"> 
     <form onSubmit={handleSubmit} className='login__form'>
       <ul>
         {errors.map((error, idx) => (
@@ -44,10 +56,24 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        <div>
+        <h5>We’ll call or text you to confirm your number. Standard message. Privacy Policy</h5>
+        </div>
       </label>
+
+      <div className="login-btn">
       <button className='login__btn' type="submit">Log In</button>
+      </div>
+
     </form>
+
+    </div>
+
+
+    </>
   );
+
+  
 }
 
 export default LoginForm;

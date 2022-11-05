@@ -1,7 +1,10 @@
 .login__form{
-  position: absolute;
-  width: 100%;
-  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 700px;
+
+
 }
 
 .login__form input {
@@ -11,7 +14,7 @@
     font-size: 0.9375rem;
     margin-bottom: 0.75rem;
     padding: 0.875rem 1rem;
-    width: 100%;
+    width: 90%;
   }
 
   .login__btn {
@@ -24,9 +27,41 @@
     margin: 1.25rem auto;
     outline: none;
     padding: 0.875rem 1rem;
+    width: 530px;
+    height: 60px;
+    margin-right: 20%;
+    border-radius: 15px;
   }
 
   .login__btn:hover {
     cursor: pointer;
     opacity: 0.8;
+  }
+
+  .login-header{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid gray;
+    width: 500px;
+    margin-left: 40px;
+   
+  }
+  .login-form-container{
+    
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+   margin-left: 5%;
+  }
+  .login-btn{
+    border-bottom: 1px solid gray;
+  }
+
+  .login-header span{
+  
+  }
+  .welcome-airbnb{
+    margin-left: 30px;
   }

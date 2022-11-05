@@ -11,6 +11,8 @@ import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icon
 import * as sessionActions from '../../store/session';
 import CreateSpotForm from '../SpotBrowser/CreateSpotForm';
 import {Route} from 'react-router-dom'
+import Slider from '../Slider.js/Slider';
+import { optionTabs } from '../../locationTab/options';
 
 
 
@@ -107,7 +109,7 @@ function Navigation({ isLoaded }){
     </div>
 
     <div>
-         
+      <Slider slides={optionTabs}/>
     </div>
 
 

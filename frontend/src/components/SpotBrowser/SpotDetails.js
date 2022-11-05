@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getSingleSpotDetail} from '../../store/spot'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare,faHeart, faDoorOpen, faChevronRight, faBed, faWifi,faKitchenSet, faCar, faTv , faGamepad} from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare,faHeart, faDoorOpen, faChevronRight, faBed, faWifi,faKitchenSet, faCar, faTv , faGamepad, faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import './SpotBrowser.css'
 import './SpotDetails.css'
 import EditSpotForm from './EditSpotForm';
@@ -81,8 +81,11 @@ return(
    <div className='details'>
 
     <div className='details_left'>
-      <h3> <FontAwesomeIcon icon={faStar}/>{averageRating} 
-      · {specificReview.length} Reviews 
+      
+       
+         
+      <h3>  <FontAwesomeIcon icon={faStar}/>{!Number(averageRating) ? null :averageRating }
+      · {specificReview.length <=1 ? `${specificReview.length} Review`: `${specificReview.length} Reviews`}
       · {spot.city}, {spot.state}, {spot.country}</h3>
     </div>
     
@@ -105,12 +108,68 @@ return(
    <div className='price-box'>
 
    <div className='price-box-content'>
-   <h2>${spot.pricePerNight}/Night</h2>
-   {}
+
+      <h2>${spot.pricePerNight}/Night</h2>
+  
+      <p>{specificReview.length <=1 ? `${specificReview.length} Review`: `${specificReview.length} Reviews`}</p>
    </div>
 
-   <div><h4>{spot.numReviews}</h4></div>
+   <div className='check-in-container'>
+    <div className='check-in-out'>
+    <div id='in'>
+    <h5>Check In</h5>
+    <span>12/14/2022</span>
+    </div>
+    <div id='out'>
+    <h5>Check Out</h5>
+     <span>12/19/2022</span>
+    </div>
+    </div>
+
+   <div className='check-in-guest'>
+    <span>Guests</span>
+    <div className='guest-option'>
+    <span><b> 1 Guest</b></span>
+    <FontAwesomeIcon icon={faArrowDown} className='arrow-down'/>
+    </div>
+   </div>
+   
+   </div>
+
+   <div><h4></h4></div>
+   
       <button className='reserve_btn'>Reserve</button>
+   
+      
+      <div className='price-details'>
+      <span>Don't book, you're too poor</span>
+      
+      </div>
+
+      <div className='booking-price-details'>
+     
+        <div className='total-price-per-night'>
+        <span>${spot.pricePerNight} x 5 nights</span>
+         <span>${spot.pricePerNight * 5}</span> 
+       </div>
+
+        <div className='clearning-fee'>
+        <span>Cleaning fee</span>
+        <span>$390</span>
+        </div>
+
+        <div className='service-fee'>
+        <span>Service fee</span>
+        <span>$716</span>
+        </div>
+
+        <div className='total-before-tax'>
+        <h2>Total before taxes</h2>
+         <span>{(spot.pricePerNight*5)+390+716}</span>
+        </div>
+
+      </div>
+
    </div>
 
 

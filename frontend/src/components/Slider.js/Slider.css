@@ -1,0 +1,30 @@
+.rightArrow {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .rightArrow:hover{
+    cursor: pointer;
+  }
+  
+.slide-images::before{
+    opacity: 0.1;
+    color: lightgray;
+}
+
+
+  .slide-container-content{
+    color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 1%;
+  }
+  .slide-container-content:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+  }

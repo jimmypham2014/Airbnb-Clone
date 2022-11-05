@@ -57,37 +57,13 @@ spotList.forEach(spot=>{
 
 
 //CREATE A SPOT --------------------------------------------------
-router.post('/',requireAuth, 
-  validateSpot,singleMulterUpload('previewImage'),
+router.post('/',requireAuth,singleMulterUpload('previewImage'),
 async (req,res,next)=>{
-    const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body
-    const ownerId = req.user.id
 
-    const errors = validationResult(req)
+    const {address,city,state,country,lat,lng,name,description,pricePerNight} = req.body;
 
-    // if(!errors.isEmpty()){
-    //     //putting objects together
-    //     let errorObject = {}
-    //     let errorArray = errors.errors.map(e=> {
-    //         let key = e.param
-    //         let value = e.msg
-    //         return {
-    //             [key] : value
-    //         }
-    //     })
-    //     errorArray.forEach(error =>{
-    //         errorObject = {...errorObject,...error} 
-    //     })
 
-    //     return res.status(400).json({
-    //         message: "Validation Error",
-    //         statusCode: 400,
-    //         errors:errorObject
-    //     })
-    // }
-console.log(req.file)
-console.log(req.body)
-req.file.buffer
+    const ownerId = req.user.id;
 
     const previewImage = await singlePublicFileUpload(req.file)
   
@@ -255,25 +231,6 @@ async (req,res,next)=>{
     ]
 
     
-    // const errors = validationResult(req)
-    // if(!errors.isEmpty()){
-    //     let errorObject = {}
-    //     let errorArray = errors.errors.map(e=> {
-    //         let key = e.param
-    //         let value = e.msg
-    //         return {
-    //             [key] : value
-    //         }
-    //     })
-    //     errorArray.forEach(error =>{
-    //         errorObject = {...errorObject,...error} 
-    //     })
-    //     return res.status(400).json({
-    //         message: "Validation Error",
-    //         statusCode: 400,
-    //         errors:errorObject
-    //     })
-    // }
     spot.update(
         {address,city, state,country,lat,lng,name,description,pricePerNight,previewImage},
         
@@ -351,26 +308,6 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     }
 
 
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        let errorObject = {}
-        let errorArray = errors.errors.map(e=> {
-            let key = e.param
-            let value = e.msg
-            return {
-                [key] : value
-            }
-        })
-        errorArray.forEach(error =>{
-            errorObject = {...errorObject,...error} 
-        })
-        return res.status(400).json({
-            message: "Validation Error",
-            statusCode: 400,
-            errors:errorObject
-        })
-
-    }
     const {review,stars} = req.body
     const addReview = await spot.createReview({
         user,

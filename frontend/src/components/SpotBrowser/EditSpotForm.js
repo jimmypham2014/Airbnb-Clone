@@ -23,7 +23,6 @@ const [description,setDescription] = useState(spot.description)
 const [pricePerNight, setPricePerNight] =useState(spot.pricePerNight)
 const [previewImage, setPreviewImage] = useState(spot.previewImage);
 const [country, setCountry] = useState(spot.country)
-const [errorMessages, setErrorMessages] = useState({});
 const [errors, setErrors] = useState([]);
 
 
@@ -52,14 +51,14 @@ const payload ={
     try {
      await dispatch(updateSpot(spotId,payload));
     } catch (error) {
-      if (error instanceof ValidationError) setErrorMessages(error.errors);
+      const data = await error.json()
       // If error is not a ValidationError, add slice at the end to remove extra
       // "Error: "
-      else setErrorMessages({ overall: error.toString().slice(7) })
+      setErrors([...Object.values(data.errors)])
     }
     //!!END
    
-    history.push(`/spots/${spotId}`);
+    history.push(`/spots/myspots`);
 
 }
 const handleCancel = ()=>{
@@ -69,7 +68,17 @@ const handleCancel = ()=>{
 
     return(
         
+        
         <section className='new-form'>
+        {errors.map(error =>{
+            return(
+                <ul>
+                <li>
+                {error}
+                </li>
+                </ul>
+            )
+        })}
         
             <div className="hello">
             <form className='create-spot-form' onSubmit={handleSubmit}>

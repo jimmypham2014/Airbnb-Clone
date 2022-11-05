@@ -29,11 +29,13 @@ console.log(allSpots,'hello')
 
 
 return(
+
+
  <main className="spot__display">
 
  {allSpots.map((spot)=>{
   return (
-   <div >
+   <div className="spot_each_display">
     <Link key={spot.id} to={`/spots/${spot.id}`}>
 
 
@@ -55,7 +57,7 @@ return(
   )
  })}
 
- 
+
  </main>
 
 )

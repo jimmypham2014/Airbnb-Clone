@@ -1,6 +1,26 @@
 .profile-dropdown {
+    display: flex;
+    flex-direction: column;
     list-style: none;
+    text-decoration: none;
+    justify-content: space-around;
+    
 }
+
+.profile-dropdown h4{
+    background-color: white;
+    color: black;
+    margin: 1%;
+}
+.profile-dropdown h4:hover{
+    color: rgb(212, 33, 9);
+    opacity: 1;
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+
+
 
 .profile-dropdown button:hover{
     color: rgb(212, 33, 9);

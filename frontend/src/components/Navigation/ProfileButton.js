@@ -38,20 +38,21 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button className="profile-dropdown" onClick={openMenu}> {user.username}
+      <button className="profile-dropdown-btn" onClick={openMenu}> <h4>{user.username}</h4>
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.firstName}</li>
-          <li>{user.email}</li>
-          <li>
+        <div className="profile-dropdown">
+          <h4> Welcome {user.firstName}!</h4>
+          <div>---------------------------</div>
+          <h4>{user.email}</h4>
+          <li id="create">
           <NavLink to='/spots/form'>
-          Create A Spot
+          <h4> Create A Spot</h4>
           </NavLink>
           </li>
           <li>
            <NavLink to ='/spots/myspots'>
-           All My Spots
+           <h4>All My Spots</h4>
            
            </NavLink>
           
@@ -59,7 +60,7 @@ function ProfileButton({ user }) {
           <li>
             <button onClick={logout}>Log Out</button>
           </li>
-        </ul>
+        </div>
       )}
     </>
   );

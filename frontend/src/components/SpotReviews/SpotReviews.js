@@ -62,9 +62,11 @@ const SpotReviews = ({ spot }) => {
             <div className="prof-user-name">
              <img src={profimg} alt=''/>
             
-            
-             <span>{review.User.firstName}:</span>
-        
+            {review.User&&(
+              <span>{review.User.firstName}:</span>
+      
+            )}
+             
              </div>
        
             {sessionUser.id === review.userId ?

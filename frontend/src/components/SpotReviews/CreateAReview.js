@@ -11,10 +11,11 @@ const CreateAReview = ({spot})=>{
     const dispatch = useDispatch()
     const [review, setReview] = useState('')
     const [stars, setStars] = useState(0)
+    const[errors, setErrors] = useState([])
     const sessionUser = useSelector(state =>state.session.user)
     console.log(sessionUser)
 
-const handleSubmit = (e)=>{
+const handleSubmit = async(e)=>{
     e.preventDefault()
 
     const payload ={
@@ -23,15 +24,28 @@ const handleSubmit = (e)=>{
     }
     console.log(payload, 'payloddd')
 
-    dispatch(addReview(spot.id,payload))
+    try{
+        await dispatch(addReview(spot.id,payload))
+    } catch(error){
+        const data = await error.json()
+        setErrors([...Object.values(data)])
+    }
+    if(errors.length >0){
+        return(
+           <div> Please sign in</div>
+        )
+    }
+   
     setReview('')
     setStars('')
 }
+console.log(errors)
 
 
 return (
 
 <>
+
 <form onSubmit={handleSubmit} className='review-form'>
   
 <input
@@ -42,9 +56,10 @@ value={review}
 required
 onChange={(e) =>setReview(e.target.value)}
 />
-<label> Rate this place from 1-5</label>
+<label> <b>Rate this place from 1-5</b></label>
 <input
-type='number'
+id='star'
+type='select'
 min={0}
 max={5}
 placeholder="Your Rating"
@@ -52,6 +67,9 @@ value={stars}
 required
 onChange={(e) =>setStars(e.target.value)}
 />
+<span>{errors.length >0 ?'Please sign in' : null}</span>
+
+
 <button type='submit'>Submit</button>
 </form>
 
