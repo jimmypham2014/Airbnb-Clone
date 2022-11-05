@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Image.belongsTo(models.Spot, {foreignKey:'spotImageId'})
-      Image.belongsTo(models.Review,{foreignKey:'reviewImageId'})
+     
     }
   }
   Image.init({
