@@ -45,11 +45,12 @@ const payload ={
     setIsSubmit(true)
    
     let createdSpot;
-    if(Object.keys(formErrors).length === 0 && isSubmit){
+    if(Object.keys(formErrors).length === 0 ){
       createdSpot =await dispatch(createASpot(payload));
-      history.push(`/spots/${createdSpot.id}`);
+      alert('You have successfully created a spot')
     
     }
+    history.push(`/spots/${createdSpot.id}`);
   
   };
 
