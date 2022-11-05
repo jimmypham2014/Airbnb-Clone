@@ -66,15 +66,16 @@
   border-radius: 30px;
 }
 .price-box{
-  width: 25%;
+
+  width: 30%;
   height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
-margin-left:0 ;
+  margin-left:0 ;
  border: 1px solid rgb(221,221,221) 0 16px 16px;
- border-radius: 12px;
- box-shadow: rgb(0 0 0 / 12%) 0 16px 16px;
+ border-radius: 10px;
+ box-shadow: rgb(0 0 0 / 12%) 0 10px 10px;
   
 }
 
