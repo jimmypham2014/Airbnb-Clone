@@ -165,7 +165,7 @@ return(
 
         <div className='total-before-tax'>
         <h2>Total before taxes</h2>
-         <span>${(spot.pricePerNight*5)+390+716}</span>
+         <span>{(spot.pricePerNight*5)+390+716}</span>
         </div>
 
       </div>
@@ -174,6 +174,8 @@ return(
 
 
    </div>
+
+   <div className='tesinggg'></div>
 
     <div className='spot_detail-owner'>
     {spot.User &&(

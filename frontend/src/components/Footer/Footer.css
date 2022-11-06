@@ -11,14 +11,14 @@
 .footer-box {
     
     position: sticky;
-    margin-top: 90px;
+    margin-top: 130px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
   top: 0;
   background-color: white;
-  position: relative;
+
   width: 1460px;
   height: 70px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;
