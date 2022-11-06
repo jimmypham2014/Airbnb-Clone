@@ -15,8 +15,10 @@ import Slider from '../Slider.js/Slider';
 import { optionTabs } from '../../locationTab/options';
 import globeIcon from '../../icons/globe.svg'
 import account from '../../icons/account.svg'
+import DemoButton from '../DemoButton/DemoButton';
 
 function Navigation({ isLoaded }){
+  const dispatch = useDispatch()
   const history = useHistory()
   const sessionUser = useSelector(state => state.session.user);
   const [open, setOpen] = useState(false)
@@ -34,6 +36,21 @@ function Navigation({ isLoaded }){
 
 },[])
 
+
+// useEffect(() =>{
+//   dispatch(sessionActions.login({credential, password}))
+
+// },[dispatch])
+
+const demo = async (e)=>{
+  
+  const user = {
+    credential: 'Demo-lition',
+    password: 'password'
+  }
+  await dispatch(sessionActions.login(user))
+  history.push('/')
+}
 
   let sessionLinks;
   if (sessionUser) {
@@ -90,12 +107,16 @@ function Navigation({ isLoaded }){
           <FontAwesomeIcon icon={faBars} className='menu__bar'/>
           <img src={account} atl='' className='user'/>
           </div>
-          
+
           </button>
           <div className={`dropdown-menu ${open ? 'active' :'inactive'} `} ref={menuRef} >
            
             {isLoaded}
             {sessionLinks}
+            {!sessionUser ?
+            <button onClick={demo} >Demo user
+              </button>:null
+            }
             <span></span>
             <div className='host_your_home'>
               <button>Host an experience</button>
