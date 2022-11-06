@@ -79,7 +79,6 @@
   border-radius: 10px;
   float: right;
   box-shadow: rgb(0 0 0 / 12%) 0 10px 10px;
-  z-index: 1;
 }
 
 .price-box-content {

@@ -61,7 +61,7 @@ const restoreUser = (req, res, next) => {
   
     const err = new Error('Unauthorized');
     err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    err.errors = ['Unauthorized, please sign in with a valid acccount'];
     err.status = 401;
     return next(err);
   }

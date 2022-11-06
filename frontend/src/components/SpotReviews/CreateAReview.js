@@ -28,12 +28,7 @@ const handleSubmit = async(e)=>{
         await dispatch(addReview(spot.id,payload))
     } catch(error){
         const data = await error.json()
-        setErrors([...Object.values(data)])
-    }
-    if(errors.length >0){
-        return(
-           <div> Please sign in</div>
-        )
+        setErrors([...Object.values(data.errors)])
     }
    
     setReview('')
@@ -67,9 +62,16 @@ value={stars}
 required
 onChange={(e) =>setStars(e.target.value)}
 />
-<span>{errors.length >0 ?'Please sign in' : null}</span>
 
 
+{errors.map((error)=>{
+    return(
+       
+       <div className="error_message">{error}</div> 
+       
+        
+    )
+})}
 <button type='submit'>Submit</button>
 </form>
 
