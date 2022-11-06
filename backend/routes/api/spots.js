@@ -74,6 +74,26 @@ async (req,res,next)=>{
 
 // ...
 
+
+router.get('/:id/images',requireAuth,async(req,res)=>{
+    const spotId = req.params.id
+    const spot = await Spot.findByPk(req.params.id)
+
+    if(spot){
+        const existingImages = await Image.findAll({
+            where:{spotId:spot.id},
+        })
+        res.json({Images:existingImages})
+    }else {
+        res.status(404).json({
+            message:"Spot couldn't be found",
+            statusCode: 404
+        })
+    }
+
+})
+
+
 //add an image to a spot based on the spot'id ----------------------------------------------------
 router.post('/:id/images',restoreUser,requireAuth,async (req,res)=>{
 const spotId = req.params.id
@@ -284,6 +304,7 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
         console.log(existingReview,'existingreivew')
         if(existingReview){
            return res.status(403).json({
+                errors: ['User already has a review for this spot'],
                 message: 'User already has a review for this spot',
                 statusCode:403
             })

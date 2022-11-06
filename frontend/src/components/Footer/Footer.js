@@ -1,27 +1,32 @@
-import '../Footer/Footer.css'
+import React from "react";
+import "./Footer.css";
 import globeIcon from '../../icons/globe.svg'
-import account from '../../icons/account.svg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
 
-const Footer = ()=>{
-return(
+function Footer() {
+  return (
+    <div className="main-footer">
+      <div className="right-side">
 
-    <div className="footer-container">
-     <div className='footer-box'>
-     
-     <div className='right-side'>© 2022 Airbnb, Inc.·Privacy·Terms·Sitemap·Destinations</div>
-     
-     <div className='about-me'> <FontAwesomeIcon icon={faAddressCard}/><a href='https://github.com/jimmypham2014/API-Project'> About Me</a></div>
-     
+      <div>
+      © 2022 Airbnb, Inc.·Privacy·Terms·Sitemap
+      </div>
+    
+      </div>
 
-    <div className='left-side'> <div className='globe-icon'><a href=""> <img src={globeIcon}/>English</a></div> <a href=''>$ USD</a>  <a href=''>Support & Resources</a></div>
-   
+      <div className="center">
+      <a href="https://github.com/jimmypham2014/API-Project"> About Me</a>
+      
+      </div>
+
+      <div className="left-side">
+      
+           <div className="globe__icon"> <img src={globeIcon} /> <p>English (US)</p> </div> 
+            
+            <span>Choose a currency $ USD</span>
+
+      </div>
     </div>
-
-    </div>
-
-)
+  );
 }
 
-export default Footer
+export default Footer;

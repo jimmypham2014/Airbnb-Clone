@@ -30,8 +30,8 @@ console.log(allSpots,'hello')
 
 
 return(
-
-
+<div className="page-container ">
+<div className="content-wrap ">
  <main className="spot__display">
 
  {allSpots.map((spot)=>{
@@ -58,7 +58,9 @@ return(
   )
  })}
  </main>
-
+ </div>
+ <Footer/>
+ </div>
 )
 
 }

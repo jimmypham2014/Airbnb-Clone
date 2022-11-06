@@ -13,6 +13,7 @@ import EditSpotForm from "./components/SpotBrowser/EditSpotForm";
 import { getAllSpots } from "../src/store/spot";
 import { getReviews } from "./store/reviews";
 import Footer from "./components/Footer/Footer";
+import SpotImages from "./components/SpotImages/SpotImages";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,13 +26,14 @@ function App() {
 
   return (
     <>
+      <div>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
 
         <Route path='/' exact>
-        <SpotBrowser/>
-        <Footer/>
+               <SpotBrowser/>
+         
         </Route>
 
           <Route path="/signup">
@@ -40,6 +42,10 @@ function App() {
 
           <Route path ='/spots/:spotId/editspot' exact>
           <EditSpotForm/>
+         </Route>
+
+         <Route path = '/spots/:spotId/images'>
+          <SpotImages/>
          </Route>
 
           <Route path ='/spots/myspots' exact>
@@ -58,6 +64,10 @@ function App() {
 
         </Switch>
       )}
+      </div>
+
+      
+
     </>
   );
 }

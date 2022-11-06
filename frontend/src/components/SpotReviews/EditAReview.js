@@ -9,6 +9,8 @@ import './EditReview.css'
 
 
 const EditAReview = ({reviews})=>{
+    const history = useHistory()
+    const {spotId} = useParams()
 const dispatch = useDispatch()
 const [review, setReview] = useState(reviews.review)
 const [stars, setStars] = useState(reviews.stars)
@@ -29,11 +31,14 @@ const payload ={
 }
 try{
     await dispatch(updateReview(reviews.id,payload))
+    
+
 }catch(error){
     const data = await error.json()
     setErrors([...Object.values(data.errors)])
 }
 
+<Modal onClose={() =>setShowModal(false)}/>
 
 }
  

@@ -104,6 +104,9 @@ return(
    <div className='spot_detail_img'>
    <img src={spot.previewImage} alt=''/>
 
+   <Link to ={`/spots/${spot.id}/images`}>
+   <button>Show all Images</button>
+   </Link>
 
    <div className='price-box'>
 
@@ -197,7 +200,7 @@ return(
       <div className='spot-detail-check-in-air-cover'>
       
       <img src={aircoverImg} alt=''/>
-
+      
       <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
       <a href=''>Learn more</a>
       </div>
