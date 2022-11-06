@@ -1,21 +1,66 @@
-.footer-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 135vh;
+  margin: 0 4px 0 4px;
+  position: fixed;
+  z-index: -1;
+}
+.footer-box {
+    position: sticky;
+    margin-top: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  top: 0;
+  background-color: white;
+  position: relative;
+  width: 1460px;
+  height: 70px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;
+
 }
 
-.footer-container .left-side{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+
+.left-side {
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  margin: 0 20px 0 20px;
+  width: 60%;
+  padding: 10px;
 }
-.footer-content{
+.left-side a{
+    color: black;
+    margin-right: 30px
+    
+}
+.left-side a:hover{
+    text-decoration: underline;
+}
+.globe-icon img{
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.about-me a{
+    color: black;
+}
+.about-me a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.footer-box .right-side{
+    width: 60%;
+}
+.footer-box .about-me{
+    width: 150px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: fixed;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 10%;
 }

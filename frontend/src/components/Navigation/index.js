@@ -13,8 +13,8 @@ import CreateSpotForm from '../SpotBrowser/CreateSpotForm';
 import {Route} from 'react-router-dom'
 import Slider from '../Slider.js/Slider';
 import { optionTabs } from '../../locationTab/options';
-
-
+import globeIcon from '../../icons/globe.svg'
+import account from '../../icons/account.svg'
 
 function Navigation({ isLoaded }){
   const history = useHistory()
@@ -81,15 +81,16 @@ function Navigation({ isLoaded }){
            </NavLink>
         }
             <button className='header__right_btn grey-hover' >
-            <FontAwesomeIcon icon={faGlobe} className='globe'/>
+            <img src={globeIcon} className='globe' alt='globe'/>
             </button>
 
          
           <button className='' onClick={()=>{setOpen(!open)}} >
           <div className='header__menu'>
           <FontAwesomeIcon icon={faBars} className='menu__bar'/>
-          <FontAwesomeIcon icon={faUser} className='user'/>
+          <img src={account} atl='' className='user'/>
           </div>
+          
           </button>
           <div className={`dropdown-menu ${open ? 'active' :'inactive'} `} ref={menuRef} >
            
