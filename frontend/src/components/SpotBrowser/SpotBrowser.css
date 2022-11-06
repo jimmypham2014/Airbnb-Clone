@@ -1,46 +1,45 @@
-.spot__display{
-    display: flex;
-    justify-content: space-evenly;
-    align-content: space-between;
-    transition: transform 100ms ease-in
+.spot__display {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-between;
+  transition: transform 100ms ease-in;
 }
 
-.primary-text{
-    display: flex;
-    color: black;
-    font-weight: 100;
+.primary-text {
+  display: flex;
+  color: black;
+  font-weight: 100;
 }
-.secondary-text{
-    color: black;
-    font-weight: bold;
+.secondary-text {
+  color: black;
+  font-weight: bold;
 }
-.spot__display{
-    margin-left: 6%;
-    position: absolute;
-    display: grid;
-    grid-template-columns: auto auto auto;
+.spot__display {
+  margin-left: 7.5%;
+  position: absolute;
+  display: grid;
+  grid-template-columns: auto auto auto;
 
-    background-color: white;
-    padding: 10px;
-    column-gap: 60px;
-    row-gap: 50px;
-}
-
-.spot-image img{
-    height: 275px;
-    display: block;
-    overflow: hidden;
-    width: 90%;
-    border-radius: 12px;
+  background-color: white;
+  padding: 10px;
+  column-gap: 60px;
+  row-gap: 50px;
 }
 
-.spot_each_display:hover{
-    transform: scale(1.07);
+.spot-image img {
+  height: 275px;
+  display: block;
+  overflow: hidden;
+  width: 90%;
+  border-radius: 12px;
 }
-.spot-image img:hover{
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 
+.spot_each_display:hover {
+  transform: scale(1.07);
 }
-.price{
-    color: black;
+.spot-image img:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+.price {
+  color: black;
 }

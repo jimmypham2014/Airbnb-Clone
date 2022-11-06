@@ -8,11 +8,10 @@ body{
         display:flex;
         align-items: center;
         justify-content: space-evenly;
-        position: sticky;
         padding: 0 24px;
         top: 0;
         background-color: white;
-        z-index:  9001 ;
+        position: relative;
         width: 100%;
         box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 12px;  
 
@@ -107,6 +106,8 @@ body{
     padding: 10px 5px 5px 12px;
     transition: box-shadow 0.2s ease;
     margin-bottom: 10%;
+    background-color: white;
+   position: relative;
     
 
 }
@@ -122,13 +123,14 @@ body{
 
 
 .dropdown-menu {
-    position: absolute;
+    position: fixed;
     top: 100px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     background-color: white;
     border-radius: 8px;
     padding: 10px 20px;
     width: 200px;
+    z-index: 10;
 }
 
 .dropdown-menu::before{

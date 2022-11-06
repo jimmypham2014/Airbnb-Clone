@@ -1,0 +1,20 @@
+.review-form{
+    width: 700px;
+}
+.edit-form-container{
+    width: 500px;
+}
+
+
+.review-form input #comment{
+    width: 900px;
+    outline: none;
+}
+
+
+.review-form .stars input{
+    outline: none;
+
+    width:50px;
+    height: 50px;
+}

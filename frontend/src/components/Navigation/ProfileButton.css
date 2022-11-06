@@ -4,6 +4,8 @@
     list-style: none;
     text-decoration: none;
     justify-content: space-around;
+    background-color: white;
+    z-index: 90000;
     
 }
 

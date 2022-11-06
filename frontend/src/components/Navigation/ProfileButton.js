@@ -7,10 +7,11 @@ import './ProfileButton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
 import CreateSpotForm from "../SpotBrowser/CreateSpotForm";
-import {NavLink, Route} from 'react-router-dom'
+import {NavLink, Route, useHistory} from 'react-router-dom'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   
   const openMenu = () => {
@@ -32,8 +33,9 @@ function ProfileButton({ user }) {
   }, [showMenu]);
 
   const logout = (e) => {
-    e.preventDefault();
+    history.push('/')
     dispatch(sessionActions.logout());
+    
   };
 
   return (

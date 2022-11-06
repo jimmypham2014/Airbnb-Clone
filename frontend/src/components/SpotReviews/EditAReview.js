@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateSpot} from "../../store/spot"
 import { ValidationError } from "../../utils/validationError"
 import { updateReview } from "../../store/reviews"
+import { Modal } from "../../context/Modal"
+import './EditReview.css'
 
 
 const EditAReview = ({reviews})=>{
@@ -11,6 +13,7 @@ const dispatch = useDispatch()
 const [review, setReview] = useState(reviews.review)
 const [stars, setStars] = useState(reviews.stars)
 const [errors, setErrors] =useState([])
+const [showModal, setShowModal] = useState(false);
 const sessionUser = useSelector(state =>state.session.user)
 console.log(sessionUser)
 
@@ -30,7 +33,7 @@ try{
     const data = await error.json()
     setErrors([...Object.values(data.errors)])
 }
-console.log(errors, 'errors')
+
 
 }
  
@@ -46,8 +49,12 @@ console.log(errors, 'errors')
                 </ul>
             )
         })}
+
+        <div className="edit-form-container">
         <form onSubmit={handleSubmit} className='review-form'>
-          
+        
+        <div className="comment">
+        <label>Comment: </label>
         <input
         id="comment"
         type='text'
@@ -55,7 +62,10 @@ console.log(errors, 'errors')
         value={review}
         onChange={(e) =>setReview(e.target.value)}
         />
-        
+        </div>
+
+        <div className="stars">
+        <label>Rate from 1-5:</label>
         <input
         type='number'
         min={0}
@@ -64,14 +74,14 @@ console.log(errors, 'errors')
         value={stars}
         onChange={(e) =>setStars(e.target.value)}
         />
-        
+        </div>
         {sessionUser&&(
-            <button type='submit'>Submit</button>
+            <button type='submit' className="review-btn">Submit</button>
         )}
        
         </form>
         
-        
+        </div>
         </>
         )
         
