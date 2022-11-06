@@ -70,7 +70,7 @@ const SpotReviews = ({ spot }) => {
              </div>
                 
             {sessionUser && sessionUser.id === review.userId ?
-             <button onClick={deletedReview} ><img src={threeDot} alt=''/>Delete</button>: null
+             <button onClick={deletedReview} ><img src={threeDot} alt=''/><span>Delete</span></button>: null
              }
 
              {sessionUser &&sessionUser.id === review.userId ?

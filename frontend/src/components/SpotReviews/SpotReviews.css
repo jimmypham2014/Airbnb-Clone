@@ -20,6 +20,10 @@
  align-items: center;
 }
 
+.prof-user-name button{
+    height: 100px;
+}
+
 .comment-user{
     display: flex;
     align-items: center;
@@ -37,12 +41,19 @@
     margin-left: 20%;
 }
 .comment-user button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
+    margin: 3px;
     width: 10%;
+    height: 40px;
 }
 .comment-user img{
     margin-top: 2%;
     width: 5%;
 }
-
+.comment-user  span{
+margin-right: 30%;
+}
 

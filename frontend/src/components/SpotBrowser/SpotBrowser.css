@@ -7,15 +7,16 @@
 
 .primary-text {
   display: flex;
-  color: black;
-  font-weight: 100;
+  color: grey;
+  font-weight: thin(100);
+  
 }
 .secondary-text {
   color: black;
   font-weight: bold;
 }
 .spot__display {
-  margin-left: 7.5%;
+  margin-left: 7.9%;
   position: absolute;
   display: grid;
   grid-template-columns: auto auto auto;
@@ -30,7 +31,7 @@
   height: 275px;
   display: block;
   overflow: hidden;
-  width: 90%;
+  width: 350px;
   border-radius: 12px;
 }
 
