@@ -1,7 +1,7 @@
 import { useHistory, useParams } from "react-router-dom"
 import { useState,useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateSpot} from "../../store/spot"
+import { getSingleSpotDetail, updateSpot} from "../../store/spot"
 import { ValidationError } from "../../utils/validationError"
 import { updateReview } from "../../store/reviews"
 import { Modal } from "../../context/Modal"
@@ -10,14 +10,26 @@ import './EditReview.css'
 
 const EditAReview = ({reviews})=>{
     const history = useHistory()
-    const {spotId} = useParams()
 const dispatch = useDispatch()
 const [review, setReview] = useState(reviews.review)
 const [stars, setStars] = useState(reviews.stars)
 const [errors, setErrors] =useState([])
 const [showModal, setShowModal] = useState(false);
 const sessionUser = useSelector(state =>state.session.user)
-console.log(sessionUser)
+
+const {spotId} = useParams()
+
+const spots = useSelector(state =>{
+    return state.spots
+  })
+
+  const spot = spots[spotId]
+
+useEffect(()=>{
+    dispatch(getSingleSpotDetail(spotId))
+},[dispatch])
+
+
 
 
 const handleSubmit = async(e)=>{

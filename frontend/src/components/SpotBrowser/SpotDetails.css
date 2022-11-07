@@ -68,7 +68,7 @@
   background-color: white;
   position:fixed;
   width: 30%;
-  border: 0 solid rgb(221, 221, 221) 0 16px 16px;
+  border: 0 solid rgb(221, 221, 221);
   height: 500px;
   top: 1;
   display: flex;

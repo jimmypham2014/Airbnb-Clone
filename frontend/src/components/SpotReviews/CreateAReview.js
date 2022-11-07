@@ -1,19 +1,19 @@
 
-import { useState,useEffect} from "react"
-import { addOneSpot } from "../../store/spot"
+import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from 'react-router-dom';
 import { addReview } from "../../store/reviews";
 import './CreateReview.css'
 
 const CreateAReview = ({spot})=>{
-    const history = useHistory();
     const dispatch = useDispatch()
     const [review, setReview] = useState('')
     const [stars, setStars] = useState(0)
     const[errors, setErrors] = useState([])
     const sessionUser = useSelector(state =>state.session.user)
     console.log(sessionUser)
+
+console.log(sessionUser)
+console.log(spot, 'spotssss')
 
 const handleSubmit = async(e)=>{
     e.preventDefault()
@@ -40,7 +40,6 @@ console.log(errors)
 return (
 
 <>
-
 <form onSubmit={handleSubmit} className='review-form'>
   
 <input
@@ -72,8 +71,11 @@ onChange={(e) =>setStars(e.target.value)}
         
     )
 })}
-<button type='submit'>Submit</button>
+
+ { spot.User && spot.User.id !== sessionUser.id ?<button type='submit'>Submit</button>:null }
+
 </form>
+
 
 
 </>

@@ -1,11 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { useState,useEffect } from "react";
+
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink,Link, Route } from "react-router-dom";
+import {Link } from "react-router-dom";
 import { getAllSpots } from "../../store/spot";
-import LoginFormModal from "../LoginFormModal";
-import GetSpotsOfCurrentUser from "./GetSpotsOfCurrentUser";
 import './SpotBrowser.css'
 import Footer from "../Footer/Footer";
 import '../../fonts/AirbnbCereal_W_Md.otf'
