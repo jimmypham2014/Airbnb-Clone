@@ -72,7 +72,7 @@ onChange={(e) =>setStars(e.target.value)}
     )
 })}
 
- { spot.User && spot.User.id !== sessionUser.id ?<button type='submit'>Submit</button>:null }
+ { spot.User && spot.User.id !== sessionUser.id ?<button type='submit'>Submit</button>: <span> You cannot review your own place</span> }
 
 </form>
 
