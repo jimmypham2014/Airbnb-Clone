@@ -190,7 +190,7 @@ const handleCancelClick=(e)=>{
             </div>
 
             <div className="form-values">
-          <label> Why is place so special?</label>
+          <label> Why is this place so special?</label>
           <p>{formErrors.description}</p>
             <textarea
             placeholder="Description"

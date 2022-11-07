@@ -114,7 +114,7 @@ const demo = async (e)=>{
             {isLoaded}
             {sessionLinks}
             {!sessionUser ?
-            <button onClick={demo} >Demo user
+            <button onClick={demo} >Sign in as Demo user
               </button>:null
             }
             <span></span>

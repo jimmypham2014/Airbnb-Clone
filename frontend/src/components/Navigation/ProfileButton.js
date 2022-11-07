@@ -45,7 +45,7 @@ function ProfileButton({ user }) {
       {showMenu && (
         <div className="profile-dropdown">
           <h4> Welcome {user.firstName}!</h4>
-          <div>---------------------------</div>
+          <div>-------------------------</div>
           <h4>{user.email}</h4>
           <li id="create">
           <NavLink to='/spots/form'>
