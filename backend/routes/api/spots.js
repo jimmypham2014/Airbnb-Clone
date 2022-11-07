@@ -97,7 +97,6 @@ router.get('/:id/images',requireAuth,async(req,res)=>{
 //add an image to a spot based on the spot'id ----------------------------------------------------
 router.post('/:id/images',restoreUser,requireAuth,async (req,res)=>{
 const spotId = req.params.id
-const{url,previewImage} = req.body
 //find owerID in the spot
     const spot = await Spot.findOne({
         include:{
@@ -112,9 +111,9 @@ const{url,previewImage} = req.body
             statusCode: 404
         })
     } 
+    const url = await singlePublicFileUpload(req.file)
         const addImage = await spot.createImage({
             url,
-            previewImage
         })
     
 

@@ -15,6 +15,8 @@ import {faStar} from '@fortawesome/free-solid-svg-icons'
 import aircoverImg from '../../images/aircover.png'
 import { getReviews } from '../../store/reviews';
 import UpdateReview from '../SpotReviews/EditAReview';
+import SpotImages from '../SpotImages/SpotImages';
+import CreateAImage from '../SpotImages/CreateImages';
 
 
 const SpotDetails =()=>{
@@ -36,7 +38,10 @@ const spots = useSelector(state =>{
     return state.spots
   })
 
+
+
   const spot = spots[spotId]
+
 
 useEffect(()=>{
     dispatch(getSingleSpotDetail(spotId))
@@ -49,7 +54,7 @@ useEffect(()=>{
 const specificReview = allReviews.filter(review =>review.spotId === spot.id)
 
 let allStars =specificReview.map(review => review.stars)
-console.log(allStars,'stars -------->')
+
 
 let rate = allStars.reduce(function(sum, star){
     const avg = (sum+star)
@@ -57,7 +62,7 @@ let rate = allStars.reduce(function(sum, star){
 },0)
 
 let averageRating = Number(rate/specificReview.length).toFixed(2)
-console.log(averageRating,'average rateing ----->')
+
 
 
 
@@ -166,7 +171,7 @@ return(
 
         <div className='total-before-tax'>
         <h2>Total before taxes</h2>
-         <span>{(spot.pricePerNight*5)+390+716}</span>
+         <span>${(spot.pricePerNight*5)+390+716}</span>
         </div>
 
       </div>
@@ -268,13 +273,13 @@ return(
 
 
    
-   
      <div className='spot_reivew_container'>
    <SpotReviews spot={spot}/>
    
     </div>
 
   <CreateAReview spot={spot}/>
+  
    </div>
 
 

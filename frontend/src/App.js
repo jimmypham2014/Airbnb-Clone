@@ -20,6 +20,7 @@ import './fonts/AirbnbCereal_W_Blk.otf'
 import './fonts/AirbnbCereal_W_Lt.otf'
 import './fonts/AirbnbCereal_W_Md.otf'
 import './fonts/AirbnbCereal_W_XBd.otf'
+import CreateAImage from "./components/SpotImages/CreateImages";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,10 +49,6 @@ function App() {
 
           <Route path ='/spots/:spotId/editspot' exact>
           <EditSpotForm/>
-         </Route>
-
-         <Route path = '/spots/:spotId/images'>
-          <SpotImages/>
          </Route>
 
           <Route path ='/spots/myspots' exact>

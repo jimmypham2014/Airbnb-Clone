@@ -10,7 +10,7 @@ const load = (reviews, spotId) => ({
     spotId
   });
 
-export const addOneReview = (image) =>({
+export const addOneImage = (image) =>({
     type: ADD_IMAGE,
     image
 
@@ -30,25 +30,34 @@ export const getImages = (spotId) => async (dispatch) => {
   };
 
 
-export const addImage= (spotId,review) => async(dispatch) =>{
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`,{
-        method: "POST",
-        headers:{
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(review)
-    })
+export const addImage= (spotId,data) => async(dispatch) =>{
+    const{ url} = data
 
-    if(response.ok){
-        const data = await response.json()
-        console.log(data, 'reducer34534543535')
-        dispatch(addOneReview(data))
-        return data
-    }
+    const formData = new FormData()
+   formData.append("url", url);
+
+
+    for(const dataFiles of formData.entries()){
+        console.log(dataFiles)
+      }
+ 
+
+  const response = await csrfFetch(`/api/spots/${spotId}/images`,{
+    method:"POST",
+    headers:{
+        "Content-Type": "multipart/form-data",
+    },
+       body: formData,
+  })
+  if(response.ok){
+    const image = await response.json()
+    dispatch(addOneImage(image))
+    return image
+  }
 }
 
 export const removeReview = (reviewId) => async (dispatch)=>{
-    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
+    const response = await csrfFetch(`/api/images/${reviewId}`,{
         method:"DELETE",
         headers:{
             "Content-Type": "application/json",
@@ -60,25 +69,6 @@ export const removeReview = (reviewId) => async (dispatch)=>{
     }
 }
 
-export const updateReview = (reviewId,data) => async (dispatch)=>{
- 
-      
-    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
-      method:"PUT",
-      headers:{
-          "Content-Type": "application/json",
-      },
-         body: JSON.stringify(data)
-    })
-    
-    if(response.ok){
-      const review = await response.json()
-      console.log(review,'update reducer')
-      dispatch(addOneReview(review))
-
-      return review
-    }
-  }
 
 
 const initialState ={}
