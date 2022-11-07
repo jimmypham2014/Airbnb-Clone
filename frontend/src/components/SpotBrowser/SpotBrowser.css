@@ -1,3 +1,9 @@
+*{
+    font-family: "Light"; 
+}
+
+
+
 .spot__display {
   display: flex;
   justify-content: space-evenly;
@@ -17,7 +23,7 @@
   font-weight: bold;
 }
 .spot__display {
-  margin-left: 7.9%;
+  margin-left: 3%;
   position: relative;
   display: grid;
   grid-template-columns: auto auto auto;

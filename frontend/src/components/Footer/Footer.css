@@ -1,4 +1,5 @@
 .main-footer {
+    font-family: "Light";
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -9,12 +10,19 @@
     position: sticky;
     bottom: 0;
     width: 100%;
+    border: 1px solid lightgray;
   }
   .left-side{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 30%;
+    width: 40%;
+    margin-right: 5%;
+  }
+
+
+  .right-side{
+    margin-left: 5%;
   }
   .globe__icon{
     margin-left: 10%;
@@ -33,4 +41,7 @@
   .center a:hover{
     cursor: pointer;
     color: red;
+  }
+  .suppport img{
+    margin-left: 10px;
   }

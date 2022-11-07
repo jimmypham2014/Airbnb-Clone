@@ -8,6 +8,7 @@ import LoginFormModal from "../LoginFormModal";
 import GetSpotsOfCurrentUser from "./GetSpotsOfCurrentUser";
 import './SpotBrowser.css'
 import Footer from "../Footer/Footer";
+import '../../fonts/AirbnbCereal_W_Md.otf'
 
 const SpotBrowser = ()=>{
   const dispatch = useDispatch()
@@ -31,10 +32,11 @@ console.log(allSpots,'hello')
 
 return(
 <div className="page-container ">
-<div className="content-wrap ">
- <main className="spot__display">
 
- {allSpots.map((spot)=>{
+  <div className="content-wrap ">
+    <main className="spot__display">
+
+      {allSpots.map((spot)=>{
   return (
    <div className="spot_each_display">
     <Link key={spot.id} to={`/spots/${spot.id}`}>
@@ -59,7 +61,9 @@ return(
  })}
  </main>
  </div>
+
  <Footer/>
+
  </div>
 )
 

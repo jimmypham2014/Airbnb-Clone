@@ -14,6 +14,12 @@ import { getAllSpots } from "../src/store/spot";
 import { getReviews } from "./store/reviews";
 import Footer from "./components/Footer/Footer";
 import SpotImages from "./components/SpotImages/SpotImages";
+import './fonts/AirbnbCereal_W_Bd.otf'
+import './fonts/AirbnbCereal_W_Bk.otf'
+import './fonts/AirbnbCereal_W_Blk.otf'
+import './fonts/AirbnbCereal_W_Lt.otf'
+import './fonts/AirbnbCereal_W_Md.otf'
+import './fonts/AirbnbCereal_W_XBd.otf'
 
 function App() {
   const dispatch = useDispatch();

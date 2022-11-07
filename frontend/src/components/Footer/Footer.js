@@ -1,6 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import globeIcon from '../../icons/globe.svg'
+import arrowUp from '../../icons/arrowup.png'
 
 function Footer() {
   return (
@@ -8,7 +9,7 @@ function Footer() {
       <div className="right-side">
 
       <div>
-      © 2022 Airbnb, Inc.·Privacy·Terms·Sitemap
+      © 2022 Airbnb, Inc. · Privacy · Terms · Sitemap
       </div>
     
       </div>
@@ -22,7 +23,12 @@ function Footer() {
       
            <div className="globe__icon"> <img src={globeIcon} /> <p>English (US)</p> </div> 
             
-            <span>Choose a currency $ USD</span>
+            <span>$ USD</span>
+
+            <div className="suppport">
+            <span>Support & Resources</span>
+            <img src={arrowUp} alt=''/>
+            </div>
 
       </div>
     </div>

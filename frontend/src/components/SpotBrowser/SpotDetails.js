@@ -104,9 +104,7 @@ return(
    <div className='spot_detail_img'>
    <img src={spot.previewImage} alt=''/>
 
-   <Link to ={`/spots/${spot.id}/images`}>
-   <button>Show all Images</button>
-   </Link>
+  
 
    <div className='price-box'>
 
