@@ -49,7 +49,7 @@ useEffect(()=>{
 const specificReview = allReviews.filter(review =>review.spotId === spot.id)
 
 let allStars =specificReview.map(review => review.stars)
-console.log(allStars,'stars')
+console.log(allStars,'stars -------->')
 
 let rate = allStars.reduce(function(sum, star){
     const avg = (sum+star)
@@ -57,7 +57,7 @@ let rate = allStars.reduce(function(sum, star){
 },0)
 
 let averageRating = Number(rate/specificReview.length).toFixed(2)
-console.log(rate,'rate')
+console.log(averageRating,'average rateing ----->')
 
 
 
