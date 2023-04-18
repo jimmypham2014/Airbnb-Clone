@@ -28,14 +28,14 @@ console.log(allSpots,'hello')
 
 
 return(
-<div className="page-container ">
+<div className="page-container mx-auto py-13 ">
 
-  <div className="content-wrap ">
-    <main className="spot__display">
+  <div className="content-wrap flex justify-center">
+    <main className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-4 gap-[50px] max-w-sm max-auto md:max-w-none md:mx-0 gap-y-8 h-[100px]">
 
       {allSpots.map((spot)=>{
   return (
-   <div className="spot_each_display">
+   <div className="spot_each_display ">
     <Link key={spot.id} to={`/spots/${spot.id}`}>
 
 

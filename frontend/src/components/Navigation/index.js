@@ -17,6 +17,8 @@ import globeIcon from '../../icons/globe.svg'
 import account from '../../icons/account.svg'
 import DemoButton from '../DemoButton/DemoButton';
 
+import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
+
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
   const history = useHistory()
@@ -37,10 +39,16 @@ function Navigation({ isLoaded }){
 },[])
 
 
-// useEffect(() =>{
-//   dispatch(sessionActions.login({credential, password}))
+const scrollLeft = ()=>{
+  console.log('hi')
+   const slider = document.getElementById("options_content")
+  slider.scrollLeft = slider.scrollLeft - 600
+}
 
-// },[dispatch])
+const scrollRight = ()=>{
+  const slider = document.getElementById("options_content")
+  slider.scrollLeft = slider.scrollLeft + 600
+}
 
 const demo = async (e)=>{
   
@@ -94,7 +102,7 @@ const demo = async (e)=>{
 
         <div className='header__right'>
         {sessionUser &&
-           <NavLink className='header__right_btn grey-hover text-2xl text-blue ' to='/spots/form'>Become a host
+           <NavLink className='header__right_btn grey-hover text-xl ' to='/spots/form'>Become a host
            </NavLink>
         }
             <button className='header__right_btn grey-hover' >
@@ -130,10 +138,37 @@ const demo = async (e)=>{
     
     </div>
 
+    <div className='flex items-center justify-center'>
+
     <div>
-      <Slider slides={optionTabs}/>
+    <button onClick={scrollLeft} className='p-2 m-2 rounded-full bg-gray-50 hover:bg-gray-600 active:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300'><AiOutlineArrowLeft/></button>
     </div>
 
+   <div  className='flex items-center justify-center '>
+    <div id='options_content' className=' flex items-center justify-start md:w-[50rem] h-full m-3 overflow-y-auto whitespace-nowrap scroll-smooth scrollbar-hide sm:w-[30rem] lg:w-[50rem] 2xl:w-[90rem]'>
+
+      {optionTabs.map(option => {
+        return(
+        <div  >
+
+        <div className='flex flex-col items-center justify-around p-2'>
+        <img className='w-6' src={option.image}/>
+        <div>
+        {option.label}
+        </div>
+        
+        </div>
+        </div>
+        )
+      })}
+    </div>
+    </div>
+    
+    <div>
+    <button onClick={scrollRight} className='p-2 m-2 rounded-full bg-gray-50 hover:bg-gray-600 active:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300' ><AiOutlineArrowRight/></button>
+  </div>
+
+  </div>
 
     </>
   );
