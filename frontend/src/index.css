@@ -1,5 +1,9 @@
 /* TODO Add site wide styles */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "@fontsource/noto-sans-jp";
 @font-face {
     font-family: 'Bold';

@@ -25,5 +25,11 @@
   "bugs": {
     "url": "https://github.com/jimmypham2014/API-Project/issues"
   },
-  "homepage": "https://github.com/jimmypham2014/API-Project#readme"
+  "homepage": "https://github.com/jimmypham2014/API-Project#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
 }

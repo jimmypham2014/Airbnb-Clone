@@ -88,7 +88,7 @@ export const getAllSpots  = () => async dispatch =>{
     }
 }
 
-export const getSingleSpotDetail = (id,data) => async dispatch =>{
+export const getSingleSpotDetail = (id) => async dispatch =>{
     const response = await fetch(`/api/spots/${id}`)
 
     if(response.ok){

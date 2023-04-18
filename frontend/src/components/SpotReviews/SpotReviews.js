@@ -38,7 +38,7 @@ const SpotReviews = ({ spot }) => {
   }, [dispatch,spotId]);
 
 
-  const deletedReview = (e) =>{
+  const deletedReview = () =>{
     allReviews.forEach(review =>{
         if(review.userId === sessionUser.id){
             dispatch(removeReview(review.id))
