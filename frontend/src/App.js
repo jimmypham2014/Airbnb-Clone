@@ -21,6 +21,7 @@ import './fonts/AirbnbCereal_W_Lt.otf'
 import './fonts/AirbnbCereal_W_Md.otf'
 import './fonts/AirbnbCereal_W_XBd.otf'
 import CreateAImage from "./components/SpotImages/CreateImages";
+import './index.css'
 
 function App() {
   const dispatch = useDispatch();

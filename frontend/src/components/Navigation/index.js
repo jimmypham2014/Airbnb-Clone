@@ -94,7 +94,7 @@ const demo = async (e)=>{
 
         <div className='header__right'>
         {sessionUser &&
-           <NavLink className='header__right_btn grey-hover text-xl text-blue ' to='/spots/form'>Become a host
+           <NavLink className='header__right_btn grey-hover text-2xl text-blue ' to='/spots/form'>Become a host
            </NavLink>
         }
             <button className='header__right_btn grey-hover' >

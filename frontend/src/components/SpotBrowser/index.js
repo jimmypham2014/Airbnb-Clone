@@ -47,9 +47,9 @@ return(
     <h4>{spot.city}, {spot.state}</h4>
     </div>
 
-
+    
     <div className="primary-text">{spot.name}</div>
-    <div className="price">${spot.pricePerNight} Night</div>
+    <div className="price text-2x">${spot.pricePerNight} Night</div>
     
     
     </Link>
