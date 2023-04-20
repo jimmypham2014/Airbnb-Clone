@@ -1,16 +1,35 @@
 import React, { useState } from 'react'
 import './CreateBooking.css'
+import { DatePicker } from 'antd'
+import { addBooking } from '../../store/booking'
+import { useDispatch } from 'react-redux'
 
-function BookingForm(){
-    const [checkInDate, setCheckInDate] = useState('')
-    const [checkOutDate, setCheckOutDate] = useState('')
+function BookingForm({spotId}){
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
     const [guest, setGuest] = useState(1)
+    const dispatch  = useDispatch()
 
+
+    const handleSubmit =(e)=>{
+        e.preventDefault()
+
+        const payload ={
+            startDate,
+            endDate,
+            guest
+        }
+
+        dispatch(addBooking(spotId,payload))
+        console.log(payload)
+
+
+    }
 
 return(
 
     <>
-    <form>
+    <form className='w-[30rem]' onSubmit={handleSubmit}>
     <div className='check-in-container'>
     <div className='check-in-out'>
     <div id='in'>
@@ -18,8 +37,8 @@ return(
     <input
     type ='date'
     required
-    value={checkInDate}
-    onChange={(e) =>setCheckInDate(e.target.value)}
+    value={startDate}
+    onChange={(e) =>setStartDate(e.target.value)}
     />
     </div>
     <div id='out'>
@@ -27,8 +46,8 @@ return(
     <input
     type ='date'
     required
-    value={checkOutDate}        
-    onChange={(e) =>setCheckOutDate(e.target.value)}
+    value={endDate}        
+    onChange={(e) =>setEndDate(e.target.value)}
     />
     </div>
     </div>
@@ -52,11 +71,12 @@ return(
     </div>
    </div>
    
-   </div>
-    <button className='reserve_btn' type='submit'>Reserve</button>
+  
+    </div>
+    <button className='reserve_btn mt-3' type='submit'>Reserve</button>
     </form>
 
-
+  
 
     </>
 )

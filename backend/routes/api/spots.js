@@ -384,6 +384,7 @@ router.get('/:id/reviews', async(req,res)=>{
 
 router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
     const spotId = req.params.id
+    
     const userId = req.user.id
     const spot =await Spot.findOne({
         include:{
@@ -403,6 +404,7 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         where:{
             startDate,
             endDate,
+            numGuests
         }
     })
         if(spot.ownerId === userId){

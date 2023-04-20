@@ -14,6 +14,7 @@ import CreateAReview from '../SpotReviews/CreateAReview';
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import aircoverImg from '../../images/aircover.png'
 import { getReviews } from '../../store/reviews';
+import BookingForm from '../Forms/CreateBookingForm';
 
 const SpotDetails =()=>{
 
@@ -275,9 +276,18 @@ return(
     </div>
 
   <CreateAReview spot={spot}/>
+
+
+
+  <div>
+   
+  <BookingForm spotId = {spot.id}/>
+    </div>
+
   
    </div>
 
+  
 
 )
 
