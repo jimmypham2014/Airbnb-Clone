@@ -3,6 +3,8 @@ import { useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addReview } from "../../store/reviews";
 import './CreateReview.css'
+import { Rate } from "antd";
+
 
 const CreateAReview = ({spot})=>{
     const dispatch = useDispatch()
@@ -51,22 +53,16 @@ required
 onChange={(e) =>setReview(e.target.value)}
 />
 <label> <b>Rate this place from 1-5</b></label>
-<input
-id='star'
-type='select'
-min={0}
-max={5}
-placeholder="Your Rating"
-value={stars}
-required
-onChange={(e) =>setStars(e.target.value)}
-/>
 
+<Rate
+onChange={(e)=> setStars(e) }
+tooltips={["Terrible","Bad", "Normal", "Good", "Excellent"]}
+/>
 
 {errors.map((error)=>{
     return(
        
-       <div className="error_message">{error}</div> 
+       <div className="error_message text-red-400">{error}</div> 
        
         
     )

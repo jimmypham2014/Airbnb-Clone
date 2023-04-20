@@ -1,0 +1,21 @@
+.reserve_btn {
+    width: 70%;
+    height: 70px;
+    padding: 2%;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    background: linear-gradient(
+      to right,
+      rgb(230, 30, 77) 0%,
+      rgb(227, 28, 95) 50%,
+      rgb(215, 4, 102) 100%
+    );
+    border: none;
+    transition: transform 100ms ease-in;
+  }
+  
+  .reserve_btn:hover {
+    cursor: pointer;
+    transform: scale(1.07);
+  }

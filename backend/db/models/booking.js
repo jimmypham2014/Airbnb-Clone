@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull:false,
     },
+    numGuests:{
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     startDate: {
       type:DataTypes.STRING,
       allowNull:false

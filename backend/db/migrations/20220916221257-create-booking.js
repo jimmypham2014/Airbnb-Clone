@@ -25,6 +25,10 @@ module.exports = {
           key: 'id'
         },
       },
+      numGuests:{
+        type:Sequelize.INTEGER,
+        allowNull:false
+      },
       startDate: {
         type: Sequelize.STRING,
         allowNull:false,

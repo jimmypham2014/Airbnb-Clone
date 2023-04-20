@@ -14,10 +14,6 @@ import CreateAReview from '../SpotReviews/CreateAReview';
 import {faStar} from '@fortawesome/free-solid-svg-icons'
 import aircoverImg from '../../images/aircover.png'
 import { getReviews } from '../../store/reviews';
-import UpdateReview from '../SpotReviews/EditAReview';
-import SpotImages from '../SpotImages/SpotImages';
-import CreateAImage from '../SpotImages/CreateImages';
-
 
 const SpotDetails =()=>{
 
@@ -274,7 +270,7 @@ return(
 
    
      <div className='spot_reivew_container'>
-   <SpotReviews spot={spot}/>
+       <SpotReviews spot={spot}/>
    
     </div>
 

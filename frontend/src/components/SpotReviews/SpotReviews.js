@@ -8,6 +8,7 @@ import threeDot from '../../images/more.png'
 import { useParams } from "react-router-dom";
 import UpdateReview from "./EditAReview";
 import EditReviewModal from "./EditReviewModal";
+import {Rate} from 'antd'
 
 //!!ADD
 // import { useSelector } from "react-redux";
@@ -81,6 +82,10 @@ const SpotReviews = ({ spot }) => {
              </div>
             
             <h4>{review.review} </h4>
+            <div className='flex justify-start ml-[100px]'>
+            <Rate value={review.stars} disabled/>
+            </div>
+           
             
             <h5>{review.createdAt.slice(0, 10)} </h5>
              </div>
