@@ -63,7 +63,10 @@ const demo = async (e)=>{
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+
+        <ProfileButton user={sessionUser}  />
+      
+      
     );
   } else {
     sessionLinks = (
@@ -120,9 +123,12 @@ const demo = async (e)=>{
           <div className={`dropdown-menu ${open ? 'active' :'inactive'} `} ref={menuRef} >
            
             {isLoaded}
+            <div >
             {sessionLinks}
+            </div>
+            
             {!sessionUser ?
-            <button onClick={demo} >Sign in as Demo user
+            <button className='hover:bg-gray-300' onClick={demo} >Sign in as Demo user
               </button>:null
             }
             <span></span>

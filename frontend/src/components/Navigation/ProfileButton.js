@@ -57,6 +57,11 @@ function ProfileButton({ user }) {
            <h4>All My Spots</h4>
            
            </NavLink>
+
+           <NavLink to ='/mybookings'>
+           
+           <h4>My Bookings</h4>
+           </NavLink>
           
           </li>
           <li>
