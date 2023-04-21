@@ -7,28 +7,46 @@ import { useDispatch } from 'react-redux'
 function BookingForm({spotId}){
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
-    const [guest, setGuest] = useState(1)
+    const [numGuests, setNumGuests] = useState(1)
+    const [errors, setErrors] = useState([])
     const dispatch  = useDispatch()
 
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault()
 
         const payload ={
             startDate,
             endDate,
-            guest
+            numGuests
         }
 
-        dispatch(addBooking(spotId,payload))
-        console.log(payload)
+       try{
+         await dispatch(addBooking(spotId,payload))
+
+
+       } catch(error){
+           const data= await error.json()
+           setErrors([...Object.values(data.errors)])
+       }
+        
 
 
     }
+     console.log(errors)
 
 return(
 
     <>
+
+    {errors.map((error)=>{
+        return(
+           
+           <div className="error_message text-red-400">{error}</div> 
+           
+            
+        )
+    })}
     <form className='w-[30rem]' onSubmit={handleSubmit}>
     <div className='check-in-container'>
     <div className='check-in-out'>
@@ -55,7 +73,7 @@ return(
    <div className='check-in-guest'>
     <label>Guests</label>
     <div className='guest-option'>
-    <select value={guest} onChange={(e) =>setGuest(e.target.value)}>
+    <select value={numGuests} onChange={(e) =>setNumGuests(e.target.value)}>
     <option value={1}> 1 Guest</option>
     <option value={2}> 2 Guests</option>
     <option value={3}> 3 Guests</option>

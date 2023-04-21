@@ -392,13 +392,17 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         },
         where:{id:spotId}
     })
+
+    console.log(spot)
     if(!spot){
         res.status(404).json({
             message:"Spot couldn't be found",
             statusCode: 404
         })
     }
-    const {startDate,endDate} =req.body
+    const {startDate,endDate,numGuests} =req.body
+
+    console.log(req.body)
 
     const booking = await Booking.findOne({
         where:{
@@ -447,7 +451,8 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         spotId,
         userId,
         startDate,
-        endDate
+        endDate,
+        numGuests
     })
     res.json(addBooking)
     }

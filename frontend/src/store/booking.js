@@ -1,4 +1,4 @@
-
+import { csrfFetch } from "./csrf"
 const LOAD_BOOKING = '/bookings/LOAD_BOOKING'
 const ADD_BOOKING = '/bookings/ADD_BOOKING'
 
@@ -15,7 +15,7 @@ const add_booking = (booking)=>({
 
 
 export const loadBookings = ()=> async(dispatch)=>{
-    const res = await fetch('/api/bookings')
+    const res = await csrfFetch('/api/bookings')
     if(res.ok){
         const bookings = await res.json();
         dispatch(load(bookings))
@@ -24,7 +24,7 @@ export const loadBookings = ()=> async(dispatch)=>{
 
 
 export const addBooking = (spotId,booking) => async(dispatch)=>{
-    const res = await fetch(`/api/spots/${spotId}/bookings`,{
+    const res = await csrfFetch(`/api/spots/${spotId}/bookings`,{
         method:'POST',
         headers:{
             'Content-Type': 'application/json',
