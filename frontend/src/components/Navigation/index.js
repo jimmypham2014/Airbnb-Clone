@@ -133,7 +133,6 @@ const demo = async (e)=>{
             }
             <span></span>
             <div className='host_your_home'>
-              <button>Host an experience</button>
               <button>Help</button>
 
             </div>

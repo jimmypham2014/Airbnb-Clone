@@ -24,6 +24,7 @@ export const loadBookings = ()=> async(dispatch)=>{
     if(res.ok){
         const bookings = await res.json();
         dispatch(load(bookings))
+    
     }
 }
 

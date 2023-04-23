@@ -24,6 +24,7 @@ import CreateAImage from "./components/SpotImages/CreateImages";
 import './index.css'
 import BookingForm from "./components/Forms/CreateBookingForm";
 import MyBookings from "./components/Pages/MyBookings";
+import { loadBookings } from "./store/booking";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     dispatch(getAllSpots())
     dispatch(getReviews())
+    dispatch(loadBookings())
   }, [dispatch]);
 
   return (

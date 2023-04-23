@@ -48,12 +48,13 @@ const dispatch = useDispatch()
 
 
 return(
-
-    <main className="spot__display">
+    <div className="content-wrap flex justify-center">
+    <main className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  2xl:grid-cols-4 gap-[50px] max-w-sm max-auto md:max-w-none md:mx-0 gap-y-8 h-[100px]">
 
     {currentSpots.map((spot)=>{
-
- return <SingleEditForm spot={spot}/>
+        return(
+        <SingleEditForm spot={spot}/>
+        )
             
     }
       
@@ -62,6 +63,8 @@ return(
    
     
     </main>
+
+    </div>
 
 )
 
