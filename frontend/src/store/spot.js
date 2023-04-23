@@ -81,7 +81,7 @@ export const updateSpot = (id,data) => async (dispatch)=>{
 const initialState = {};
 
 export const getAllSpots  = () => async dispatch =>{
-    const response = await fetch(`/api/spots`)
+    const response = await csrfFetch(`/api/spots`)
     if(response.ok){
         const list = await response.json()
         dispatch(load(list))
@@ -89,7 +89,7 @@ export const getAllSpots  = () => async dispatch =>{
 }
 
 export const getSingleSpotDetail = (id) => async dispatch =>{
-    const response = await fetch(`/api/spots/${id}`)
+    const response = await csrfFetch(`/api/spots/${id}`)
 
     if(response.ok){
         const {Spot}= await response.json()
