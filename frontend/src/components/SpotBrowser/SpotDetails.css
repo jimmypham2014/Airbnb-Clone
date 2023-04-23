@@ -67,9 +67,9 @@
 .price-box {
   background-color: white;
   position:fixed;
-  width: 30%;
+  width: 30rem;
   border: 0 solid rgb(221, 221, 221);
-  height: 500px;
+  height: 25rem;
   top: 1;
   display: flex;
   flex-direction: column;
