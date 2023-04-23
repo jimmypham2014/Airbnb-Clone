@@ -16,6 +16,8 @@ router.get('/current', requireAuth, async (req,res)=>{
 
     })
 
+    console.log(bookings, 'hello')
+
     const images = await Image.findAll()
 
         console.log(images)
@@ -36,7 +38,7 @@ router.get('/current', requireAuth, async (req,res)=>{
             statusCode: 404
         })
     }
-    res.json({currentUser:bookings})
+    res.json({bookings:bookings})
 })
 
 router.put('/:id', requireAuth,validateBooking,async (req,res)=>{

@@ -8,6 +8,8 @@ const {restoreUser,requireAuth} = require('../../utils/auth')
 const {validateSpot, validateReview, validateBooking} = require('../../utils/validation')
 const {User,Spot,Image,Review,Booking, sequelize} =require('../../db/models');
 const {validationResult } = require('express-validator');
+
+
 router.get(
     '/',
     async (req,res)=>{

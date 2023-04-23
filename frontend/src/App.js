@@ -23,6 +23,7 @@ import './fonts/AirbnbCereal_W_XBd.otf'
 import CreateAImage from "./components/SpotImages/CreateImages";
 import './index.css'
 import BookingForm from "./components/Forms/CreateBookingForm";
+import MyBookings from "./components/Pages/MyBookings";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,6 +71,10 @@ function App() {
 
           <Route path ='/booking'>
             <BookingForm/>
+          </Route>
+
+          <Route path = '/mybookings'>
+          <MyBookings/>
           </Route>
 
 

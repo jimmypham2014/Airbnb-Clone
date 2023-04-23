@@ -3,6 +3,7 @@ import './CreateBooking.css'
 import { DatePicker } from 'antd'
 import { addBooking } from '../../store/booking'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 function BookingForm({spotId}){
     const [startDate, setStartDate] = useState('')
@@ -10,6 +11,7 @@ function BookingForm({spotId}){
     const [numGuests, setNumGuests] = useState(1)
     const [errors, setErrors] = useState([])
     const dispatch  = useDispatch()
+    const history = useHistory()
 
 
     const handleSubmit = async (e)=>{
@@ -23,6 +25,8 @@ function BookingForm({spotId}){
 
        try{
          await dispatch(addBooking(spotId,payload))
+         alert('You have successfully booked this place!')
+         history.push('/myBookings')
 
 
        } catch(error){
