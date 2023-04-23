@@ -1,23 +1,6 @@
-.new-form{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    
-}
 
-.new-form{
-    background: url('../../images/testing.jpg') no-repeat center center;
-    background-position: fixed;
-    background-size: cover;
-    overflow: hidden;
-    height: 1000px; 
-    background-attachment: fixed;
-    opacity: 0.75;
-    width: 1500px;
 
-}
+
 .hello{
   margin-top: 10px;
   background-color: white;

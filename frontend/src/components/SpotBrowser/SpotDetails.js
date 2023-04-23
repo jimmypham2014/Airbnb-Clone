@@ -110,68 +110,7 @@ return(
 
    <div className='price-box'>
 
-   <div className='price-box-content'>
-
-      <h2>${spot.pricePerNight}/Night</h2>
-  
-      <p>{specificReview.length <=1 ? `${specificReview.length} Review`: `${specificReview.length} Reviews`}</p>
-   </div>
-
-   <div className='check-in-container'>
-    <div className='check-in-out'>
-    <div id='in'>
-    <h5>Check In</h5>
-    <span>12/14/2022</span>
-    </div>
-    <div id='out'>
-    <h5>Check Out</h5>
-     <span>12/19/2022</span>
-    </div>
-    </div>
-
-   <div className='check-in-guest'>
-    <span>Guests</span>
-    <div className='guest-option'>
-    <span><b> 1 Guest</b></span>
-    <FontAwesomeIcon icon={faArrowDown} className='arrow-down'/>
-    </div>
-   </div>
-   
-   </div>
-
-   <div><h4></h4></div>
-   
-      <button className='reserve_btn'>Reserve</button>
-   
-      
-      <div className='price-details'>
-      <span>Don't book, you're too poor</span>
-      
-      </div>
-
-      <div className='booking-price-details'>
-     
-        <div className='total-price-per-night'>
-        <span>${spot.pricePerNight} x 5 nights</span>
-         <span>${spot.pricePerNight * 5}</span> 
-       </div>
-
-        <div className='clearning-fee'>
-        <span>Cleaning fee</span>
-        <span>$390</span>
-        </div>
-
-        <div className='service-fee'>
-        <span>Service fee</span>
-        <span>$716</span>
-        </div>
-
-        <div className='total-before-tax'>
-        <h2>Total before taxes</h2>
-         <span>${(spot.pricePerNight*5)+390+716}</span>
-        </div>
-
-      </div>
+   <BookingForm spotId={spot.id}/>
 
    </div>
 
@@ -277,14 +216,6 @@ return(
 
   <CreateAReview spot={spot}/>
 
-
-
-  <div>
-   
-  <BookingForm spotId = {spot.id}/>
-    </div>
-
-  
    </div>
 
   

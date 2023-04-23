@@ -106,10 +106,10 @@ const handleCancelClick=(e)=>{
 
     return(
         
-        <section className='new-form'>
+        <section className='new-form '>
         
-            <div className="hello">
-            <form className='create-spot-form' onSubmit={handleSubmit}>
+            <div className="hello flex items-center justify-center fixed">
+            <form className='create-spot-form fixed' onSubmit={handleSubmit}>
             <div className="form-values">
             <label>Address</label>
             <p>{formErrors.address}</p>

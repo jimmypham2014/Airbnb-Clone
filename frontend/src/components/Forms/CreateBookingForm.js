@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './CreateBooking.css'
 import { DatePicker } from 'antd'
 import { addBooking } from '../../store/booking'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 function BookingForm({spotId}){
@@ -12,6 +12,30 @@ function BookingForm({spotId}){
     const [errors, setErrors] = useState([])
     const dispatch  = useDispatch()
     const history = useHistory()
+    const spots = useSelector(state =>{
+        return state.spots
+      })
+    
+    
+    
+      const spot = spots[spotId]
+
+
+
+    const date1 = new Date(startDate)
+    const date2 = new Date(endDate)
+    const diff_in_time = date2.getTime() - date1.getTime()
+    const diff_in_days = diff_in_time/ (1000 *3600 *24)
+
+    console.log(diff_in_time, 'helllo')
+    console.log(diff_in_days)
+
+    const cleaningFee = spot.pricePerNight * (diff_in_days ? diff_in_days:0) * .10
+    const totalPricePerNight = spot.pricePerNight * (diff_in_days ? diff_in_days:0)
+    const serviceFee= Math.round((spot.pricePerNight * (diff_in_days ? diff_in_days:0) * .03) *100)/100
+
+    const totalBeforeTax = cleaningFee + totalPricePerNight +serviceFee
+
 
 
     const handleSubmit = async (e)=>{
@@ -26,7 +50,6 @@ function BookingForm({spotId}){
        try{
          await dispatch(addBooking(spotId,payload))
          alert('You have successfully booked this place!')
-         history.push('/myBookings')
 
 
        } catch(error){
@@ -41,7 +64,7 @@ function BookingForm({spotId}){
 
 return(
 
-    <>
+    <div className='flex flex-col items-center justify-center '>
 
     {errors.map((error)=>{
         return(
@@ -51,12 +74,16 @@ return(
             
         )
     })}
-    <form className='w-[30rem]' onSubmit={handleSubmit}>
+
+
+    <div className='flex items-center justify-center'>
+    <form className='w-[30rem] pl-[100px]' onSubmit={handleSubmit}>
     <div className='check-in-container'>
     <div className='check-in-out'>
-    <div id='in'>
+    <div id='in' className='w-[100px]'>
     <label>Check In</label>
     <input
+    className='w-[120px]'
     type ='date'
     required
     value={startDate}
@@ -66,6 +93,7 @@ return(
     <div id='out'>
     <label>Check Out</label>
     <input
+    className='w-[130px]'
     type ='date'
     required
     value={endDate}        
@@ -98,9 +126,35 @@ return(
     <button className='reserve_btn mt-3' type='submit'>Reserve</button>
     </form>
 
+    </div>
+
+
+    <div className='booking-price-details flex flex-col justify-center items-center w-6'>
+     
+    <div className='total-price-per-night'>
+    <span>${spot.pricePerNight} x {diff_in_days ? `${diff_in_days} nights`  : `0 night`} </span>
+     <span>${totalPricePerNight }</span> 
+   </div>
+
+    <div className='clearning-fee'>
+    <span>Cleaning fee</span>
+    <span>${cleaningFee}</span>
+    </div>
+
+    <div className='service-fee'>
+    <span>Service fee</span>
+    <span>${serviceFee}</span>
+    </div>
+
+    <div className='total-before-tax'>
+    <h2>Total before taxes</h2>
+     <span>${totalBeforeTax}</span>
+    </div>
+
+  </div>
   
 
-    </>
+  </div>
 )
 
 
