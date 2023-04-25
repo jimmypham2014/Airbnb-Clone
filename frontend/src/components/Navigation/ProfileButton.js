@@ -3,10 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
-import CreateSpotForm from "../SpotBrowser/CreateSpotForm";
 import {NavLink, Route, useHistory} from 'react-router-dom'
 
 function ProfileButton({ user }) {

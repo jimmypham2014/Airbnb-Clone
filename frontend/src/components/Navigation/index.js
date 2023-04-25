@@ -30,33 +30,7 @@ function Navigation({ isLoaded }){
  
   let menuRef = useRef()
 
-  const openMenu = () => {
-    if (searchInput) return;
-    setSearchInput(true);
-
-  };
-  
-  useEffect(() => {
-    if (!searchInput) return;
-
-    const closeMenu = () => {
-      setSearchInput(false);
-    };
-
-    document.addEventListener('click', closeMenu);
-  
-    return () => document.removeEventListener("click", closeMenu);
-  }, [searchInput]);
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
@@ -74,6 +48,7 @@ function Navigation({ isLoaded }){
   let handleSubmit = (e)=>{
     if(!menuRef.current.contains(e.target)){
     setOpen(false)
+    setSearchInput(false)
     }
   }
   document.addEventListener('mousedown',handleSubmit)
@@ -132,11 +107,11 @@ const demo = async (e)=>{
         </div>
 
         <div className='header__center flex'>
-            <button onClick={openMenu }>Anywhere</button>
+            <button onClick={()=>{setSearchInput(!searchInput)}}>Anywhere</button>
             <span></span>
-            <button onClick={openMenu }>Any week</button>
+            <button onClick={()=>{setSearchInput(!searchInput)}}>Any week</button>
             <span></span>
-            <button onClick={openMenu }>Add Guests 
+            <button onClick={()=>{setSearchInput(!searchInput)}}>Add Guests 
             
             <div className='search__icon'>
               <FontAwesomeIcon icon={faSearch} className='icon'/>
@@ -146,8 +121,8 @@ const demo = async (e)=>{
             
         </div>
 
-        {searchInput &&(
-          <div>
+        <div className={`search-menu ${searchInput ? 'active' :'inactive'} `} ref={menuRef} >
+          <div className='border w-[895px]'>
           
           <DateRangePicker
           onChange={item => setState([item.selection])}
@@ -157,9 +132,9 @@ const demo = async (e)=>{
           ranges={state}
           direction="horizontal"
           rangeColors={["#FD5B61"]}
-          />;
+          />
           </div>
-        )}
+        </div>
         
         
 
