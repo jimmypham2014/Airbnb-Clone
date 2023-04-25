@@ -9,9 +9,6 @@ import SignupFormModal from '../SignupFormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faGlobe,faUser,faBars} from '@fortawesome/free-solid-svg-icons'
 import * as sessionActions from '../../store/session';
-import CreateSpotForm from '../SpotBrowser/CreateSpotForm';
-import {Route} from 'react-router-dom'
-import Slider from '../Slider.js/Slider';
 import { optionTabs } from '../../locationTab/options';
 import globeIcon from '../../icons/globe.svg'
 import account from '../../icons/account.svg'
@@ -20,6 +17,9 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
+
+
+
 
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
@@ -48,12 +48,14 @@ function Navigation({ isLoaded }){
   let handleSubmit = (e)=>{
     if(!menuRef.current.contains(e.target)){
     setOpen(false)
-    setSearchInput(false)
+    
     }
   }
   document.addEventListener('mousedown',handleSubmit)
 
 },[])
+
+
 
 
 const scrollLeft = ()=>{
@@ -122,8 +124,9 @@ const demo = async (e)=>{
         </div>
 
         <div className={`search-menu ${searchInput ? 'active' :'inactive'} `} ref={menuRef} >
-          <div className='border w-[895px]'>
+          <div className='border w-[895px] flex flex-col col-span-3 mx-auto'>
           
+    
           <DateRangePicker
           onChange={item => setState([item.selection])}
           showSelectionPreview={true}
@@ -132,8 +135,11 @@ const demo = async (e)=>{
           ranges={state}
           direction="horizontal"
           rangeColors={["#FD5B61"]}
+          width='700px'
           />
+       
           </div>
+          
         </div>
         
         

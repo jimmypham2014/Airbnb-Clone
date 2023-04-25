@@ -68,11 +68,7 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
-.header span {
-  width: 1px;
-  height: 24px;
-  
-}
+
 
 .header .search__icon .icon {
   color: white;
