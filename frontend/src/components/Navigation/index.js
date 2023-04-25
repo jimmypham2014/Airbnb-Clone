@@ -30,6 +30,35 @@ function Navigation({ isLoaded }){
  
   let menuRef = useRef()
 
+  const openMenu = () => {
+    if (searchInput) return;
+    setSearchInput(true);
+
+  };
+  
+  useEffect(() => {
+    if (!searchInput) return;
+
+    const closeMenu = () => {
+      setSearchInput(false);
+    };
+
+    document.addEventListener('click', closeMenu);
+  
+    return () => document.removeEventListener("click", closeMenu);
+  }, [searchInput]);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const [state, setState] = useState([
@@ -40,9 +69,6 @@ function Navigation({ isLoaded }){
     }
   ]);
 
-  const clickSearch = ()=>{
-    setSearchInput(true)
-  }
 
   useEffect(()=>{
   let handleSubmit = (e)=>{
@@ -106,11 +132,11 @@ const demo = async (e)=>{
         </div>
 
         <div className='header__center flex'>
-            <button onClick={clickSearch}>Anywhere</button>
+            <button onClick={openMenu }>Anywhere</button>
             <span></span>
-            <button onClick={clickSearch}>Any week</button>
+            <button onClick={openMenu }>Any week</button>
             <span></span>
-            <button onClick={clickSearch}>Add Guests 
+            <button onClick={openMenu }>Add Guests 
             
             <div className='search__icon'>
               <FontAwesomeIcon icon={faSearch} className='icon'/>
