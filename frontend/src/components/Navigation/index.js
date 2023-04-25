@@ -15,18 +15,34 @@ import Slider from '../Slider.js/Slider';
 import { optionTabs } from '../../locationTab/options';
 import globeIcon from '../../icons/globe.svg'
 import account from '../../icons/account.svg'
-import DemoButton from '../DemoButton/DemoButton';
-
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
+import { addDays } from 'date-fns';
 
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
   const history = useHistory()
   const sessionUser = useSelector(state => state.session.user);
   const [open, setOpen] = useState(false)
-  const [showForm,setShowForm]=useState(false)
+  const [searchInput,setSearchInput]=useState(false)
+ 
   let menuRef = useRef()
 
+
+
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: 'selection'
+    }
+  ]);
+
+  const clickSearch = ()=>{
+    setSearchInput(true)
+  }
 
   useEffect(()=>{
   let handleSubmit = (e)=>{
@@ -89,18 +105,36 @@ const demo = async (e)=>{
         </NavLink>
         </div>
 
-        <div className='header__center'>
-            <button>Anywhere</button>
+        <div className='header__center flex'>
+            <button onClick={clickSearch}>Anywhere</button>
             <span></span>
-            <button>Any week</button>
+            <button onClick={clickSearch}>Any week</button>
             <span></span>
-            <button>Add Guests 
+            <button onClick={clickSearch}>Add Guests 
             
             <div className='search__icon'>
               <FontAwesomeIcon icon={faSearch} className='icon'/>
             </div>
             </button> 
+
+            
         </div>
+
+        {searchInput &&(
+          <div>
+          
+          <DateRangePicker
+          onChange={item => setState([item.selection])}
+          showSelectionPreview={true}
+          moveRangeOnFirstSelection={false}
+          months={2}
+          ranges={state}
+          direction="horizontal"
+          rangeColors={["#FD5B61"]}
+          />;
+          </div>
+        )}
+        
         
 
         <div className='header__right'>
@@ -174,6 +208,7 @@ const demo = async (e)=>{
   </div>
 
   </div>
+ 
 
     </>
   );
