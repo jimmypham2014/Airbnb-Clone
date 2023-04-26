@@ -19,7 +19,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
 import {BsPeople} from 'react-icons/bs'
-import { useRouter } from 'next/router'
+
 
 
 
@@ -32,7 +32,6 @@ function Navigation({ isLoaded }){
   const [searchInput,setSearchInput]=useState(false)
   const [numGuests, setNumGuests] = useState(1)
   const [searchLocation, setSearchLocation] = useState('')
-  const router = useRouter()
  
   let menuRef = useRef()
 
