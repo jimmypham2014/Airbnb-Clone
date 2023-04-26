@@ -21,13 +21,13 @@ function Footer() {
 
       <div className="left-side">
       
-           <div className="globe__icon"> <img src={globeIcon} /> <p>English (US)</p> </div> 
+           <div className="globe__icon"> <img src={globeIcon} className='w-4'/> <p>English (US)</p> </div> 
             
             <span>$ USD</span>
 
-            <div className="suppport">
+            <div className="suppport flex">
             <span>Support & Resources</span>
-            <img src={arrowUp} alt=''/>
+            <img src={arrowUp} alt='' className='w-4'/>
             </div>
 
       </div>

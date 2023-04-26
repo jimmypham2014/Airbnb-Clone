@@ -2,6 +2,7 @@
 import React, {useState, useEffect,useRef} from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
+
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
@@ -17,6 +18,8 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
+import {BsPeople} from 'react-icons/bs'
+import { useRouter } from 'next/router'
 
 
 
@@ -27,10 +30,11 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const [open, setOpen] = useState(false)
   const [searchInput,setSearchInput]=useState(false)
+  const [numGuests, setNumGuests] = useState(1)
+  const [searchLocation, setSearchLocation] = useState('')
+  const router = useRouter()
  
   let menuRef = useRef()
-
- 
 
 
 
@@ -44,6 +48,8 @@ function Navigation({ isLoaded }){
   ]);
 
 
+  console.log(state)
+
   useEffect(()=>{
   let handleSubmit = (e)=>{
     if(!menuRef.current.contains(e.target)){
@@ -54,6 +60,8 @@ function Navigation({ isLoaded }){
   document.addEventListener('mousedown',handleSubmit)
 
 },[])
+
+
 
 
 
@@ -124,9 +132,26 @@ const demo = async (e)=>{
         </div>
 
         <div className={`search-menu ${searchInput ? 'active' :'inactive'} `} ref={menuRef} >
-          <div className='border w-[895px] flex flex-col col-span-3 mx-auto'>
+          <div className='border w-[895px] flex flex-col col-span-3 mx-auto bg-white'>
+
+          <div className='flex items-center justify-between p-4'>
+          <span className='text-xl font-extrabold outline-none'>Where</span>
           
-    
+          <input
+          type='text'
+          value={searchLocation}
+          onChange={(e)=> setSearchLocation(e.target.value)}
+          placeholder='Search a place'
+          className='border w-[650px] h-[50px]'
+          >
+          
+          </input>
+          
+          </div>
+
+
+
+          <div>
           <DateRangePicker
           onChange={item => setState([item.selection])}
           showSelectionPreview={true}
@@ -137,6 +162,32 @@ const demo = async (e)=>{
           rangeColors={["#FD5B61"]}
           width='700px'
           />
+          </div>
+
+          <div className='flex items-center  justify-between'>
+          <span className='text-xl font-extrabold pl-5'>Number of Guests</span>
+
+          <div className='flex items-center '>
+          <BsPeople size={30}/>
+          <input
+          value={numGuests}
+          onChange={(e) =>setNumGuests(e.target.value)}
+          min={1}
+          type='number'
+          className='w-[50px] pl-5 outline-none'
+          >
+          </input>
+          </div>
+          
+          </div>
+
+
+          <div className='button-container flex items-center justify-center'>
+            <button onClick={() => setSearchInput(false)}>Cancel</button>
+            <button className='search-button' >Search</button>
+          
+          </div>
+
        
           </div>
           

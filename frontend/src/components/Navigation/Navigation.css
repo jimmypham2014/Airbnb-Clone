@@ -195,3 +195,6 @@ justify-content: center;
   cursor: pointer;
 }
 
+.search-button{
+  color: rgb(212, 33, 9);
+}
