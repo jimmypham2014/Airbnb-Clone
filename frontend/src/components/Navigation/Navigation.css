@@ -8,6 +8,7 @@ body {
   justify-content: space-evenly;
   padding: 0 24px;
   top: 0;
+  
   background-color: white;
   position: relative;
   width: 100%;
@@ -120,7 +121,6 @@ justify-content: center;
 .search-menu {
   position: fixed;
   top: 100px;
-  left:200px;
   border-radius: 8px;
   padding: 10px 20px;
   width: 600px;
