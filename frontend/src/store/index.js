@@ -5,13 +5,15 @@ import { spotReducer } from './spot';
 import { reviewReducer } from './reviews';
 import { imageReducer } from './images';
 import bookingReducer from './booking';
+import { searchReducer } from './search';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     spots: spotReducer,
     reviews:reviewReducer,
     images:imageReducer,
-    bookings:bookingReducer
+    bookings:bookingReducer,
+    search:searchReducer
 })
 
 

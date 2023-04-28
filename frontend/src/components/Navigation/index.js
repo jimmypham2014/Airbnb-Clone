@@ -19,8 +19,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
 import {BsPeople} from 'react-icons/bs'
-
-
+import { searching } from '../../store/search';
 
 
 
@@ -31,13 +30,6 @@ function Navigation({ isLoaded }){
   const [open, setOpen] = useState(false)
   const [searchInput,setSearchInput]=useState(false)
   const [numGuests, setNumGuests] = useState(1)
-  const [searchLocation, setSearchLocation] = useState('')
- 
-  let menuRef = useRef()
-
-
-
-
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -45,15 +37,43 @@ function Navigation({ isLoaded }){
       key: 'selection'
     }
   ]);
+  const [checkInDate, setCheckInDate] =useState(state[0].startDate.toLocaleDateString())
+  const [checkOutDate, setCheckOutDate] =useState(state[0].endDate.toLocaleDateString())
+  const [searchLocation, setSearchLocation] = useState('')
+  
 
 
-  console.log(state)
+  let menuRef = useRef()
+
+
+
+
+ console.log(checkInDate, checkOutDate)
+
+  const search = () =>{
+
+
+    const payload ={
+      searchLocation,
+      checkInDate,
+      checkOutDate,
+      numGuests
+    }
+    dispatch(searching(payload))
+    history.push('/search')
+    console.log(searchLocation, checkInDate, checkOutDate, numGuests)
+  }
+
+
+  console.log(state.map(state=> state.startDate.toLocaleDateString()))
 
   useEffect(()=>{
   let handleSubmit = (e)=>{
     if(!menuRef.current.contains(e.target)){
     setOpen(false)
     
+    } else{
+      setOpen(true)
     }
   }
   document.addEventListener('mousedown',handleSubmit)
@@ -134,14 +154,14 @@ const demo = async (e)=>{
           <div className='border w-[895px] flex flex-col col-span-3 mx-auto bg-white'>
 
           <div className='flex items-center justify-between p-4'>
-          <span className='text-xl font-extrabold outline-none'>Where</span>
+          <span className='text-xl font-extrabold outline-none '>Where</span>
           
           <input
           type='text'
           value={searchLocation}
           onChange={(e)=> setSearchLocation(e.target.value)}
           placeholder='Search a place'
-          className='border w-[650px] h-[50px]'
+          className='border w-[650px] h-[50px] pl-2'
           >
           
           </input>
@@ -183,7 +203,7 @@ const demo = async (e)=>{
 
           <div className='button-container flex items-center justify-center'>
             <button onClick={() => setSearchInput(false)}>Cancel</button>
-            <button className='search-button' >Search</button>
+            <button className='search-button' onClick={search} >Search</button>
           
           </div>
 

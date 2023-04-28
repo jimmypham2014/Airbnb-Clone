@@ -25,6 +25,8 @@ import './index.css'
 import BookingForm from "./components/Forms/CreateBookingForm";
 import MyBookings from "./components/Pages/MyBookings";
 import { loadBookings } from "./store/booking";
+import Searching from "./components/Search";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +79,10 @@ function App() {
 
           <Route path = '/mybookings'>
           <MyBookings/>
+          </Route>
+
+          <Route path = '/search'>
+            <Searching/>
           </Route>
 
 
