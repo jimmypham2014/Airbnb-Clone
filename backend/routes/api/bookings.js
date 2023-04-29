@@ -16,11 +16,11 @@ router.get('/current', requireAuth, async (req,res)=>{
 
     })
 
-    console.log(bookings, 'hello')
+   
 
     const images = await Image.findAll()
 
-        console.log(images)
+  
         
     bookings.forEach(booking =>{
         images.forEach(image=>{
@@ -74,7 +74,7 @@ router.put('/:id', requireAuth,validateBooking,async (req,res)=>{
       theDate.setDate(theDate.getDate() + 1)
     }
     dates = [...dates, endDate]
-    console.log(dates)
+  
   }
 
 const d1 = new Date(existingBook.startDate)
@@ -83,7 +83,6 @@ const d2 = new Date(existingBook.endDate)
 getDatesBetweenDates(d1, d2)
 
 dates.forEach(date=>{
-    console.log(new Date(startDate),date)
     if(new Date(startDate) === date){
         res.json({message:'thers a conflict'})
     }

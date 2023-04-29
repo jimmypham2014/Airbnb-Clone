@@ -81,7 +81,7 @@ function App() {
           <MyBookings/>
           </Route>
 
-          <Route path = '/search'>
+          <Route path = '/search/location/checkindate/checkoutdate/guest'>
             <Searching/>
           </Route>
 

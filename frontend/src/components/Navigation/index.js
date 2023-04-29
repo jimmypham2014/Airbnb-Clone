@@ -20,7 +20,7 @@ import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
 import {BsPeople} from 'react-icons/bs'
 import { searching } from '../../store/search';
-
+import {useSearchParams} from 'react-router-dom'
 
 
 function Navigation({ isLoaded }){
@@ -40,11 +40,7 @@ function Navigation({ isLoaded }){
   const [checkInDate, setCheckInDate] =useState(state[0].startDate.toLocaleDateString())
   const [checkOutDate, setCheckOutDate] =useState(state[0].endDate.toLocaleDateString())
   const [searchLocation, setSearchLocation] = useState('')
-  
-
-
   let menuRef = useRef()
-
 
 
 
@@ -60,7 +56,7 @@ function Navigation({ isLoaded }){
       numGuests
     }
     dispatch(searching(payload))
-    history.push('/search')
+    history.push(`/search/${searchLocation}/${checkInDate}/${checkOutDate}/${numGuests}`)
     console.log(searchLocation, checkInDate, checkOutDate, numGuests)
   }
 

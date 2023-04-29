@@ -207,7 +207,7 @@ router.get('/:id',requireAuth,async(req,res)=>{
         group:['Spot.id']
     })
 
-console.log(findNumOfReviewsAndAverageRating)
+
 existingSpot.numReviews = findNumOfReviewsAndAverageRating.numReviews
 existingSpot.avgRating =findNumOfReviewsAndAverageRating.avgRating
 
@@ -291,9 +291,9 @@ router.delete('/:id', requireAuth,async (req,res)=>{
 router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
     const spotId = req.params.id
     const {user} = req
-    console.log(user, 'back userr')
+   
 
-    console.log(req.body,'review from back end')
+    
 
     const existingReview = await Review.findOne({
         include:[{
@@ -302,7 +302,7 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
         }],
         where:{spotId,userId:user.id}
     })
-        console.log(existingReview,'existingreivew')
+        
         if(existingReview){
            return res.status(403).json({
                 errors: ['User already has a review for this spot'],
@@ -339,7 +339,7 @@ router.post('/:id/reviews/',requireAuth,validateReview,async (req,res,next)=>{
         stars
 
     })
-    console.log(addReview,'review careated backend')
+    
     const newReview = await Review.findAll({
         include:{
             model:User
@@ -395,7 +395,7 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
         where:{id:spotId}
     })
 
-    console.log(spot)
+  
     if(!spot){
         res.status(404).json({
             message:"Spot couldn't be found",
@@ -404,7 +404,7 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
     }
     const {startDate,endDate,numGuests} =req.body
 
-    console.log(req.body)
+  
 
     const booking = await Booking.findOne({
         where:{
@@ -481,6 +481,11 @@ router.post('/:id/bookings', requireAuth,validateBooking,async (req,res) =>{
          })
         res.json({Bookings})
     })
+
+router.get('/', (req,res) =>{
+
+    console.log(req.query)
+})
 
 
     // AVERAGE number of review
