@@ -20,8 +20,6 @@ import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
 import {BsPeople} from 'react-icons/bs'
 import { searching } from '../../store/search';
-import {useSearchParams} from 'react-router-dom'
-
 
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
@@ -55,6 +53,7 @@ function Navigation({ isLoaded }){
       checkOutDate,
       numGuests
     }
+    setSearchLocation({filter:'active'})
     dispatch(searching(payload))
     history.push(`/search/${searchLocation}/${checkInDate}/${checkOutDate}/${numGuests}`)
     console.log(searchLocation, checkInDate, checkOutDate, numGuests)
