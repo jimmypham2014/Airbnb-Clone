@@ -59,9 +59,7 @@ return(
  </main>
  </div>
 
- <div className='sticky t-[100%]'>
- <Footer/>
- </div>
+
 
  </div>
 )
