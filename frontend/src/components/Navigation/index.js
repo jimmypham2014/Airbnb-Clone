@@ -19,7 +19,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {AiOutlineArrowLeft,AiOutlineArrowRight} from 'react-icons/ai'
 import { addDays } from 'date-fns';
 import {BsPeople} from 'react-icons/bs'
-import { searching } from '../../store/search';
+import { searching } from '../../store/search';;
 
 function Navigation({ isLoaded }){
   const dispatch = useDispatch()
@@ -35,15 +35,17 @@ function Navigation({ isLoaded }){
       key: 'selection'
     }
   ]);
-  const [checkInDate, setCheckInDate] =useState(state[0].startDate.toLocaleDateString())
-  const [checkOutDate, setCheckOutDate] =useState(state[0].endDate.toLocaleDateString())
+  const [checkInDate, setCheckInDate] =useState( new Date(state[0].startDate))
+  const [checkOutDate, setCheckOutDate] =useState(new Date(state[0].endDate))
   const [searchLocation, setSearchLocation] = useState('')
   let menuRef = useRef()
 
 
+console.log(state[0].startDate,'hellooooo')
+console.log(checkInDate)
 
- console.log(checkInDate, checkOutDate)
 
+ 
   const search = () =>{
 
 
@@ -53,14 +55,15 @@ function Navigation({ isLoaded }){
       checkOutDate,
       numGuests
     }
-    setSearchLocation({filter:'active'})
+
     dispatch(searching(payload))
     history.push(`/search/${searchLocation}/${checkInDate}/${checkOutDate}/${numGuests}`)
     console.log(searchLocation, checkInDate, checkOutDate, numGuests)
   }
 
 
-  console.log(state.map(state=> state.startDate.toLocaleDateString()))
+  console.log(state.map(state=> new Date(state.startDate[0])))
+  console.log(state.map(state=> state.endDate.toLocaleDateString()[3]))
 
   useEffect(()=>{
   let handleSubmit = (e)=>{
@@ -153,6 +156,7 @@ const demo = async (e)=>{
           
           <input
           type='text'
+          required
           value={searchLocation}
           onChange={(e)=> setSearchLocation(e.target.value)}
           placeholder='Search a place'
