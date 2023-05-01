@@ -15,6 +15,8 @@ Front-End: React, React-Redux, CSS, Font Awesome for icons.
 ![Home Page](home_page.png)
 
 
+![Search](search.png)
+
 You can only delete and update your hosted place when you sign in!. In the All My Spots option.
 
 ![Your Spot](update-delete.png)
